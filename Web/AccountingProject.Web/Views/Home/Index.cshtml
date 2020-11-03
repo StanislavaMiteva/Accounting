@@ -1,9 +1,26 @@
 ﻿@using AccountingProject.Common
+@using AccountingProject.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1>Welcome to @GlobalConstants.SystemName!</h1>
+    @if (this.SignInManager.IsSignedIn(this.User))
+    {
+        <img src="~/1200px-Ledger.png" alt="Book" style="width:60%;" />
+    }
+    else
+    {
+        <div class="credits">
+            <h3>
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                if you have an account or
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                now to use our Accounting software on-line.
+            </h3>
+        </div>
+    }
 </div>
