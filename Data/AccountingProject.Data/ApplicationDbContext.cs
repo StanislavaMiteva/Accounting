@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using AccountingProject.Data.Common.Models;
+    using AccountingProject.Data.Configurations;
     using AccountingProject.Data.Models;
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -25,6 +26,22 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<AnalyticalAccount> AnalyticalAccounts { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Counterparty> Counterparties { get; set; }
+
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+
+        public DbSet<FixedAsset> FixedAssets { get; set; }
+
+        public DbSet<GLAccount> GLAccounts { get; set; }
+
+        public DbSet<Inventory> Inventories { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

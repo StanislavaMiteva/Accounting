@@ -56,6 +56,99 @@
             Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
 
             Console.WriteLine(sw.Elapsed);
+
+            var db = serviceProvider.GetService<ApplicationDbContext>();
+
+            //await db.GLAccounts.AddAsync(new GLAccount
+            //{
+            //    Code = 601,
+            //    Name = "Разходи за материали cost for materials",
+            //});
+
+            //await db.GLAccounts.AddAsync(new GLAccount
+            //{
+            //    Code = 401,
+            //    Name = "Доставчици suppliers",
+            //});
+
+            //await db.AnalyticalAccounts.AddAsync(new AnalyticalAccount
+            //{
+            //    Name = "Stationery",
+            //    GLAccountId = 4,
+            //});
+
+            //await db.Cities.AddAsync(new City
+            //{
+            //    Name = "Sofia",
+            //});
+
+            //await db.Counterparties.AddAsync(new Counterparty
+            //{
+            //    Name = "Office 1",
+            //    VAT = "898452653",
+            //    Address = "bul. Vasil Levski, 101",
+            //    CityId = 3,
+            //});
+
+            //await db.DocumentTypes.AddAsync(new DocumentType
+            //{
+            //    Name = "Invoice",
+            //});
+
+            //await db.Transactions.AddAsync(new Transaction
+            //{
+            //    DocumentDate = new DateTime(2020, 01, 20),
+            //    DocumentTypeId = 3,
+            //    Description = "purchase of stationery",
+            //    DebitGLAccountId = 4,
+            //    DebitAnalyticalAccountId = 3,
+            //    CreditGLAccountId = 5,
+            //    Amount = 150,
+            //    CounterpartyId = 3,
+            //    CreatorId = "2d4b0074-5a04-46e6-92bb-64de8ce5f6af",
+            //    IsPurchase = true,
+            //    Folder = "2",
+            //    ConsecutiveNumber = "1",
+            //});
+
+            //await db.GLAccounts.AddAsync(new GLAccount
+            //{
+            //    Code = 302,
+            //    Name = "Материали materials, stocks",
+            //});
+
+            //await db.GLAccounts.AddAsync(new GLAccount
+            //{
+            //    Code = 204,
+            //    Name = "Машини и оборудване machines, equpment",
+            //});
+
+
+            // await db.Inventories.AddAsync(new Inventory
+            // {
+            //    Name = "Printer paper",
+            //    Measure = "box",
+            //    Quantity = 5,
+            //    Price = 17.55M,
+            //    GLAccountId = 6,
+            // });
+
+            // await db.FixedAssets.AddAsync(new FixedAsset
+            // {
+            //    Name = "Laptop Acer",
+            //    InventoryNumber = "100006",
+            //    Quantity = 1,
+            //    AcquisitionPrice = 2100,
+            //    AcquisitionDate = new DateTime(2015, 11, 10),
+            //    DerecognitionDate = new DateTime(2019, 11, 10),
+            //    UsefulLife = 4,
+            //    SalvageValue = 0,
+            //    DepreciationMethod = DepreciationMethod.StraightLine,
+            //    AccountablePerson = "Ivan Ivanov",
+            //    GLAccountId = 7,
+            // });
+            await db.SaveChangesAsync();
+
             return await Task.FromResult(0);
         }
 
