@@ -64,7 +64,8 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IAnalyticalAccountsService, AnalyticalAccountsService>();
-            services.AddTransient<IGLAccountsService, GLAccountsService>();
+            services.AddTransient<IGLAccountsService, MainAccountsService>();
+            services.AddTransient<ICounterpartiesService, CounterpartiesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

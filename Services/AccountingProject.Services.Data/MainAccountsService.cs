@@ -8,13 +8,13 @@
     using AccountingProject.Data.Models;
     using AccountingProject.Web.ViewModels.GLAccounts;
 
-    public class GLAccountsService : IGLAccountsService
+    public class MainAccountsService : IGLAccountsService
     {
-        private readonly IDeletableEntityRepository<GLAccount> gLAccountsRepository;
+        private readonly IDeletableEntityRepository<GLAccount> mainAccountsRepository;
 
-        public GLAccountsService(IDeletableEntityRepository<GLAccount> glAccountsRepository)
+        public MainAccountsService(IDeletableEntityRepository<GLAccount> mainAccountsRepository)
         {
-            this.gLAccountsRepository = glAccountsRepository;
+            this.mainAccountsRepository = mainAccountsRepository;
         }
 
         public async Task CreateAsync(CreateMainAccountInputModel input)
@@ -27,13 +27,13 @@
                 IsFixedAsset = input.IsFixedAsset,
             };
 
-            await this.gLAccountsRepository.AddAsync(account);
-            await this.gLAccountsRepository.SaveChangesAsync();
+            await this.mainAccountsRepository.AddAsync(account);
+            await this.mainAccountsRepository.SaveChangesAsync();
         }
 
         public IEnumerable<MainAccountPartViewModel> GetAllOnlyIdCodeName()
         {
-            return this.gLAccountsRepository.AllAsNoTracking()
+            return this.mainAccountsRepository.AllAsNoTracking()
                 .Select(x => new MainAccountPartViewModel
                 {
                     Id = x.Id,

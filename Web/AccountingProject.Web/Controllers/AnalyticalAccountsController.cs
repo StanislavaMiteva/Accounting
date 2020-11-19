@@ -9,20 +9,21 @@
     public class AnalyticalAccountsController : Controller
     {
         private readonly IAnalyticalAccountsService analyticalAccountsService;
-        private readonly IGLAccountsService gLAccountsService;
+        private readonly IGLAccountsService mainAccountsService;
 
-        public AnalyticalAccountsController(IAnalyticalAccountsService analyticalAccountsService,
-            IGLAccountsService gLAccountsService)
+        public AnalyticalAccountsController(
+            IAnalyticalAccountsService analyticalAccountsService,
+            IGLAccountsService mainAccountsService)
         {
             this.analyticalAccountsService = analyticalAccountsService;
-            this.gLAccountsService = gLAccountsService;
+            this.mainAccountsService = mainAccountsService;
         }
 
         // AnalyticalAccounts/Create
         public IActionResult Create()
         {
             var viewModel = new CreateAnalyticalAccountInputModel();
-            viewModel.MainAccounts = this.gLAccountsService.GetAllOnlyIdCodeName();
+            viewModel.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
             return this.View(viewModel);
         }
 
@@ -31,7 +32,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                input.MainAccounts = this.gLAccountsService.GetAllOnlyIdCodeName();
+                input.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
                 return this.View(input);
             }
 

@@ -3,33 +3,33 @@
     using System.Threading.Tasks;
 
     using AccountingProject.Services.Data;
-    using AccountingProject.Web.ViewModels.GLAccounts;
+    using AccountingProject.Web.ViewModels.Counterparties;
     using Microsoft.AspNetCore.Mvc;
 
-    public class MainAccountsController : Controller
+    public class CounterpartiesController : Controller
     {
-        private readonly IGLAccountsService mainAccountsService;
+        private readonly ICounterpartiesService counterpartiesService;
 
-        public MainAccountsController(IGLAccountsService mainAccountsService)
+        public CounterpartiesController(ICounterpartiesService counterpartiesService)
         {
-            this.mainAccountsService = mainAccountsService;
+            this.counterpartiesService = counterpartiesService;
         }
 
-        // MainAccounts/Create
+        // Counterparties/Create
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateMainAccountInputModel input)
+        public async Task<IActionResult> Create(CreateCounterpartyInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            await this.mainAccountsService.CreateAsync(input);
+            await this.counterpartiesService.CreateAsync(input);
 
             // TODO: Redirect to all info page
             return this.Redirect("/");
