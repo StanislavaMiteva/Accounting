@@ -14,9 +14,6 @@
             this.AnalyticalAccounts = new HashSet<AnalyticalAccount>();
             this.Inventories = new HashSet<Inventory>();
             this.FixedAssets = new HashSet<FixedAsset>();
-
-            // this.IsFixedAsset = false;
-            // this.IsInventory = false;
         }
 
         public int Code { get; set; }

@@ -1,0 +1,29 @@
+﻿@model AccountingProject.Web.ViewModels.AnalyticalAccounts.CreateAnalyticalAccountInputModel
+@{
+    this.ViewData["Title"] = "Create an Analytical Account";
+    var MainAccountss = this.Model.MainAccounts.Select(x => new SelectListItem(x.Code.ToString(), x.Name));
+}
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+
+<form class="mx-auto w-50" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="MainAccountId"></label>
+        @*<vc:MainAccountsDropDown name="MainAccountId"></vc:MainAccountsDropDown>*@
+        <select class="custom-select" asp-for="MainAccountId">
+            @foreach (var account in Model.MainAccounts)
+            {
+              <option value="@account.Id">@account.Code @account.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
+    </div>
+</form>

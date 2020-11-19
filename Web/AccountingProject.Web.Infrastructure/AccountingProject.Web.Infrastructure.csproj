@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\AccountingProject.Services.Data\AccountingProject.Services.Data.csproj" />
+  </ItemGroup>
+
 </Project>

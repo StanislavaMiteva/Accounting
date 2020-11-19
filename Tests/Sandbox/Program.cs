@@ -115,12 +115,14 @@
             //{
             //    Code = 302,
             //    Name = "Материали materials, stocks",
+            //    IsInventory = true,
             //});
 
             //await db.GLAccounts.AddAsync(new GLAccount
             //{
             //    Code = 204,
             //    Name = "Машини и оборудване machines, equpment",
+            //    IsFixedAsset = true,
             //});
 
 
