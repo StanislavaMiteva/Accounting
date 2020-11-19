@@ -66,6 +66,7 @@
             services.AddTransient<IAnalyticalAccountsService, AnalyticalAccountsService>();
             services.AddTransient<IGLAccountsService, MainAccountsService>();
             services.AddTransient<ICounterpartiesService, CounterpartiesService>();
+            services.AddTransient<IDocumentTypesService, DocumentTypesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
