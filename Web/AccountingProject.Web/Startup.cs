@@ -37,7 +37,8 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -64,9 +65,10 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IAnalyticalAccountsService, AnalyticalAccountsService>();
-            services.AddTransient<IGLAccountsService, MainAccountsService>();
+            services.AddTransient<IMainAccountsService, MainAccountsService>();
             services.AddTransient<ICounterpartiesService, CounterpartiesService>();
             services.AddTransient<IDocumentTypesService, DocumentTypesService>();
+            services.AddTransient<ITransactionsService, TransactionsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

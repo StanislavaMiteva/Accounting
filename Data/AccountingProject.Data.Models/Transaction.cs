@@ -19,7 +19,7 @@
         public virtual DocumentType DocumentType { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(120)]
         public string Description { get; set; }
 
         public int DebitGLAccountId { get; set; }

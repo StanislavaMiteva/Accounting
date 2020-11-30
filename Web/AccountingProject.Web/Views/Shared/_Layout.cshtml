@@ -33,19 +33,22 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="Create">Transaction</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Counterparties" asp-action="Create">Counterparty</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Inventory" asp-action="Create">Inventory</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="FixedAssets" asp-action="Create">Fixed Asset</a>                                
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="Create">Main Account</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="AnalyticalAccounts" asp-action="Create">Analytical Account</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="Create">Document Type</a>                                
-                            </div>
-                        </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="Create">Transaction</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Counterparties" asp-action="Create">Counterparty</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Inventory" asp-action="Create">Inventory</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="FixedAssets" asp-action="Create">Fixed Asset</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="Create">Main Account</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="AnalyticalAccounts" asp-action="Create">Analytical Account</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="Create">Document Type</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search">
@@ -55,15 +58,15 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
-    <footer class="border-top footer text-muted">
+
+    <footer class="border-top text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

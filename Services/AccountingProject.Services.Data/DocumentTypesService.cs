@@ -1,5 +1,7 @@
 ﻿namespace AccountingProject.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Data.Common.Repositories;
@@ -24,6 +26,18 @@
 
             await this.documentTypeRepository.AddAsync(documentType);
             await this.documentTypeRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<DocumentTypePartViewModel> GetAllOnlyIdName()
+        {
+            return this.documentTypeRepository.AllAsNoTracking()
+                .Select(x => new DocumentTypePartViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
+                .OrderBy(x => x.Name)
+                .ToList();
         }
     }
 }

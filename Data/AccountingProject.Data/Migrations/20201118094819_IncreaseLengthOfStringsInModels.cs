@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace AccountingProject.Data.Migrations
+﻿namespace AccountingProject.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class IncreaseLengthOfStringsInModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

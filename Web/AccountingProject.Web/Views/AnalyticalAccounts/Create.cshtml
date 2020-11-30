@@ -1,7 +1,6 @@
 ﻿@model AccountingProject.Web.ViewModels.AnalyticalAccounts.CreateAnalyticalAccountInputModel
 @{
-    this.ViewData["Title"] = "Create an Analytical Account";
-    var MainAccountss = this.Model.MainAccounts.Select(x => new SelectListItem(x.Code.ToString(), x.Name));
+    this.ViewData["Title"] = "Create an Analytical Account";    
 }
 
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
@@ -14,9 +13,9 @@
         <select class="custom-select" asp-for="MainAccountId">
             @foreach (var account in Model.MainAccounts)
             {
-              <option value="@account.Id">@account.Code @account.Name</option>
+            <option value="@account.Id">@account.Code @account.Name</option>
             }
-        </select>
+        </select>        
     </div>
     <div class="form-group">
         <label asp-for="Name"></label>

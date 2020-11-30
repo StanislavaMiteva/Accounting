@@ -8,7 +8,7 @@
     using AccountingProject.Data.Models;
     using AccountingProject.Web.ViewModels.GLAccounts;
 
-    public class MainAccountsService : IGLAccountsService
+    public class MainAccountsService : IMainAccountsService
     {
         private readonly IDeletableEntityRepository<GLAccount> mainAccountsRepository;
 

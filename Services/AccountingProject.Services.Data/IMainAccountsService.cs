@@ -5,7 +5,7 @@
 
     using AccountingProject.Web.ViewModels.GLAccounts;
 
-    public interface IGLAccountsService
+    public interface IMainAccountsService
     {
         Task CreateAsync(CreateMainAccountInputModel input);
 

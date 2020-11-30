@@ -1,5 +1,7 @@
 ﻿namespace AccountingProject.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Data.Common.Repositories;
@@ -25,6 +27,18 @@
 
             await this.analyticalAccountsRepository.AddAsync(account);
             await this.analyticalAccountsRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<AnalyticalAccountPartViewModel> GetAllOnlyIdName()
+        {
+            return this.analyticalAccountsRepository.AllAsNoTracking()
+                .Select(x => new AnalyticalAccountPartViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
+                .OrderBy(x => x.Name)
+                .ToList();
         }
     }
 }

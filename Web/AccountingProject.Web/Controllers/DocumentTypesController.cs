@@ -4,6 +4,7 @@
 
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.DocumentTypes;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class DocumentTypesController : Controller
@@ -16,12 +17,14 @@
         }
 
         // DocumentTypes/Create
+        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateDocumentTypeInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -32,6 +35,7 @@
             await this.documentTypesService.CreateAsync(input);
 
             // TODO: Redirect to all info page
+            // this.RedirectToAction(nameof(actionName));
             return this.Redirect("/");
         }
     }

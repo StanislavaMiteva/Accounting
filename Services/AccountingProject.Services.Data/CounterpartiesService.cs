@@ -1,11 +1,13 @@
 ﻿namespace AccountingProject.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Data.Common.Repositories;
     using AccountingProject.Data.Models;
     using AccountingProject.Web.ViewModels.Counterparties;
+    using Microsoft.EntityFrameworkCore;
 
     public class CounterpartiesService : ICounterpartiesService
     {
@@ -42,6 +44,25 @@
 
             await this.counterpartiesRepository.AddAsync(counterparty);
             await this.counterpartiesRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<CounterpartyPartViewModel> GetAllOnlyIdName()
+        {
+            return this.counterpartiesRepository.AllAsNoTracking()
+                .Select(x => new CounterpartyPartViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
+                .OrderBy(x => x.Name)
+                .ToList();
+        }
+
+        public async Task<bool> IsNameAvailableAsync(string name)
+        {
+            return !await this.counterpartiesRepository
+                .AllAsNoTracking()
+                .AnyAsync(x => x.Name == name);
         }
     }
 }
