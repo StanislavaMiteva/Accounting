@@ -58,7 +58,7 @@
         <div class="form-group">
             <label asp-for="DebitMainAccountId" class="control-label"></label>
             @*<vc:MainAccountsDropDown name="DebitMainAccountId"></vc:MainAccountsDropDown>*@
-            <select class="custom-select" asp-for="DebitMainAccountId">
+            <select class="form-control" asp-for="DebitMainAccountId">
                 <option value=""></option>
                 @foreach (var account in Model.MainAccounts)
                 {
@@ -70,7 +70,7 @@
         <div class="form-group">
             <label asp-for="DebitAnalyticalAccountId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="DebitAnalyticalAccountId"></vc:CategoriesDropDown>*@
-            <select class="custom-select" asp-for="DebitAnalyticalAccountId">
+            <select class="form-control" asp-for="DebitAnalyticalAccountId">
             </select>
             <span asp-validation-for="DebitAnalyticalAccountId" class="text-danger"></span>
         </div>
@@ -78,7 +78,7 @@
             <label asp-for="CreditMainAccountId" class="control-label"></label>
 
             @*<vc:MainAccountsDropDown name="CreditMainAccountId"></vc:MainAccountsDropDown>*@
-            <select class="custom-select" asp-for="CreditMainAccountId">
+            <select class="form-control" asp-for="CreditMainAccountId">
                 <option value=""></option>
                 @foreach (var account in Model.MainAccounts)
                 {
@@ -90,7 +90,7 @@
         <div class="form-group">
             <label asp-for="CreditAnalyticalAccountId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="CreditAnalyticalAccountId"></vc:CategoriesDropDown>*@
-            <select class="custom-select" asp-for="CreditAnalyticalAccountId">
+            <select class="form-control" asp-for="CreditAnalyticalAccountId">
             </select>
             <span asp-validation-for="CreditAnalyticalAccountId" class="text-danger"></span>
         </div>
