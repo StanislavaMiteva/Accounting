@@ -4,7 +4,6 @@
     this.ViewData["Title"] = "Create a transaction";
     var documents = this.Model.Documents.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
     var counterparties = this.Model.Counterparties.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
-    var analyticalAccounts = this.Model.AnalyticalAccounts.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
 
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
@@ -38,13 +37,17 @@
         <div class="form-group">
             <label asp-for="DocumentTypeId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="DocumentTypeId "></vc:CategoriesDropDown>*@
-            <select asp-for="DocumentTypeId" class="form-control" asp-items="documents"></select>
+            <select asp-for="DocumentTypeId" class="form-control" asp-items="documents">
+                <option value=""></option>
+            </select>
             <span asp-validation-for="DocumentTypeId " class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="CounterpartyId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="CounterpartyId "></vc:CategoriesDropDown>*@
-            <select asp-for="CounterpartyId" class="form-control" asp-items="counterparties"></select>
+            <select asp-for="CounterpartyId" class="form-control" asp-items="counterparties">
+                <option value=""></option>
+            </select>
             <span asp-validation-for="CounterpartyId" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -54,20 +57,20 @@
         </div>
         <div class="form-group">
             <label asp-for="DebitMainAccountId" class="control-label"></label>
-
             @*<vc:MainAccountsDropDown name="DebitMainAccountId"></vc:MainAccountsDropDown>*@
             <select class="custom-select" asp-for="DebitMainAccountId">
+                <option value=""></option>
                 @foreach (var account in Model.MainAccounts)
                 {
                     <option value="@account.Id">@account.Code @account.Name</option>
                 }
             </select>
+            <span asp-validation-for="DebitMainAccountId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="DebitAnalyticalAccountId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="DebitAnalyticalAccountId"></vc:CategoriesDropDown>*@
-            <select asp-for="DebitAnalyticalAccountId" class="form-control" asp-items="analyticalAccounts">
-                <option value=""></option>
+            <select class="custom-select" asp-for="DebitAnalyticalAccountId">
             </select>
             <span asp-validation-for="DebitAnalyticalAccountId" class="text-danger"></span>
         </div>
@@ -76,17 +79,18 @@
 
             @*<vc:MainAccountsDropDown name="CreditMainAccountId"></vc:MainAccountsDropDown>*@
             <select class="custom-select" asp-for="CreditMainAccountId">
+                <option value=""></option>
                 @foreach (var account in Model.MainAccounts)
                 {
                     <option value="@account.Id">@account.Code @account.Name</option>
                 }
             </select>
+            <span asp-validation-for="CreditMainAccountId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="CreditAnalyticalAccountId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="CreditAnalyticalAccountId"></vc:CategoriesDropDown>*@
-            <select asp-for="CreditAnalyticalAccountId" class="form-control" asp-items="analyticalAccounts">
-                <option value=""></option>
+            <select class="custom-select" asp-for="CreditAnalyticalAccountId">
             </select>
             <span asp-validation-for="CreditAnalyticalAccountId" class="text-danger"></span>
         </div>
@@ -110,4 +114,8 @@
         </div>
     </fieldset>
 </form>
+
+@section Scripts {
+    <script src="~/js/loadAnalyticalAccounts.js"></script>
+}
 

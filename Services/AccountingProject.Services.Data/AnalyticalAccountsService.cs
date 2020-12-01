@@ -40,5 +40,18 @@
                 .OrderBy(x => x.Name)
                 .ToList();
         }
+
+        public IEnumerable<AnalyticalAccountPartViewModel> GetAnalyticalAccountsByMainAccountId(int mainAccountId)
+        {
+            return this.analyticalAccountsRepository.AllAsNoTracking()
+                .Where(x => x.GLAccountId == mainAccountId)
+                .Select(x => new AnalyticalAccountPartViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
+                .OrderBy(x => x.Name)
+                .ToList();
+        }
     }
 }

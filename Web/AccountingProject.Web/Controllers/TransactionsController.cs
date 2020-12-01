@@ -41,7 +41,7 @@
         {
             var viewModel = new CreateTransactionInputModel();
             viewModel.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
-            viewModel.AnalyticalAccounts = this.analyticalAccountsService.GetAllOnlyIdName();
+
             viewModel.Counterparties = this.counterpartiesService.GetAllOnlyIdName();
             viewModel.Documents = this.documentTypesService.GetAllOnlyIdName();
             viewModel.DocumentDate = DateTime.UtcNow;
@@ -59,7 +59,7 @@
             if (!this.ModelState.IsValid)
             {
                 input.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
-                input.AnalyticalAccounts = this.analyticalAccountsService.GetAllOnlyIdName();
+
                 input.Counterparties = this.counterpartiesService.GetAllOnlyIdName();
                 input.Documents = this.documentTypesService.GetAllOnlyIdName();
                 input.DocumentDate = DateTime.UtcNow;

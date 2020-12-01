@@ -24,7 +24,6 @@
         [Display(Name = "Debit Main Account")]
         public int DebitMainAccountId { get; set; }
 
-        // public string DebitAnalyticalAccountIdAsString { get; set; }
         [Display(Name = "Debit Analytical Account")]
         public int? DebitAnalyticalAccountId { get; set; }
 

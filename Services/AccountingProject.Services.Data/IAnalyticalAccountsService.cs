@@ -12,6 +12,6 @@
 
         IEnumerable<AnalyticalAccountPartViewModel> GetAllOnlyIdName();
 
-        // IEnumerable<AnalyticalAccountViewModel> GetAnalyticalAccountsByGLAccountCode(int gLAccountCode);
+        IEnumerable<AnalyticalAccountPartViewModel> GetAnalyticalAccountsByMainAccountId(int mainAccountId);
     }
 }
