@@ -26,6 +26,9 @@
             var seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
+                              new MainAccountsSeeder(),
+                              new CitiesSeeder(),
+                              new DocumentTypesSeeder(),
                               new SettingsSeeder(),
                           };
 
