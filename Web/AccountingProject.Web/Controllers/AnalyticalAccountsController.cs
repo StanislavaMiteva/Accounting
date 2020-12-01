@@ -24,8 +24,10 @@
         [Authorize]
         public IActionResult Create()
         {
-            var viewModel = new CreateAnalyticalAccountInputModel();
-            viewModel.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
+            var viewModel = new CreateAnalyticalAccountInputModel
+            {
+                MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName(),
+            };
             return this.View(viewModel);
         }
 
