@@ -39,12 +39,14 @@
         [Authorize]
         public IActionResult Create()
         {
-            var viewModel = new CreateTransactionInputModel();
-            viewModel.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
+            var viewModel = new CreateTransactionInputModel
+            {
+                MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName(),
 
-            viewModel.Counterparties = this.counterpartiesService.GetAllOnlyIdName();
-            viewModel.Documents = this.documentTypesService.GetAllOnlyIdName();
-            viewModel.DocumentDate = DateTime.UtcNow;
+                Counterparties = this.counterpartiesService.GetAllOnlyIdName(),
+                Documents = this.documentTypesService.GetAllOnlyIdName(),
+                DocumentDate = DateTime.UtcNow,
+            };
             return this.View(viewModel);
         }
 
