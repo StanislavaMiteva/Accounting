@@ -25,13 +25,11 @@
         public async Task CreateAsync(CreateCounterpartyInputModel input)
         {
             var city = this.citiesRepository
-                .AllAsNoTracking()
+                .All()
                 .FirstOrDefault(x => x.Name == input.CityName);
             if (city == null)
             {
                 city = new City { Name = input.CityName };
-                await this.citiesRepository.AddAsync(city);
-                await this.counterpartiesRepository.SaveChangesAsync();
             }
 
             var counterparty = new Counterparty
@@ -39,9 +37,8 @@
                 Name = input.Name,
                 VAT = input.VAT,
                 Address = input.Address,
-                CityId = city.Id,
+                City = city,
             };
-
             await this.counterpartiesRepository.AddAsync(counterparty);
             await this.counterpartiesRepository.SaveChangesAsync();
         }
