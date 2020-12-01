@@ -1,8 +1,7 @@
 ﻿namespace AccountingProject.Services.Data
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using System.Threading.Tasks;
 
     using AccountingProject.Data.Common.Repositories;
@@ -26,7 +25,6 @@
                 IsSale = input.IsSale,
                 CounterpartyId = input.CounterpartyId,
                 CreatorId = input.CreatorId,
-                CreatedOn = DateTime.UtcNow,
                 DocumentDate = input.DocumentDate,
                 CreditAnalyticalAccountId = input.CreditAnalyticalAccountId,
                 CreditGLAccountId = input.CreditMainAccountId,
