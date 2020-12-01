@@ -6,6 +6,10 @@
 
         public const string AdministratorRoleName = "Administrator";
 
+        public const string ChiefAccountantRoleName = "Chief Accountant";
+
+        public const string AccountantRoleName = "Accountant";
+
         public const int MinimumAllowedYearForDocumentDate = 2000;
     }
 }
