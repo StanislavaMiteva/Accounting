@@ -6,8 +6,8 @@
 
     using AccountingProject.Data.Common.Repositories;
     using AccountingProject.Data.Models;
-    using AccountingProject.Web.ViewModels.AnalyticalAccounts;
     using AccountingProject.Services.Mapping;
+    using AccountingProject.Web.ViewModels.AnalyticalAccounts;
 
     public class AnalyticalAccountsService : IAnalyticalAccountsService
     {
@@ -37,28 +37,11 @@
                .ToList();
         }
 
-        public IEnumerable<AnalyticalAccountPartViewModel> GetAllOnlyIdName()
-        {
-            return this.analyticalAccountsRepository.AllAsNoTracking()
-                .Select(x => new AnalyticalAccountPartViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
-                .OrderBy(x => x.Name)
-                .ToList();
-        }
-
-        public IEnumerable<AnalyticalAccountPartViewModel> GetAnalyticalAccountsByMainAccountId(int mainAccountId)
+        public IEnumerable<T> GetAllByMainAccountId<T>(int mainAccountId)
         {
             return this.analyticalAccountsRepository.AllAsNoTracking()
                 .Where(x => x.GLAccountId == mainAccountId)
-                .Select(x => new AnalyticalAccountPartViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
-                .OrderBy(x => x.Name)
+                .To<T>()
                 .ToList();
         }
     }

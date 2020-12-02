@@ -10,7 +10,7 @@
     <div class="form-group">
         <label asp-for="MainAccountId"></label>
         @*<vc:MainAccountsDropDown name="MainAccountId"></vc:MainAccountsDropDown>*@
-        <select class="custom-select" asp-for="MainAccountId">
+        <select class="form-control" asp-for="MainAccountId">
             <option value=""></option>
             @foreach (var account in Model.MainAccounts)
             {

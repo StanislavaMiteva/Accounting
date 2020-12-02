@@ -1,6 +1,7 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
@@ -20,7 +21,9 @@
         [HttpGet("{id}")]
         public IEnumerable<AnalyticalAccountPartViewModel> Get(int id)
         {
-            return this.analyticalAccountsService.GetAnalyticalAccountsByMainAccountId(id);
+            return this.analyticalAccountsService
+                .GetAllByMainAccountId<AnalyticalAccountPartViewModel>(id)
+                .OrderBy(x => x.Name);
         }
     }
 }

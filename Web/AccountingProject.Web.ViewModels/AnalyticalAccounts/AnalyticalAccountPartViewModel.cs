@@ -1,6 +1,9 @@
 ﻿namespace AccountingProject.Web.ViewModels.AnalyticalAccounts
 {
-    public class AnalyticalAccountPartViewModel
+    using AccountingProject.Data.Models;
+    using AccountingProject.Services.Mapping;
+
+    public class AnalyticalAccountPartViewModel : IMapFrom<AnalyticalAccount>
     {
         public int Id { get; set; }
 
