@@ -51,13 +51,14 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">View all</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="All">Transactions by document date</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="AllByDocumentDate">Transactions ordered by document date</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="AllByMonth">Transactions by month</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="Counterparties" asp-action="All">Counterparties</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="Inventory" asp-action="All">Inventories</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="FixedAssets" asp-action="All">Fixed Assets</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="All">Main Accounts</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="AnalyticalAccounts" asp-action="All">Analytical Accounts</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="All">Document Types</a>                                    
+                                    <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="All">Document Types</a>
                                 </div>
                             </li>
                         }

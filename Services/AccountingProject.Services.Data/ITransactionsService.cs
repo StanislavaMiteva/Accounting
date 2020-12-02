@@ -1,17 +1,19 @@
 ﻿namespace AccountingProject.Services.Data
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using AccountingProject.Web.ViewModels.Shared;
     using AccountingProject.Web.ViewModels.Transactions;
 
     public interface ITransactionsService
     {
         Task CreateAsync(CreateTransactionInputModel input);
 
-        // IEnumerable<TransactionViewModel> GetAllTransactions();
+        IEnumerable<T> GetAll<T>();
 
-        // void Delete(string id);
+        Task DeleteAsync(string id);
 
-        // IEnumerable<TransactionViewModel> GetAllTransactionsByMonth(InputYearMonthModel input);
+        IEnumerable<T> GetAllTransactionsByMonth<T>(InputYearMonthModel input);
     }
 }
