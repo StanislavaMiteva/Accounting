@@ -6,7 +6,9 @@
 
     using AccountingProject.Data.Common.Repositories;
     using AccountingProject.Data.Models;
+    using AccountingProject.Services.Mapping;
     using AccountingProject.Web.ViewModels.DocumentTypes;
+    using Microsoft.EntityFrameworkCore;
 
     public class DocumentTypesService : IDocumentTypesService
     {
@@ -28,16 +30,18 @@
             await this.documentTypeRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<DocumentTypePartViewModel> GetAllOnlyIdName()
+        public IEnumerable<T> GetAll<T>()
         {
             return this.documentTypeRepository.AllAsNoTracking()
-                .Select(x => new DocumentTypePartViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
-                .OrderBy(x => x.Name)
+                .To<T>()
                 .ToList();
+        }
+
+        public async Task<bool> IsNameAvailableAsync(string name)
+        {
+            return !await this.documentTypeRepository
+                .AllAsNoTracking()
+                .AnyAsync(x => x.Name == name);
         }
     }
 }

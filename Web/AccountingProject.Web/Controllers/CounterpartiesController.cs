@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.Counterparties;
     using Microsoft.AspNetCore.Authorization;
@@ -30,7 +31,7 @@
         {
             if (!await this.counterpartiesService.IsNameAvailableAsync(input.Name))
             {
-                this.ModelState.AddModelError("Name", "This name already exists.");
+                this.ModelState.AddModelError("Name", GlobalConstants.ErrorMessageForExistingName);
             }
 
             if (!this.ModelState.IsValid)

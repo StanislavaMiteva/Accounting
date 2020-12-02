@@ -11,5 +11,7 @@
         public const string AccountantRoleName = "Accountant";
 
         public const int MinimumAllowedYearForDocumentDate = 2000;
+
+        public const string ErrorMessageForExistingName = "This name already exists.";
     }
 }

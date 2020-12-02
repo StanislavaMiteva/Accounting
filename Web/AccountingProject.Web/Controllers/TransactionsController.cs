@@ -7,6 +7,7 @@
     using AccountingProject.Data.Models;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.Counterparties;
+    using AccountingProject.Web.ViewModels.DocumentTypes;
     using AccountingProject.Web.ViewModels.Transactions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -46,9 +47,11 @@
                 MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName(),
 
                 Counterparties = this.counterpartiesService
-                                        .GetAll<CounterpartyPartViewModel>()
-                                        .OrderBy(x => x.Name),
-                Documents = this.documentTypesService.GetAllOnlyIdName(),
+                                    .GetAll<CounterpartyPartViewModel>()
+                                    .OrderBy(x => x.Name),
+                Documents = this.documentTypesService
+                                    .GetAll<DocumentTypePartViewModel>()
+                                    .OrderBy(x => x.Name),
                 DocumentDate = DateTime.UtcNow,
             };
             return this.View(viewModel);
@@ -68,7 +71,9 @@
                 input.Counterparties = this.counterpartiesService
                                             .GetAll<CounterpartyPartViewModel>()
                                             .OrderBy(x => x.Name);
-                input.Documents = this.documentTypesService.GetAllOnlyIdName();
+                input.Documents = this.documentTypesService
+                                            .GetAll<DocumentTypePartViewModel>()
+                                            .OrderBy(x => x.Name);
                 input.DocumentDate = DateTime.UtcNow;
                 return this.View(input);
             }

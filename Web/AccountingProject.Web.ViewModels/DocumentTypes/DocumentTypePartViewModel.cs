@@ -1,6 +1,9 @@
 ﻿namespace AccountingProject.Web.ViewModels.DocumentTypes
 {
-    public class DocumentTypePartViewModel
+    using AccountingProject.Data.Models;
+    using AccountingProject.Services.Mapping;
+
+    public class DocumentTypePartViewModel : IMapFrom<DocumentType>
     {
         public int Id { get; set; }
 

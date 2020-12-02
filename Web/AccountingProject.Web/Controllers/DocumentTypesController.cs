@@ -1,7 +1,9 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
+    using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.DocumentTypes;
     using Microsoft.AspNetCore.Authorization;
@@ -27,6 +29,11 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateDocumentTypeInputModel input)
         {
+            if (!await this.documentTypesService.IsNameAvailableAsync(input.Name))
+            {
+                this.ModelState.AddModelError("Name", GlobalConstants.ErrorMessageForExistingName);
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
@@ -37,6 +44,19 @@
             // TODO: Redirect to all info page
             // this.RedirectToAction(nameof(actionName));
             return this.Redirect("/");
+        }
+
+        // DocumentTypes/All
+        [Authorize]
+        public IActionResult All()
+        {
+            var viewModel = new DocumentTypesListViewModel
+            {
+                DocumentTypes = this.documentTypesService
+                    .GetAll<DocumentTypeViewModel>()
+                    .OrderBy(x => x.Name),
+            };
+            return this.View(viewModel);
         }
     }
 }

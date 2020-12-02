@@ -9,8 +9,8 @@
     {
         Task CreateAsync(CreateDocumentTypeInputModel input);
 
-        IEnumerable<DocumentTypePartViewModel> GetAllOnlyIdName();
+        IEnumerable<T> GetAll<T>();
 
-        // IEnumerable<DocumentTypeViewModel> GetAllDocumentTypes();
+        Task<bool> IsNameAvailableAsync(string name);
     }
 }
