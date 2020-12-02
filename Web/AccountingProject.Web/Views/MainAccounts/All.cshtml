@@ -1,0 +1,31 @@
+﻿@model AccountingProject.Web.ViewModels.GLAccounts.MainAccountsListViewModel
+@{ this.ViewData["Title"] = "All Main Accounts:"; }
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Debit Balance</th>
+            <th scope="col">Credit Balance</th>
+            <th scope="col">IsInventory</th>
+            <th scope="col">IsFixedAsset</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in this.Model.MainAccounts)
+        {
+            <tr class="table-light">
+                <th scope="row">@account.Code</th>
+                <td>@account.Name</td>
+                <td>@account.DebitBalance</td>
+                <td>@account.CreditBalance</td>
+                <td>@account.IsInventory</td>
+                <td>@account.IsFixedAsset</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -6,7 +6,9 @@
 
     using AccountingProject.Data.Common.Repositories;
     using AccountingProject.Data.Models;
+    using AccountingProject.Services.Mapping;
     using AccountingProject.Web.ViewModels.GLAccounts;
+    using Microsoft.EntityFrameworkCore;
 
     public class MainAccountsService : IMainAccountsService
     {
@@ -31,17 +33,25 @@
             await this.mainAccountsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<MainAccountPartViewModel> GetAllOnlyIdCodeName()
+        public IEnumerable<T> GetAll<T>()
         {
             return this.mainAccountsRepository.AllAsNoTracking()
-                .Select(x => new MainAccountPartViewModel
-                {
-                    Id = x.Id,
-                    Code = x.Code,
-                    Name = x.Name,
-                })
-                .OrderBy(x => x.Code)
+                .To<T>()
                 .ToList();
+        }
+
+        public async Task<bool> IsCodeAvailableAsync(int code)
+        {
+            return !await this.mainAccountsRepository
+                .AllAsNoTracking()
+                .AnyAsync(x => x.Code == code);
+        }
+
+        public async Task<bool> IsNameAvailableAsync(string name)
+        {
+            return !await this.mainAccountsRepository
+                .AllAsNoTracking()
+                .AnyAsync(x => x.Name == name);
         }
     }
 }

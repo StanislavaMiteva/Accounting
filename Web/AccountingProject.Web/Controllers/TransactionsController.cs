@@ -8,6 +8,7 @@
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.Counterparties;
     using AccountingProject.Web.ViewModels.DocumentTypes;
+    using AccountingProject.Web.ViewModels.GLAccounts;
     using AccountingProject.Web.ViewModels.Transactions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -44,8 +45,9 @@
         {
             var viewModel = new CreateTransactionInputModel
             {
-                MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName(),
-
+                MainAccounts = this.mainAccountsService
+                                    .GetAll<MainAccountPartViewModel>()
+                                    .OrderBy(x => x.Code),
                 Counterparties = this.counterpartiesService
                                     .GetAll<CounterpartyPartViewModel>()
                                     .OrderBy(x => x.Name),
@@ -67,7 +69,9 @@
         {
             if (!this.ModelState.IsValid)
             {
-                input.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
+                input.MainAccounts = this.mainAccountsService
+                                            .GetAll<MainAccountPartViewModel>()
+                                            .OrderBy(x => x.Code);
                 input.Counterparties = this.counterpartiesService
                                             .GetAll<CounterpartyPartViewModel>()
                                             .OrderBy(x => x.Name);

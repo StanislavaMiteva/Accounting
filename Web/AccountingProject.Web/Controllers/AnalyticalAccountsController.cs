@@ -2,9 +2,10 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
-
+    using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
+    using AccountingProject.Web.ViewModels.GLAccounts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,9 @@
         {
             var viewModel = new CreateAnalyticalAccountInputModel
             {
-                MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName(),
+                MainAccounts = this.mainAccountsService
+                                        .GetAll<MainAccountPartViewModel>()
+                                        .OrderBy(x => x.Code),
             };
             return this.View(viewModel);
         }
@@ -36,9 +39,16 @@
         [Authorize]
         public async Task<IActionResult> Create([Bind("Name,MainAccountId")]CreateAnalyticalAccountInputModel input)
         {
+            if (!await this.analyticalAccountsService.IsNameAvailableAsync(input.Name))
+            {
+                this.ModelState.AddModelError(nameof(input.Name), GlobalConstants.ErrorMessageForExistingName);
+            }
+
             if (!this.ModelState.IsValid)
             {
-                input.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
+                input.MainAccounts = this.mainAccountsService
+                                        .GetAll<MainAccountPartViewModel>()
+                                        .OrderBy(x => x.Code);
                 return this.View(input);
             }
 

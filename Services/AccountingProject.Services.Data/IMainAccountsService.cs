@@ -9,9 +9,11 @@
     {
         Task CreateAsync(CreateMainAccountInputModel input);
 
-        IEnumerable<MainAccountPartViewModel> GetAllOnlyIdCodeName();
+        IEnumerable<T> GetAll<T>();
 
-        // IEnumerable<GLAccountViewModel> GetAllGLAccounts();
+        Task<bool> IsNameAvailableAsync(string name);
+
+        Task<bool> IsCodeAvailableAsync(int code);
 
         // void InputBalance(InputAccountBalance input);
 

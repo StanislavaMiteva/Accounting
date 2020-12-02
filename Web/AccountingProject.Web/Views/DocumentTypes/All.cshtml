@@ -1,0 +1,21 @@
+﻿@model AccountingProject.Web.ViewModels.DocumentTypes.DocumentTypesListViewModel
+@{ this.ViewData["Title"] = "All Document Types:"; }
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>            
+            <th scope="col">Name</th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var documentType in this.Model.DocumentTypes)
+        {
+        <tr class="table-light">
+            <td>@documentType.Name</td>            
+        </tr>
+        }
+    </tbody>
+</table>
+

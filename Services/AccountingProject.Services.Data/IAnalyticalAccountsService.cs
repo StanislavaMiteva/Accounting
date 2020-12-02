@@ -9,6 +9,8 @@
     {
         Task CreateAsync(CreateAnalyticalAccountInputModel input);
 
+        Task<bool> IsNameAvailableAsync(string name);
+
         IEnumerable<T> GetAllByMainAccountId<T>(int mainAccountId);
 
         IEnumerable<T> GetAll<T>();

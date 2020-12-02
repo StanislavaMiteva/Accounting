@@ -13,5 +13,7 @@
         public const int MinimumAllowedYearForDocumentDate = 2000;
 
         public const string ErrorMessageForExistingName = "This name already exists.";
+
+        public const string ErrorMessageForExistingCode = "This code already exists.";
     }
 }

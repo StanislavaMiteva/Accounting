@@ -1,13 +1,11 @@
-﻿namespace AccountingProject.Web.ViewModels.GLAccounts
+﻿namespace AccountingProject.Web.ViewModels.DocumentTypes
 {
     using AccountingProject.Data.Models;
     using AccountingProject.Services.Mapping;
 
-    public class MainAccountPartViewModel : IMapFrom<GLAccount>
+    public class DocumentTypeViewModel : IMapFrom<DocumentType>
     {
         public int Id { get; set; }
-
-        public int Code { get; set; }
 
         public string Name { get; set; }
     }

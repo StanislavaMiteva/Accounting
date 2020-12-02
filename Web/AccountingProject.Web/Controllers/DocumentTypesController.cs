@@ -31,7 +31,7 @@
         {
             if (!await this.documentTypesService.IsNameAvailableAsync(input.Name))
             {
-                this.ModelState.AddModelError("Name", GlobalConstants.ErrorMessageForExistingName);
+                this.ModelState.AddModelError(nameof(input.Name), GlobalConstants.ErrorMessageForExistingName);
             }
 
             if (!this.ModelState.IsValid)

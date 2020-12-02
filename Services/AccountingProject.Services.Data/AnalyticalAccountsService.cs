@@ -8,6 +8,7 @@
     using AccountingProject.Data.Models;
     using AccountingProject.Services.Mapping;
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
+    using Microsoft.EntityFrameworkCore;
 
     public class AnalyticalAccountsService : IAnalyticalAccountsService
     {
@@ -43,6 +44,13 @@
                 .Where(x => x.GLAccountId == mainAccountId)
                 .To<T>()
                 .ToList();
+        }
+
+        public async Task<bool> IsNameAvailableAsync(string name)
+        {
+            return !await this.analyticalAccountsRepository
+                .AllAsNoTracking()
+                .AnyAsync(x => x.Name == name);
         }
     }
 }
