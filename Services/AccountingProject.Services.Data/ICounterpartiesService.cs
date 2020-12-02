@@ -9,11 +9,9 @@
     {
         Task CreateAsync(CreateCounterpartyInputModel input);
 
-        IEnumerable<CounterpartyPartViewModel> GetAllOnlyIdName();
+        IEnumerable<T> GetAll<T>();
 
         Task<bool> IsNameAvailableAsync(string name);
-
-        // IEnumerable<CounterpartyViewModel> GetAll();
 
         // Counterparty GetCounterpartyByName(string name);
     }

@@ -6,6 +6,7 @@
 
     using AccountingProject.Data.Common.Repositories;
     using AccountingProject.Data.Models;
+    using AccountingProject.Services.Mapping;
     using AccountingProject.Web.ViewModels.Counterparties;
     using Microsoft.EntityFrameworkCore;
 
@@ -43,15 +44,10 @@
             await this.counterpartiesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<CounterpartyPartViewModel> GetAllOnlyIdName()
+        public IEnumerable<T> GetAll<T>()
         {
             return this.counterpartiesRepository.AllAsNoTracking()
-                .Select(x => new CounterpartyPartViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
-                .OrderBy(x => x.Name)
+                .To<T>()
                 .ToList();
         }
 

@@ -1,5 +1,6 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Services.Data;
@@ -42,6 +43,19 @@
             // TODO: Redirect to all info page
             // this.RedirectToAction(nameof(actionName));
             return this.Redirect("/");
+        }
+
+        // Counterparties/All
+        [Authorize]
+        public IActionResult All()
+        {
+            var viewModel = new CounterpartiesListViewModel
+            {
+                Counterparties = this.counterpartiesService
+                    .GetAll<CounterpartyViewModel>()
+                    .OrderBy(x => x.Name),
+            };
+            return this.View(viewModel);
         }
     }
 }

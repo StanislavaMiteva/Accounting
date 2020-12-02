@@ -1,10 +1,12 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Data.Models;
     using AccountingProject.Services.Data;
+    using AccountingProject.Web.ViewModels.Counterparties;
     using AccountingProject.Web.ViewModels.Transactions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -43,7 +45,9 @@
             {
                 MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName(),
 
-                Counterparties = this.counterpartiesService.GetAllOnlyIdName(),
+                Counterparties = this.counterpartiesService
+                                        .GetAll<CounterpartyPartViewModel>()
+                                        .OrderBy(x => x.Name),
                 Documents = this.documentTypesService.GetAllOnlyIdName(),
                 DocumentDate = DateTime.UtcNow,
             };
@@ -61,7 +65,9 @@
             if (!this.ModelState.IsValid)
             {
                 input.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
-                input.Counterparties = this.counterpartiesService.GetAllOnlyIdName();
+                input.Counterparties = this.counterpartiesService
+                                            .GetAll<CounterpartyPartViewModel>()
+                                            .OrderBy(x => x.Name);
                 input.Documents = this.documentTypesService.GetAllOnlyIdName();
                 input.DocumentDate = DateTime.UtcNow;
                 return this.View(input);

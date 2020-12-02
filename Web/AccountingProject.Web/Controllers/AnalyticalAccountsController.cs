@@ -49,7 +49,7 @@
             return this.Redirect("/");
         }
 
-        // Get /AnalyticalAccounts/All
+        // AnalyticalAccounts/All
         [Authorize]
         public IActionResult All()
         {
