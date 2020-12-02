@@ -1,0 +1,29 @@
+﻿@model AccountingProject.Web.ViewModels.AnalyticalAccounts.AnalyticalAccountsListViewModel
+@{ this.ViewData["Title"] = "All Analytical Accounts:"; }
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Main Account Code</th>
+            <th scope="col">Main Account Name</th>
+            <th scope="col">Analytical Account Name</th>
+            <th scope="col">Debit Balance</th>
+            <th scope="col">Credit Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in this.Model.AnalyticalAccounts)
+        {
+        <tr class="table-light">
+            <th scope="row">@account.GLAccountCode</th>            
+            <td>@account.GLAccountName</td>
+            <td>@account.Name</td>
+            <td>@account.DebitBalance</td>
+            <td>@account.CreditBalance</td>
+        </tr>
+        }
+    </tbody>
+</table>
+

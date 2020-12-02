@@ -1,5 +1,6 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Services.Data;
@@ -46,6 +47,20 @@
             // TODO: Redirect to all info page
             // this.RedirectToAction(nameof(actionName));
             return this.Redirect("/");
+        }
+
+        // Get /AnalyticalAccounts/All
+        [Authorize]
+        public IActionResult All()
+        {
+            var viewModel = new AnalyticalAccountsListViewModel
+            {
+                AnalyticalAccounts = this.analyticalAccountsService
+                    .GetAll<AnalyticalAccountViewModel>()
+                    .OrderBy(x => x.GLAccountCode)
+                    .ThenBy(x => x.Name),
+            };
+            return this.View(viewModel);
         }
     }
 }

@@ -61,7 +61,6 @@
             if (!this.ModelState.IsValid)
             {
                 input.MainAccounts = this.mainAccountsService.GetAllOnlyIdCodeName();
-
                 input.Counterparties = this.counterpartiesService.GetAllOnlyIdName();
                 input.Documents = this.documentTypesService.GetAllOnlyIdName();
                 input.DocumentDate = DateTime.UtcNow;

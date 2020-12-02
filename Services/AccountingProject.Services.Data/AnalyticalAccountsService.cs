@@ -7,6 +7,7 @@
     using AccountingProject.Data.Common.Repositories;
     using AccountingProject.Data.Models;
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
+    using AccountingProject.Services.Mapping;
 
     public class AnalyticalAccountsService : IAnalyticalAccountsService
     {
@@ -27,6 +28,13 @@
 
             await this.analyticalAccountsRepository.AddAsync(account);
             await this.analyticalAccountsRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            return this.analyticalAccountsRepository.AllAsNoTracking()
+               .To<T>()
+               .ToList();
         }
 
         public IEnumerable<AnalyticalAccountPartViewModel> GetAllOnlyIdName()

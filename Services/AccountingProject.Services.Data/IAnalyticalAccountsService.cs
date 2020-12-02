@@ -7,11 +7,12 @@
 
     public interface IAnalyticalAccountsService
     {
-        // IEnumerable<AnalyticalAccountViewModel> GetAllAnalyticalAccounts();
         Task CreateAsync(CreateAnalyticalAccountInputModel input);
 
         IEnumerable<AnalyticalAccountPartViewModel> GetAllOnlyIdName();
 
         IEnumerable<AnalyticalAccountPartViewModel> GetAnalyticalAccountsByMainAccountId(int mainAccountId);
+
+        IEnumerable<T> GetAll<T>();
     }
 }
