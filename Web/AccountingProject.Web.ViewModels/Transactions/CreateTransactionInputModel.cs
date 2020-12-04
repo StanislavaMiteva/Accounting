@@ -27,11 +27,15 @@
         [Display(Name = "Debit Analytical Account")]
         public int? DebitAnalyticalAccountId { get; set; }
 
+        public string DebitAnalyticalAccountName { get; set; }
+
         [Display(Name = "Credit Main Account")]
         public int CreditMainAccountId { get; set; }
 
         [Display(Name = "Credit Analytical Account")]
         public int? CreditAnalyticalAccountId { get; set; }
+
+        public string CreditAnalyticalAccountName { get; set; }
 
         [Display(Name = "Counterparty Name")]
         public int CounterpartyId { get; set; }

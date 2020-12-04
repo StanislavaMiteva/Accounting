@@ -71,6 +71,7 @@
             <label asp-for="DebitAnalyticalAccountId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="DebitAnalyticalAccountId"></vc:CategoriesDropDown>*@
             <select class="form-control" asp-for="DebitAnalyticalAccountId">
+                <option value="@Model.DebitAnalyticalAccountId">@Model.DebitAnalyticalAccountName</option>
             </select>
             <span asp-validation-for="DebitAnalyticalAccountId" class="text-danger"></span>
         </div>
@@ -91,6 +92,7 @@
             <label asp-for="CreditAnalyticalAccountId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="CreditAnalyticalAccountId"></vc:CategoriesDropDown>*@
             <select class="form-control" asp-for="CreditAnalyticalAccountId">
+                <option value="@Model.CreditAnalyticalAccountId">@Model.CreditAnalyticalAccountName</option>
             </select>
             <span asp-validation-for="CreditAnalyticalAccountId" class="text-danger"></span>
         </div>

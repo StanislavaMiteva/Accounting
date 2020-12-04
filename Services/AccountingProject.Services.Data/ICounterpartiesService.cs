@@ -12,7 +12,5 @@
         IEnumerable<T> GetAll<T>();
 
         Task<bool> IsNameAvailableAsync(string name);
-
-        // Counterparty GetCounterpartyByName(string name);
     }
 }

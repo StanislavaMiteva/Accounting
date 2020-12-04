@@ -46,6 +46,19 @@
                 .ToList();
         }
 
+        public string GetNameById(int? id)
+        {
+            var analyticalAccount = this.analyticalAccountsRepository.AllAsNoTracking()
+                .FirstOrDefault(x => x.Id == id);
+
+            if (analyticalAccount == null)
+            {
+                return null;
+            }
+
+            return analyticalAccount.Name;
+        }
+
         public async Task<bool> IsNameAvailableAsync(string name)
         {
             return !await this.analyticalAccountsRepository

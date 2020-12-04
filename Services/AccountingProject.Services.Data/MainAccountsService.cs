@@ -13,10 +13,14 @@
     public class MainAccountsService : IMainAccountsService
     {
         private readonly IDeletableEntityRepository<GLAccount> mainAccountsRepository;
+        private readonly IDeletableEntityRepository<AnalyticalAccount> analyticalAccountsRepository;
 
-        public MainAccountsService(IDeletableEntityRepository<GLAccount> mainAccountsRepository)
+        public MainAccountsService(
+            IDeletableEntityRepository<GLAccount> mainAccountsRepository,
+            IDeletableEntityRepository<AnalyticalAccount> analyticalAccountsRepository)
         {
             this.mainAccountsRepository = mainAccountsRepository;
+            this.analyticalAccountsRepository = analyticalAccountsRepository;
         }
 
         public async Task CreateAsync(CreateMainAccountInputModel input)
@@ -38,6 +42,31 @@
             return this.mainAccountsRepository.AllAsNoTracking()
                 .To<T>()
                 .ToList();
+        }
+
+        public async Task InputBalanceAsync(AddAccountBalanceInputModel input)
+        {
+            var mainAccount = await this.mainAccountsRepository
+                .GetByIdWithDeletedAsync(input.DebitMainAccountId);
+
+            if (input.AnalyticalAccountId != null)
+            {
+                var analyticalAccount = await this.analyticalAccountsRepository
+                    .GetByIdWithDeletedAsync(input.AnalyticalAccountId);
+                var oldDebitBalance = analyticalAccount.DebitBalance;
+                var oldCreditBalance = analyticalAccount.CreditBalance;
+                analyticalAccount.DebitBalance = input.DebitBalance;
+                analyticalAccount.CreditBalance = input.CreditBalance;
+                mainAccount.DebitBalance += input.DebitBalance - oldDebitBalance;
+                mainAccount.CreditBalance += input.CreditBalance - oldCreditBalance;
+            }
+            else
+            {
+                mainAccount.DebitBalance = input.DebitBalance;
+                mainAccount.CreditBalance = input.CreditBalance;
+            }
+
+            await this.mainAccountsRepository.SaveChangesAsync();
         }
 
         public async Task<bool> IsCodeAvailableAsync(int code)

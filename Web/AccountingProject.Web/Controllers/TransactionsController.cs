@@ -79,6 +79,10 @@
                 input.Documents = this.documentTypesService
                                             .GetAll<DocumentTypePartViewModel>()
                                             .OrderBy(x => x.Name);
+                input.DebitAnalyticalAccountName = this.analyticalAccountsService
+                                            .GetNameById(input.DebitAnalyticalAccountId);
+                input.CreditAnalyticalAccountName = this.analyticalAccountsService
+                                            .GetNameById(input.CreditAnalyticalAccountId);
                 input.DocumentDate = DateTime.UtcNow;
                 return this.View(input);
             }

@@ -15,7 +15,7 @@
 
         Task<bool> IsCodeAvailableAsync(int code);
 
-        // void InputBalance(InputAccountBalance input);
+        Task InputBalanceAsync(AddAccountBalanceInputModel input);
 
         // IEnumerable<GLViewModel> AllByMonth(DateTime startDate, DateTime endDate);
     }

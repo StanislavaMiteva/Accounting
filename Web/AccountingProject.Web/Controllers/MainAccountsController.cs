@@ -12,10 +12,14 @@
     public class MainAccountsController : Controller
     {
         private readonly IMainAccountsService mainAccountsService;
+        private readonly IAnalyticalAccountsService analyticalAccountsService;
 
-        public MainAccountsController(IMainAccountsService mainAccountsService)
+        public MainAccountsController(
+            IMainAccountsService mainAccountsService,
+            IAnalyticalAccountsService analyticalAccountsService)
         {
             this.mainAccountsService = mainAccountsService;
+            this.analyticalAccountsService = analyticalAccountsService;
         }
 
         // MainAccounts/Create
@@ -62,6 +66,42 @@
                     .OrderBy(x => x.Code),
             };
             return this.View(viewModel);
+        }
+
+        // MainAccounts/AddBalances
+        [Authorize]
+        public IActionResult AddBalances()
+        {
+            var viewModel = new AddAccountBalanceInputModel
+            {
+                MainAccounts = this.mainAccountsService
+                                    .GetAll<MainAccountPartViewModel>()
+                                    .OrderBy(x => x.Code),
+            };
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddBalances([Bind("DebitMainAccountId" +
+            ",AnalyticalAccountId,DebitBalance,CreditBalance")]
+        AddAccountBalanceInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                input.MainAccounts = this.mainAccountsService
+                                            .GetAll<MainAccountPartViewModel>()
+                                            .OrderBy(x => x.Code);
+                input.AnalyticalAccountName = this.analyticalAccountsService
+                                            .GetNameById(input.AnalyticalAccountId);
+                return this.View(input);
+            }
+
+            await this.mainAccountsService.InputBalanceAsync(input);
+
+            // TODO: Redirect to all info page
+            // this.RedirectToAction(nameof(actionName));
+            return this.Redirect("/");
         }
     }
 }

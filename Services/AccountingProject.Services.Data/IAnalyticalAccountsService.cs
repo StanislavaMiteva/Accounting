@@ -14,5 +14,7 @@
         IEnumerable<T> GetAllByMainAccountId<T>(int mainAccountId);
 
         IEnumerable<T> GetAll<T>();
+
+        string GetNameById(int? id);
     }
 }
