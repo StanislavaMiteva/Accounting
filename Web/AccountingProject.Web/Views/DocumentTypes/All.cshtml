@@ -2,20 +2,30 @@
 @{ this.ViewData["Title"] = "All Document Types:"; }
 
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+<div class="col-md-10">
+    <div class="page-header text-center">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var documentType in this.Model.DocumentTypes)
+                {
+                <tr class="table-light">
+                    <td>@documentType.Name</td>
+                    <td>
+                        <a class="btn btn-block btn-danger text-white mb-3" href="/DocumentTypes/Update?id=@documentType.Id">Edit</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<table class="table table-hover">
-    <thead>
-        <tr>            
-            <th scope="col">Name</th>            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var documentType in this.Model.DocumentTypes)
-        {
-        <tr class="table-light">
-            <td>@documentType.Name</td>            
-        </tr>
-        }
-    </tbody>
-</table>
+
+
 

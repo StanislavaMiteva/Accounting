@@ -118,20 +118,20 @@
             return this.RedirectToAction(nameof(this.AllByDocumentDate));
         }
 
-        // Transactions/AllByMonth
+        // Transactions/ForPeriod
         [Authorize]
-        public IActionResult AllByMonth()
+        public IActionResult ForPeriod()
         {
-            return this.View();
+            return this.View("~/Views/Shared/ChoosePeriod.cshtml");
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult AllByMonth(InputYearMonthModel input)
+        public IActionResult ForPeriod(InputYearMonthModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(input);
+                return this.View("~/Views/Shared/ChoosePeriod.cshtml", input);
             }
 
             var viewModel = new TransactionsListViewModel

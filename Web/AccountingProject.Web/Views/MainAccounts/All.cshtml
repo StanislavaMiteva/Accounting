@@ -12,20 +12,29 @@
             <th scope="col">Credit Balance</th>
             <th scope="col">It's an inventory account</th>
             <th scope="col">It's a fixed asset account</th>
+            <th scope="col">Edit</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var account in this.Model.MainAccounts)
         {
-            <tr class="table-light">
-                <th scope="row">@account.Code</th>
-                <td>@account.Name</td>
-                <td>@account.DebitBalance</td>
-                <td>@account.CreditBalance</td>
-                <td>@account.IsInventory</td>
-                <td>@account.IsFixedAsset</td>
-            </tr>
-        }
+    <tr class="table-light">
+        <th scope="row">@account.Code</th>
+        <td>@account.Name</td>
+        <td>@account.DebitBalance</td>
+        <td>@account.CreditBalance</td>
+        <td>@account.IsInventory</td>
+        <td>@account.IsFixedAsset</td>
+        <td>
+            <a class="btn btn-block btn-danger text-white mb-3" href="/MainAccounts/Update?id=@account.Id">Edit</a>
+        </td>
+    </tr>}
+        <tr class="table-light">
+            <td></td>
+            <th scope="row">Total</th>
+            <th scope="row">@Model.DebitBalanceTotal</th>
+            <th scope="row">@Model.CreditBalanceTotal</th>            
+        </tr>
     </tbody>
 </table>
 

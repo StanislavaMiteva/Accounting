@@ -70,9 +70,9 @@
             return this.View(viewModel);
         }
 
-        // MainAccounts/AddBalances
+        // MainAccounts/SetBalance
         [Authorize]
-        public IActionResult AddBalances()
+        public IActionResult SetBalance()
         {
             var viewModel = new AddAccountBalanceInputModel
             {
@@ -85,7 +85,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddBalances([Bind("DebitMainAccountId" +
+        public async Task<IActionResult> SetBalance([Bind("DebitMainAccountId" +
             ",AnalyticalAccountId,DebitBalance,CreditBalance")]
         AddAccountBalanceInputModel input)
         {

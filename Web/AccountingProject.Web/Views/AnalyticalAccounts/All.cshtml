@@ -11,17 +11,21 @@
             <th scope="col">Analytical Account Name</th>
             <th scope="col">Debit Balance</th>
             <th scope="col">Credit Balance</th>
+            <th scope="col">Edit</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var account in this.Model.AnalyticalAccounts)
         {
         <tr class="table-light">
-            <th scope="row">@account.GLAccountCode</th>            
+            <th scope="row">@account.GLAccountCode</th>
             <td>@account.GLAccountName</td>
             <td>@account.Name</td>
             <td>@account.DebitBalance</td>
             <td>@account.CreditBalance</td>
+            <td>
+                <a class="btn btn-block btn-danger text-white mb-3" href="/AnalyticalAccounts/Update?id=@account.Id">Edit</a>
+            </td>
         </tr>
         }
     </tbody>
