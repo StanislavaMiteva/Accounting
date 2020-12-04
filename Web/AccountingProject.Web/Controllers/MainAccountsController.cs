@@ -119,7 +119,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(input);
+                return this.View("~/Views/Shared/ChoosePeriod.cshtml", input);
             }
 
             DateTime startDate = new DateTime(input.Year, input.MonthStart, 01);
