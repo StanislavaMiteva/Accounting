@@ -1,5 +1,6 @@
 ﻿namespace AccountingProject.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -17,6 +18,6 @@
 
         Task InputBalanceAsync(AddAccountBalanceInputModel input);
 
-        // IEnumerable<GLViewModel> AllByMonth(DateTime startDate, DateTime endDate);
+        IEnumerable<TrialBalanceAccountViewModel> AllWithTurnoverForPeriod(DateTime startDate, DateTime endDate);
     }
 }

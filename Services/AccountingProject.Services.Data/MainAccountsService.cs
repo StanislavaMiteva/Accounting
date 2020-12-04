@@ -1,5 +1,6 @@
 ﻿namespace AccountingProject.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -21,6 +22,63 @@
         {
             this.mainAccountsRepository = mainAccountsRepository;
             this.analyticalAccountsRepository = analyticalAccountsRepository;
+        }
+
+        public IEnumerable<TrialBalanceAccountViewModel> AllWithTurnoverForPeriod(DateTime startDate, DateTime endDate)
+        {
+            var allMainAccounts = this.mainAccountsRepository.All()
+                .Select(x => new TrialBalanceAccountViewModel
+                {
+                    Code = x.Code,
+                    Name = x.Name,
+                    BeginingDebitBalance = x.DebitBalance,
+                    BeginingCreditBalance = x.CreditBalance,
+                    DebitTurnoverBeforePeriod = x.DebitTransactions
+                        .Where(t => t.DocumentDate < startDate)
+                        .Sum(t => t.Amount),
+                    CreditTurnoverBeforePeriod = x.CreditTransactions
+                        .Where(t => t.DocumentDate < startDate)
+                        .Sum(t => t.Amount),
+                    DebitTurnoverForPeriod = x.DebitTransactions
+                        .Where(t => t.DocumentDate >= startDate && t.DocumentDate <= endDate)
+                        .Sum(t => t.Amount),
+                    CreditTurnoverForPeriod = x.CreditTransactions
+                        .Where(t => t.DocumentDate >= startDate && t.DocumentDate <= endDate)
+                        .Sum(t => t.Amount),
+                })
+                .OrderBy(x => x.Code)
+                .ToList();
+
+            foreach (var account in allMainAccounts)
+            {
+                var startBalance = account.BeginingDebitBalance
+                    - account.BeginingCreditBalance
+                    + account.DebitTurnoverBeforePeriod
+                    - account.CreditTurnoverBeforePeriod;
+                if (startBalance > 0)
+                {
+                    account.StartDebitBalance = startBalance;
+                }
+                else
+                {
+                    account.StartCreditBalance = -startBalance;
+                }
+
+                var endBalance = account.StartDebitBalance
+                    - account.StartCreditBalance
+                    + account.DebitTurnoverForPeriod
+                    - account.CreditTurnoverForPeriod;
+                if (endBalance > 0)
+                {
+                    account.EndDebitBalance = endBalance;
+                }
+                else
+                {
+                    account.EndCreditBalance = -endBalance;
+                }
+            }
+
+            return allMainAccounts;
         }
 
         public async Task CreateAsync(CreateMainAccountInputModel input)

@@ -1,11 +1,13 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.GLAccounts;
+    using AccountingProject.Web.ViewModels.Shared;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -102,6 +104,35 @@
             // TODO: Redirect to all info page
             // this.RedirectToAction(nameof(actionName));
             return this.Redirect("/");
+        }
+
+        // MainAccounts/TrialBalance
+        [Authorize]
+        public IActionResult TrialBalance()
+        {
+            return this.View("~/Views/Shared/ChoosePeriod.cshtml");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult TrialBalance(InputYearMonthModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            DateTime startDate = new DateTime(input.Year, input.MonthStart, 01);
+            int days = DateTime.DaysInMonth(input.Year, input.MonthEnd);
+            DateTime endDate = new DateTime(input.Year, input.MonthEnd, days);
+            var viewModel = new TrialBalanceAccountsListViewModel
+            {
+                MainAccounts = this.mainAccountsService
+                     .AllWithTurnoverForPeriod(startDate, endDate),
+                DateStart = startDate.ToString("dd.MM.yyyy"),
+                DateEnd = endDate.ToString("dd.MM.yyyy"),
+            };
+            return this.View(viewModel);
         }
     }
 }

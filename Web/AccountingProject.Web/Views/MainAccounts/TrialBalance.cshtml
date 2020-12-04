@@ -1,0 +1,53 @@
+﻿@model AccountingProject.Web.ViewModels.GLAccounts.TrialBalanceAccountsListViewModel
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header text-center">
+                    <h2 id="tables">Trial Balance for period @Model.DateStart - @Model.DateEnd </h2>
+                </div>
+                <div class="component">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Code</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Debit Balance</th>
+                                <th scope="col">Credit Balance</th>
+                                <th scope="col">Debit Turnover</th>
+                                <th scope="col">Credit Turnover</th>
+                                <th scope="col">Debit Balance</th>
+                                <th scope="col">Credit Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var account in Model.MainAccounts)
+                            {
+                        <tr class="table-light">
+                            <th scope="row">@account.Code</th>
+                            <td>@account.Name</td>
+                            <td>@account.StartDebitBalance</td>
+                            <td>@account.StartCreditBalance</td>
+                            <td>@account.DebitTurnoverForPeriod</td>
+                            <td>@account.CreditTurnoverForPeriod</td>
+                            <td>@account.EndDebitBalance</td>
+                            <td>@account.EndCreditBalance</td>
+                        </tr>
+                        }
+                        <tr class="table-light">
+                            <td></td>
+                            <th scope="row">Total</th>
+                            <th scope="row">@Model.StartDebitBalanceTotal</th>
+                            <th scope="row">@Model.StartCreditBalanceTotal</th>
+                            <th scope="row">@Model.DebitTurnoverTotal</th>
+                            <th scope="row">@Model.CreditTurnoverTotal</th>
+                            <th scope="row">@Model.EndDebitBalanceTotal</th>
+                            <th scope="row">@Model.EndCreditBalanceTotal</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
