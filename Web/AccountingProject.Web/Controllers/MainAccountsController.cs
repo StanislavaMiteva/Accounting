@@ -64,8 +64,7 @@
             var viewModel = new MainAccountsListViewModel
             {
                 MainAccounts = this.mainAccountsService
-                    .GetAll<MainAccountViewModel>()
-                    .OrderBy(x => x.Code),
+                    .GetAll<MainAccountViewModel>(),
             };
             return this.View(viewModel);
         }
@@ -77,8 +76,7 @@
             var viewModel = new AddAccountBalanceInputModel
             {
                 MainAccounts = this.mainAccountsService
-                                    .GetAll<MainAccountPartViewModel>()
-                                    .OrderBy(x => x.Code),
+                                    .GetAll<MainAccountPartViewModel>(),
             };
             return this.View(viewModel);
         }
@@ -92,8 +90,7 @@
             if (!this.ModelState.IsValid)
             {
                 input.MainAccounts = this.mainAccountsService
-                                            .GetAll<MainAccountPartViewModel>()
-                                            .OrderBy(x => x.Code);
+                                            .GetAll<MainAccountPartViewModel>();
                 input.AnalyticalAccountName = this.analyticalAccountsService
                                             .GetNameById(input.AnalyticalAccountId);
                 return this.View(input);

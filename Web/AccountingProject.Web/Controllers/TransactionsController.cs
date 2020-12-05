@@ -47,8 +47,7 @@
             var viewModel = new CreateTransactionInputModel
             {
                 MainAccounts = this.mainAccountsService
-                                    .GetAll<MainAccountPartViewModel>()
-                                    .OrderBy(x => x.Code),
+                                    .GetAll<MainAccountPartViewModel>(),
                 Counterparties = this.counterpartiesService
                                     .GetAll<CounterpartyPartViewModel>()
                                     .OrderBy(x => x.Name),
@@ -71,8 +70,7 @@
             if (!this.ModelState.IsValid)
             {
                 input.MainAccounts = this.mainAccountsService
-                                            .GetAll<MainAccountPartViewModel>()
-                                            .OrderBy(x => x.Code);
+                                            .GetAll<MainAccountPartViewModel>();
                 input.Counterparties = this.counterpartiesService
                                             .GetAll<CounterpartyPartViewModel>()
                                             .OrderBy(x => x.Name);

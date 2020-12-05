@@ -19,5 +19,7 @@
         public const string MaxDecimalValue = "79228162514264337593543950335";
 
         public const string MinAccountBalance = "0";
+
+        public const string MinPrice = "0.01";
     }
 }

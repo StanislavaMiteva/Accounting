@@ -98,6 +98,15 @@
         public IEnumerable<T> GetAll<T>()
         {
             return this.mainAccountsRepository.AllAsNoTracking()
+                .OrderBy(x => x.Code)
+                .To<T>()
+                .ToList();
+        }
+
+        public IEnumerable<T> GetInventoryAccounts<T>()
+        {
+            return this.mainAccountsRepository.AllAsNoTracking()
+                .Where(x => x.IsInventory == true)
                 .To<T>()
                 .ToList();
         }

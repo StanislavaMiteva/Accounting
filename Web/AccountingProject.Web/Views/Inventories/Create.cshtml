@@ -1,0 +1,52 @@
+﻿@model AccountingProject.Web.ViewModels.Inventories.CreateInventoryInputModel
+@{
+    this.ViewData["Title"] = "Create an inventory";
+}
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+
+<form class="mx-auto w-50" method="post">
+    <fieldset>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Measure" class="control-label"></label>
+            <input asp-for="Measure" class="form-control" />
+            <span asp-validation-for="Measure" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Quantity" class="control-label"></label>
+            <input asp-for="Quantity" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price" class="control-label"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MainAccountId" class="control-label"></label>
+            @*<vc:MainAccountsDropDown name="GLAccountId"></vc:MainAccountsDropDown>*@
+            <select class="form-control" asp-for="MainAccountId">
+                <option value=""></option>
+                @foreach (var account in Model.MainAccounts)
+                {
+                    <option value="@account.Id">@account.Code @account.Name</option>
+                }
+            </select>
+            <span asp-validation-for="MainAccountId" class="text-danger"></span>
+        </div>        
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
+        </div>
+    </fieldset>
+</form>
+
+@section Scripts {
+    <script src="~/js/loadAnalyticalAccounts.js"></script>
+}
+

@@ -58,6 +58,7 @@
         [Display(Name = "Consecutive Number")]
         public string ConsecutiveNumber { get; set; }
 
+        [Range(typeof(decimal), GlobalConstants.MinPrice, GlobalConstants.MaxDecimalValue)]
         public decimal Amount { get; set; }
 
         public string CreatorId { get; set; }

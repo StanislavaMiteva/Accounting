@@ -69,6 +69,7 @@
             services.AddTransient<ICounterpartiesService, CounterpartiesService>();
             services.AddTransient<IDocumentTypesService, DocumentTypesService>();
             services.AddTransient<ITransactionsService, TransactionsService>();
+            services.AddTransient<IInventoriesService, InventoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

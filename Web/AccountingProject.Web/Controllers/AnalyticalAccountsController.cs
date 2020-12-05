@@ -30,8 +30,7 @@
             var viewModel = new CreateAnalyticalAccountInputModel
             {
                 MainAccounts = this.mainAccountsService
-                                        .GetAll<MainAccountPartViewModel>()
-                                        .OrderBy(x => x.Code),
+                                        .GetAll<MainAccountPartViewModel>(),
             };
             return this.View(viewModel);
         }
@@ -48,8 +47,7 @@
             if (!this.ModelState.IsValid)
             {
                 input.MainAccounts = this.mainAccountsService
-                                        .GetAll<MainAccountPartViewModel>()
-                                        .OrderBy(x => x.Code);
+                                        .GetAll<MainAccountPartViewModel>();
                 return this.View(input);
             }
 

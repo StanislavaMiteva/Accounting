@@ -3,7 +3,7 @@
 
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
 
-    <table class="table table-hover">
+    <table class="table table-hover table-striped table-sm table-responsive">
         <thead>
             <tr>
                 <th scope="col">Document Date</th>
@@ -30,7 +30,7 @@
             <th scope="row">@transaction.DocumentDateAsString</th>
             <td>@transaction.CreatedOnAsString</td>
             <td>@transaction.DocumentTypeName</td>
-            <td>@transaction.DebitGLAccountCode @transaction.DebitGLAccountName</td>
+            <td>@transaction.DebitGLAccountCode-@transaction.DebitGLAccountName</td>
             <td>@transaction.DebitAnalyticalAccountName</td>
             <td>@transaction.CreditGLAccountCode @transaction.CreditGLAccountName</td>
             <td>@transaction.CreditAnalyticalAccountName</td>
