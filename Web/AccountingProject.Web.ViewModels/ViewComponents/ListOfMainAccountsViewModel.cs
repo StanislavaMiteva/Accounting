@@ -1,11 +1,13 @@
-﻿namespace AccountingProject.Web.ViewModels.GLAccounts
+﻿namespace AccountingProject.Web.ViewModels.ViewComponents
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class ListAcountsViewModel
+    using AccountingProject.Web.ViewModels.GLAccounts;
+
+    public class ListOfMainAccountsViewModel
     {
-        public ListAcountsViewModel()
+        public ListOfMainAccountsViewModel()
         {
             this.MainAccounts = new HashSet<MainAccountPartViewModel>();
         }

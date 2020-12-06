@@ -1,9 +1,8 @@
 ﻿namespace AccountingProject.Web.ViewModels.AnalyticalAccounts
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using AccountingProject.Web.ViewModels.GLAccounts;
+    using AccountingProject.Web.ViewModels.ViewComponents;
 
     public class CreateAnalyticalAccountInputModel
     {
@@ -12,9 +11,8 @@
         [MaxLength(200)]
         public string Name { get; set; }
 
-        [Display(Name = "Main Account")]
-        public int MainAccountId { get; set; }
+        public ListOfMainAccountsViewModel ListOfMainAccounts { get; set; }
 
-        public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
+        public int MainAccountId { get; set; }
     }
 }

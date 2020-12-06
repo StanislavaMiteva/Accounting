@@ -1,0 +1,12 @@
+﻿@model AccountingProject.Web.ViewModels.ViewComponents.ListOfMainAccountsViewModel
+<div class="form-group">
+    <label asp-for="MainAccountId"></label>
+       <select class="form-control" asp-for="MainAccountId">
+        <option value=""></option>
+        @foreach (var account in Model.MainAccounts)
+        {
+            <option value="@account.Id">@account.Code @account.Name</option>
+         }
+        </select>
+    <span asp-validation-for="MainAccountId" class="text-danger"></span>
+</div>
