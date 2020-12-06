@@ -12,6 +12,7 @@
         [MaxLength(200)]
         public string Name { get; set; }
 
+        [Display(Name = "Main Account")]
         public int MainAccountId { get; set; }
 
         public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
