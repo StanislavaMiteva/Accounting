@@ -1,0 +1,25 @@
+﻿@model AccountingProject.Web.ViewModels.GLAccounts.ListAcountsViewModel
+@{
+    this.ViewData["Title"] = "Choose an account";    
+}
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+
+<form class="mx-auto w-50" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="MainAccountId"></label>
+        @*<vc:MainAccountsDropDown name="MainAccountId"></vc:MainAccountsDropDown>*@
+        <select class="form-control" asp-for="MainAccountId">
+            <option value=""></option>
+            @foreach (var account in Model.MainAccounts)
+            {
+                <option value="@account.Id">@account.Code @account.Name</option>
+            }
+        </select>
+        <span asp-validation-for="MainAccountId" class="text-danger"></span>
+    </div>       
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-block btn-primary text-white mb-3">Report</button>
+    </div>
+</form>

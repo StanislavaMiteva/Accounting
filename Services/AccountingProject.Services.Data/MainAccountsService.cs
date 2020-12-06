@@ -107,6 +107,7 @@
         {
             return this.mainAccountsRepository.AllAsNoTracking()
                 .Where(x => x.IsInventory == true)
+                .OrderBy(x => x.Code)
                 .To<T>()
                 .ToList();
         }

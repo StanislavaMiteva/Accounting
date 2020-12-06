@@ -1,0 +1,41 @@
+﻿@model AccountingProject.Web.ViewModels.Inventories.InventoriesListViewModel
+@{ this.ViewData["Title"] = "All Inventories:"; }
+
+<h2 class="mx-auto w-50">@this.ViewData["Title"]</h2>
+
+<table class="table table-hover table-striped table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Measure</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Main Account</th>            
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inventory in this.Model.Inventories)
+        {
+    <tr class="table-light">
+        <th scope="row">@inventory.Name</th>
+        <td>@inventory.Measure</td>
+        <td>@inventory.Quantity</td>
+        <td>@inventory.Price</td>
+        <td>@inventory.Amount</td>
+        <td>@inventory.GLAccountCode-@inventory.GLAccountName</td>
+        <td>
+            <a class="btn btn-block btn-danger text-white mb-3" href="/Inventories/Update?id=@inventory.Id">Edit</a>
+        </td>
+    </tr>}
+    <tr class="table-light">
+        <th scope="row">Total</th>
+        <th scope="row">Amount</th>
+        <td></td>
+        <td></td>
+        <th scope="row">@Model.TotalAmount</th>
+    </tr>
+    </tbody>
+</table>
+
