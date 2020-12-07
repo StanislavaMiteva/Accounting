@@ -115,7 +115,7 @@
         public async Task InputBalanceAsync(AddAccountBalanceInputModel input)
         {
             var mainAccount = await this.mainAccountsRepository
-                .GetByIdWithDeletedAsync(input.DebitMainAccountId);
+                .GetByIdWithDeletedAsync(input.MainAccountId);
 
             if (input.AnalyticalAccountId != null)
             {

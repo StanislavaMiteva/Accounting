@@ -1,6 +1,8 @@
-﻿let mainAccountElement = document.getElementById('MainAccountId');
-console.log(mainAccountElement);
-mainAccountElement.addEventListener('change', loadAnalyticalAccounts);
+﻿let debitMainAccountElement = document.getElementById('DebitMainAccountId');
+let creditMainAccountElement = document.getElementById('CreditMainAccountId');
+
+debitMainAccountElement.addEventListener('change', loadAnalyticalAccounts);
+creditMainAccountElement.addEventListener('change', loadAnalyticalAccounts);
 
 function loadAnalyticalAccounts(event) {
     let mainAccountElement = event.currentTarget;

@@ -36,7 +36,6 @@
         </div>
         <div class="form-group">
             <label asp-for="DocumentTypeId" class="control-label"></label>
-            @*<vc:CategoriesDropDown name="DocumentTypeId "></vc:CategoriesDropDown>*@
             <select asp-for="DocumentTypeId" class="form-control" asp-items="documents">
                 <option value=""></option>
             </select>
@@ -44,7 +43,6 @@
         </div>
         <div class="form-group">
             <label asp-for="CounterpartyId" class="control-label"></label>
-            @*<vc:CategoriesDropDown name="CounterpartyId "></vc:CategoriesDropDown>*@
             <select asp-for="CounterpartyId" class="form-control" asp-items="counterparties">
                 <option value=""></option>
             </select>
@@ -57,7 +55,6 @@
         </div>
         <div class="form-group">
             <label asp-for="DebitMainAccountId" class="control-label"></label>
-            @*<vc:MainAccountsDropDown name="DebitMainAccountId"></vc:MainAccountsDropDown>*@
             <select class="form-control" asp-for="DebitMainAccountId">
                 <option value=""></option>
                 @foreach (var account in Model.MainAccounts)
@@ -69,7 +66,6 @@
         </div>
         <div class="form-group">
             <label asp-for="DebitAnalyticalAccountId" class="control-label"></label>
-            @*<vc:CategoriesDropDown name="DebitAnalyticalAccountId"></vc:CategoriesDropDown>*@
             <select class="form-control" asp-for="DebitAnalyticalAccountId">
                 <option value="@Model.DebitAnalyticalAccountId">@Model.DebitAnalyticalAccountName</option>
             </select>
@@ -77,8 +73,6 @@
         </div>
         <div class="form-group">
             <label asp-for="CreditMainAccountId" class="control-label"></label>
-
-            @*<vc:MainAccountsDropDown name="CreditMainAccountId"></vc:MainAccountsDropDown>*@
             <select class="form-control" asp-for="CreditMainAccountId">
                 <option value=""></option>
                 @foreach (var account in Model.MainAccounts)
@@ -90,7 +84,6 @@
         </div>
         <div class="form-group">
             <label asp-for="CreditAnalyticalAccountId" class="control-label"></label>
-            @*<vc:CategoriesDropDown name="CreditAnalyticalAccountId"></vc:CategoriesDropDown>*@
             <select class="form-control" asp-for="CreditAnalyticalAccountId">
                 <option value="@Model.CreditAnalyticalAccountId">@Model.CreditAnalyticalAccountName</option>
             </select>
@@ -117,7 +110,7 @@
     </fieldset>
 </form>
 
-@section Scripts {
-    <script src="~/js/loadAnalyticalAccounts.js"></script>
+@section Scripts {    
+    <script src="~/js/loadAnalyticalAccountsTwoFields.js"></script>
 }
 

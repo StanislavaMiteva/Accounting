@@ -73,24 +73,20 @@
         [Authorize]
         public IActionResult SetBalance()
         {
-            var viewModel = new AddAccountBalanceInputModel
-            {
-                MainAccounts = this.mainAccountsService
-                                    .GetAll<MainAccountPartViewModel>(),
-            };
+            var viewModel = new AddAccountBalanceInputModel { };
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> SetBalance([Bind("DebitMainAccountId" +
+        public async Task<IActionResult> SetBalance([Bind("MainAccountId" +
             ",AnalyticalAccountId,DebitBalance,CreditBalance")]
         AddAccountBalanceInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                input.MainAccounts = this.mainAccountsService
-                                            .GetAll<MainAccountPartViewModel>();
+                //input.MainAccounts = this.mainAccountsService
+                //                            .GetAll<MainAccountPartViewModel>();
                 input.AnalyticalAccountName = this.analyticalAccountsService
                                             .GetNameById(input.AnalyticalAccountId);
                 return this.View(input);

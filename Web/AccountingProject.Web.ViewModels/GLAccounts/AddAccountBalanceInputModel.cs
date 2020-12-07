@@ -4,11 +4,12 @@
     using System.ComponentModel.DataAnnotations;
 
     using AccountingProject.Common;
+    using AccountingProject.Web.ViewModels.ViewComponents;
 
     public class AddAccountBalanceInputModel : IValidatableObject
     {
-        [Display(Name = "Main Account")]
-        public int DebitMainAccountId { get; set; }
+        //[Display(Name = "Main Account")]
+        public int MainAccountId { get; set; }
 
         [Display(Name = "Analytical Account")]
         public int? AnalyticalAccountId { get; set; }
@@ -23,7 +24,9 @@
         [Range(typeof(decimal), GlobalConstants.MinAccountBalance, GlobalConstants.MaxDecimalValue)]
         public decimal CreditBalance { get; set; }
 
-        public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
+        //public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
+
+        public ListOfMainAccountsViewModel ListOfMainAccounts { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

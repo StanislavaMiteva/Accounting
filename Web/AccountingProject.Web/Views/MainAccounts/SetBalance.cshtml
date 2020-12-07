@@ -7,27 +7,18 @@
 
 <form class="mx-auto w-50" method="post">
     <fieldset>
-        <div asp-validation-summary="All" class="text-danger"></div> 
-        <div class="form-group">
-            <label asp-for="DebitMainAccountId" class="control-label"></label>
-            @*<vc:MainAccountsDropDown name="DebitMainAccountId"></vc:MainAccountsDropDown>*@
-            <select class="form-control" asp-for="DebitMainAccountId">
-                <option value=""></option>
-                @foreach (var account in Model.MainAccounts)
-                {
-                    <option value="@account.Id">@account.Code @account.Name</option>
-                }
-            </select>
-            <span asp-validation-for="DebitMainAccountId" class="text-danger"></span>
-        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <vc:list-main-accounts></vc:list-main-accounts>
+
         <div class="form-group">
             <label asp-for="AnalyticalAccountId" class="control-label"></label>
             @*<vc:CategoriesDropDown name="DebitAnalyticalAccountId"></vc:CategoriesDropDown>*@
-        <select class="form-control" asp-for="AnalyticalAccountId">
-            <option value="@Model.AnalyticalAccountId">@Model.AnalyticalAccountName</option>
-        </select>
+            <select class="form-control" asp-for="AnalyticalAccountId">
+                <option value="@Model.AnalyticalAccountId">@Model.AnalyticalAccountName</option>
+            </select>
             <span asp-validation-for="AnalyticalAccountId" class="text-danger"></span>
-        </div>        
+        </div>
         <div class="form-group">
             <label asp-for="DebitBalance" class="control-label"></label>
             <input asp-for="DebitBalance" class="form-control" />
@@ -38,14 +29,14 @@
             <input asp-for="CreditBalance" class="form-control" />
             <span asp-validation-for="CreditBalance" class="text-danger"></span>
         </div>
-        
+
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-block btn-primary text-white mb-3">Set</button>
         </div>
     </fieldset>
 </form>
 
-@section Scripts {
-    <script src="~/js/loadAnalyticalAccounts.js"></script>
+@section Scripts {    
+    <script src="~/js/loadAnalyticalAccounts.js"></script>>
 }
 
