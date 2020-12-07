@@ -1,11 +1,10 @@
 ﻿namespace AccountingProject.Web.ViewModels.Inventories
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using AccountingProject.Common;
-    using AccountingProject.Web.ViewModels.GLAccounts;
+    using AccountingProject.Web.ViewModels.ViewComponents;
 
     public class CreateInventoryInputModel
     {
@@ -25,9 +24,8 @@
         [Range(typeof(decimal), GlobalConstants.MinPrice, GlobalConstants.MaxDecimalValue)]
         public decimal Price { get; set; }
 
-        [Display(Name = "Main Account")]
-        public int MainAccountId { get; set; }
+        public ListOfMainAccountsViewModel ListOfMainAccounts { get; set; }
 
-        public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
+        public int MainAccountId { get; set; }
     }
 }

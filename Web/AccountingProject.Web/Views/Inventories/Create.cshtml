@@ -28,18 +28,9 @@
             <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="MainAccountId" class="control-label"></label>
-            @*<vc:MainAccountsDropDown name="GLAccountId"></vc:MainAccountsDropDown>*@
-            <select class="form-control" asp-for="MainAccountId">
-                <option value=""></option>
-                @foreach (var account in Model.MainAccounts)
-                {
-                    <option value="@account.Id">@account.Code @account.Name</option>
-                }
-            </select>
-            <span asp-validation-for="MainAccountId" class="text-danger"></span>
-        </div>        
+        
+        <vc:list-main-accounts type-of-account="inventory"></vc:list-main-accounts>
+        
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
         </div>

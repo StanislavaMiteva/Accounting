@@ -24,11 +24,7 @@
         [Authorize]
         public IActionResult Create()
         {
-            var viewModel = new CreateInventoryInputModel
-            {
-                MainAccounts = this.mainAccountsService
-                                        .GetInventoryAccounts<MainAccountPartViewModel>(),
-            };
+            var viewModel = new CreateInventoryInputModel { };
             return this.View(viewModel);
         }
 
@@ -45,8 +41,6 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.MainAccounts = this.mainAccountsService
-                                            .GetInventoryAccounts<MainAccountPartViewModel>();
                 return this.View(input);
             }
 

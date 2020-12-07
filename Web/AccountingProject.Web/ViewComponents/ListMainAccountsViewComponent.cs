@@ -14,14 +14,28 @@
             this.mainAccountsService = mainAccountsService;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string typeOfAccount)
         {
-            var viewModel = new ListOfMainAccountsViewModel
+            if (typeOfAccount == "all")
             {
-                MainAccounts = this.mainAccountsService
-                    .GetAll<MainAccountPartViewModel>(),
-            };
-            return this.View(viewModel);
+                var viewModel = new ListOfMainAccountsViewModel
+                {
+                    MainAccounts = this.mainAccountsService
+                            .GetAll<MainAccountPartViewModel>(),
+                };
+                return this.View(viewModel);
+            }
+            else if (typeOfAccount == "inventory")
+            {
+                var viewModel = new ListOfMainAccountsViewModel
+                {
+                    MainAccounts = this.mainAccountsService
+                            .GetInventoryAccounts<MainAccountPartViewModel>(),
+                };
+                return this.View(viewModel);
+            }
+
+            return this.View();
         }
     }
 }

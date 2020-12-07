@@ -85,8 +85,6 @@
         {
             if (!this.ModelState.IsValid)
             {
-                //input.MainAccounts = this.mainAccountsService
-                //                            .GetAll<MainAccountPartViewModel>();
                 input.AnalyticalAccountName = this.analyticalAccountsService
                                             .GetNameById(input.AnalyticalAccountId);
                 return this.View(input);

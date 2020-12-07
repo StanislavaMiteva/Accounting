@@ -8,7 +8,6 @@
 
     public class AddAccountBalanceInputModel : IValidatableObject
     {
-        //[Display(Name = "Main Account")]
         public int MainAccountId { get; set; }
 
         [Display(Name = "Analytical Account")]
@@ -23,8 +22,6 @@
         [Display(Name = "Credit Balance")]
         [Range(typeof(decimal), GlobalConstants.MinAccountBalance, GlobalConstants.MaxDecimalValue)]
         public decimal CreditBalance { get; set; }
-
-        //public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
 
         public ListOfMainAccountsViewModel ListOfMainAccounts { get; set; }
 

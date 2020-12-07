@@ -1,5 +1,4 @@
 ﻿let mainAccountElement = document.getElementById('MainAccountId');
-console.log(mainAccountElement);
 mainAccountElement.addEventListener('change', loadAnalyticalAccounts);
 
 function loadAnalyticalAccounts(event) {

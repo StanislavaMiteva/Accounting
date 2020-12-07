@@ -15,6 +15,8 @@
         [Display(Name = "Main Account")]
         public int MainAccountId { get; set; }
 
+        public string TypeOfAccount { get; set; }
+
         public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
     }
 }
