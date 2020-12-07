@@ -6,6 +6,7 @@
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.GLAccounts;
     using AccountingProject.Web.ViewModels.Inventories;
+    using AccountingProject.Web.ViewModels.ViewComponents;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -67,12 +68,7 @@
         [Authorize]
         public IActionResult AllByAccount()
         {
-            var viewModel = new ListAcountsViewModel
-            {
-                MainAccounts = this.mainAccountsService
-                       .GetInventoryAccounts<MainAccountPartViewModel>(),
-            };
-            return this.View(viewModel);
+            return this.View();
         }
 
         [HttpPost]
@@ -81,12 +77,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var model = new ListAcountsViewModel
-                {
-                    MainAccounts = this.mainAccountsService
-                       .GetInventoryAccounts<MainAccountPartViewModel>(),
-                };
-                return this.View(model);
+                return this.View();
             }
 
             var viewModel = new InventoriesListViewModel
