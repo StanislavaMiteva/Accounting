@@ -22,7 +22,8 @@
         [Authorize]
         public IActionResult Create()
         {
-            return this.View();
+            var viewModel = new CreateAnalyticalAccountInputModel { };
+            return this.View(viewModel);
         }
 
         [HttpPost]

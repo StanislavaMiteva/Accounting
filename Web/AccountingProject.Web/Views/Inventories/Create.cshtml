@@ -28,12 +28,14 @@
             <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
-        
-        <vc:list-main-accounts type-of-account="inventory"></vc:list-main-accounts>
-        
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
-        </div>
+
+        <cache expires-sliding="TimeSpan.FromSeconds(30)">
+            <vc:list-main-accounts type-of-account="inventory"></vc:list-main-accounts>
+        </cache>            
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
+            </div>
     </fieldset>
 </form>
 

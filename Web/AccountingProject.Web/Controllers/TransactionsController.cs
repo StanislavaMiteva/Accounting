@@ -1,6 +1,7 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     public class TransactionsController : Controller
     {
@@ -23,6 +25,7 @@
         private readonly IAnalyticalAccountsService analyticalAccountsService;
         private readonly ICounterpartiesService counterpartiesService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMemoryCache memoryCache;
 
         public TransactionsController(
             ITransactionsService transactionsService,
@@ -30,7 +33,8 @@
             IMainAccountsService mainAccountsService,
             IAnalyticalAccountsService analyticalAccountsService,
             ICounterpartiesService counterpartiesService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IMemoryCache memoryCache)
         {
             this.transactionsService = transactionsService;
             this.documentTypesService = documentTypesService;
@@ -38,16 +42,18 @@
             this.analyticalAccountsService = analyticalAccountsService;
             this.counterpartiesService = counterpartiesService;
             this.userManager = userManager;
+            this.memoryCache = memoryCache;
         }
 
         // Transactions/Create
         [Authorize]
         public IActionResult Create()
         {
+            var mainAccounts = this.GetMainAccountsFromInCashMemory();
+
             var viewModel = new CreateTransactionInputModel
             {
-                MainAccounts = this.mainAccountsService
-                                    .GetAll<MainAccountPartViewModel>(),
+                MainAccounts = mainAccounts,
                 Counterparties = this.counterpartiesService
                                     .GetAll<CounterpartyPartViewModel>()
                                     .OrderBy(x => x.Name),
@@ -69,8 +75,9 @@
         {
             if (!this.ModelState.IsValid)
             {
-                input.MainAccounts = this.mainAccountsService
-                                            .GetAll<MainAccountPartViewModel>();
+                var mainAccounts = this.GetMainAccountsFromInCashMemory();
+
+                input.MainAccounts = mainAccounts;
                 input.Counterparties = this.counterpartiesService
                                             .GetAll<CounterpartyPartViewModel>()
                                             .OrderBy(x => x.Name);
@@ -138,6 +145,22 @@
                     .GetAllTransactionsByMonth<TransactionViewModel>(input),
             };
             return this.View(nameof(this.AllByDocumentDate), viewModel);
+        }
+
+        private IEnumerable<MainAccountPartViewModel> GetMainAccountsFromInCashMemory()
+        {
+            if (!this.memoryCache.TryGetValue<IEnumerable<MainAccountPartViewModel>>("accounts", out var mainAccounts))
+            {
+                mainAccounts = this.mainAccountsService
+                                    .GetAll<MainAccountPartViewModel>();
+                var cashEntryOptions = new MemoryCacheEntryOptions
+                {
+                    SlidingExpiration = new TimeSpan(0, 0, 20),
+                };
+                this.memoryCache.Set("accounts", mainAccounts, cashEntryOptions);
+            }
+
+            return mainAccounts;
         }
     }
 }
