@@ -41,9 +41,7 @@
 
             await this.documentTypesService.CreateAsync(input);
 
-            // TODO: Redirect to all info page
-            // this.RedirectToAction(nameof(actionName));
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         // DocumentTypes/All

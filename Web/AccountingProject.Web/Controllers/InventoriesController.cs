@@ -4,7 +4,6 @@
 
     using AccountingProject.Common;
     using AccountingProject.Services.Data;
-    using AccountingProject.Web.ViewModels.GLAccounts;
     using AccountingProject.Web.ViewModels.Inventories;
     using AccountingProject.Web.ViewModels.ViewComponents;
     using Microsoft.AspNetCore.Authorization;
@@ -47,9 +46,7 @@
 
             await this.inventoriesService.CreateAsync(input);
 
-            // TODO: Redirect to all info page
-            // this.RedirectToAction(nameof(actionName));
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         // Inventories/All
@@ -64,22 +61,30 @@
             return this.View(viewModel);
         }
 
-        // Inventories/AllByAccount
+        // Inventories/ChooseAccount
         [Authorize]
-        public IActionResult AllByAccount()
+        public IActionResult ChooseAccount()
         {
-            return this.View();
+            var viewModel = new ListOfMainAccountsViewModel { };
+            return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult AllByAccount(int mainAccountId)
+        public IActionResult ChooseAccount(ListOfMainAccountsViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(input);
             }
 
+            return this.RedirectToAction("AllByAccount", "Inventories", new { mainAccountId = input.MainAccountId });
+        }
+
+        // Inventories/AllByAccount
+        [Authorize]
+        public IActionResult AllByAccount(int mainAccountId)
+        {
             var viewModel = new InventoriesListViewModel
             {
                 Inventories = this.inventoriesService

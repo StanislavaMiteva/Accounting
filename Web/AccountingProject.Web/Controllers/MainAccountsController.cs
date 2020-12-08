@@ -1,7 +1,6 @@
 ﻿namespace AccountingProject.Web.Controllers
 {
     using System;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using AccountingProject.Common;
@@ -52,9 +51,7 @@
 
             await this.mainAccountsService.CreateAsync(input);
 
-            // TODO: Redirect to all info page
-            // this.RedirectToAction(nameof(actionName));
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         // MainAccounts/All
@@ -92,30 +89,35 @@
 
             await this.mainAccountsService.InputBalanceAsync(input);
 
-            // TODO: Redirect to all info page
-            // this.RedirectToAction(nameof(actionName));
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.All));
         }
 
-        // MainAccounts/TrialBalance
+        // MainAccounts/ChoosePeriod
         [Authorize]
-        public IActionResult TrialBalance()
+        public IActionResult ChoosePeriod()
         {
             return this.View("~/Views/Shared/ChoosePeriod.cshtml");
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult TrialBalance(InputYearMonthModel input)
+        public IActionResult ChoosePeriod(InputYearMonthModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View("~/Views/Shared/ChoosePeriod.cshtml", input);
             }
 
+            return this.RedirectToAction("TrialBalance", "MainAccounts", input);
+        }
+
+        // MainAccounts/TrialBalance
+        [Authorize]
+        public IActionResult TrialBalance(InputYearMonthModel input)
+        {
             DateTime startDate = new DateTime(input.Year, input.MonthStart, 01);
-            int days = DateTime.DaysInMonth(input.Year, input.MonthEnd);
-            DateTime endDate = new DateTime(input.Year, input.MonthEnd, days);
+            int daysOfMonth = DateTime.DaysInMonth(input.Year, input.MonthEnd);
+            DateTime endDate = new DateTime(input.Year, input.MonthEnd, daysOfMonth);
             var viewModel = new TrialBalanceAccountsListViewModel
             {
                 MainAccounts = this.mainAccountsService

@@ -96,9 +96,7 @@
             input.CreatorId = user.Id;
             await this.transactionsService.CreateAsync(input);
 
-            // TODO: Redirect to all info page
-            // this.RedirectToAction(nameof(actionName));
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.Create));
         }
 
         // Transactions/AllByDocumentDate
@@ -123,22 +121,29 @@
             return this.RedirectToAction(nameof(this.AllByDocumentDate));
         }
 
-        // Transactions/ForPeriod
+        // Transactions/ChoosePeriod
         [Authorize]
-        public IActionResult ForPeriod()
+        public IActionResult ChoosePeriod()
         {
             return this.View("~/Views/Shared/ChoosePeriod.cshtml");
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult ForPeriod(InputYearMonthModel input)
+        public IActionResult ChoosePeriod(InputYearMonthModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View("~/Views/Shared/ChoosePeriod.cshtml", input);
             }
 
+            return this.RedirectToAction("AllForPeriod", "Transactions", input);
+        }
+
+        // Transactions/AllForPeriod
+        [Authorize]
+        public IActionResult AllForPeriod(InputYearMonthModel input)
+        {
             var viewModel = new TransactionsListViewModel
             {
                 Transactions = this.transactionsService

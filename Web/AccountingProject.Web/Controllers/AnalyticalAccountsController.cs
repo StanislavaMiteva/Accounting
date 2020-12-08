@@ -43,9 +43,7 @@
 
             await this.analyticalAccountsService.CreateAsync(input);
 
-            // TODO: Redirect to all info page
-            // this.RedirectToAction(nameof(actionName));
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         // AnalyticalAccounts/All
