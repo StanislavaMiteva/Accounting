@@ -45,7 +45,7 @@
             }
 
             await this.inventoriesService.CreateAsync(input);
-
+            this.TempData["Message"] = $"Inventory \"{input.Name}\" has been added successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 

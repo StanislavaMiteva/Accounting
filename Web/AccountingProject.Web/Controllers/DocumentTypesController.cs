@@ -40,7 +40,7 @@
             }
 
             await this.documentTypesService.CreateAsync(input);
-
+            this.TempData["Message"] = $"Document type \"{input.Name}\" has been added successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 

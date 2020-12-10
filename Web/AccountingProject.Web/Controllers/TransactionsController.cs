@@ -95,7 +95,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             input.CreatorId = user.Id;
             await this.transactionsService.CreateAsync(input);
-
+            this.TempData["Message"] = $"Transaction has been added successfully.";
             return this.RedirectToAction(nameof(this.Create));
         }
 

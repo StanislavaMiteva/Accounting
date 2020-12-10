@@ -40,7 +40,7 @@
             }
 
             await this.counterpartiesService.CreateAsync(input);
-
+            this.TempData["Message"] = $"Counterparty \"{input.Name}\" has been added successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 

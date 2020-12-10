@@ -6,6 +6,15 @@
     var counterparties = this.Model.Counterparties.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
 
+@if (this.TempData.ContainsKey("Message"))
+{
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @this.TempData["Message"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
 
 <form class="mx-auto w-50" method="post">
@@ -110,7 +119,7 @@
     </fieldset>
 </form>
 
-@section Scripts {    
+@section Scripts {
     <script src="~/js/loadAnalyticalAccountsTwoFields.js"></script>
 }
 

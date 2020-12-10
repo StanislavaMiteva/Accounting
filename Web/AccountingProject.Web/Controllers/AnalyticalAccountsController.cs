@@ -42,7 +42,7 @@
             }
 
             await this.analyticalAccountsService.CreateAsync(input);
-
+            this.TempData["Message"] = $"Analytical account \"{input.Name}\" has been added successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 

@@ -50,7 +50,7 @@
             }
 
             await this.mainAccountsService.CreateAsync(input);
-
+            this.TempData["Message"] = $"Account \"{input.Code} - {input.Name}\" has been added successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 
