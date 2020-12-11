@@ -1,7 +1,6 @@
 ﻿@model AccountingProject.Web.ViewModels.AnalyticalAccounts.EditAnalyticalAccountInputModel
 @{
     this.ViewData["Title"] = "Edit an Analytical Account";
-    var mainAccounts = this.Model.MainAccounts.Select(x => new SelectListItem(x.Value, x.Key));
 }
 
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
@@ -10,30 +9,24 @@
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="MainAccountId"></label>
-        <select asp-for="MainAccountId" asp-items="mainAccounts" class="form-control"></select>
-        <span asp-validation-for="MainAccountId" class="text-danger"></span>
+        <label asp-for="MainAccount"></label>
+        <input asp-for="MainAccount" class="form-control" readonly/>        
+        <span asp-validation-for="MainAccount" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DebitBalance" class="control-label"></label>
-        <input asp-for="DebitBalance" class="form-control" />
-        <span asp-validation-for="DebitBalance" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CreditBalance" class="control-label"></label>
-        <input asp-for="CreditBalance" class="form-control" />
-        <span asp-validation-for="CreditBalance" class="text-danger"></span>
-    </div>
+    </div>    
     <hr />
     <input type="hidden" asp-for="Id" />
     <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-block btn-primary text-white mb-3">Save changes</button>
     </div>
 </form>
+
+@section Scripts {
+    <script src="~/js/message_mainAccountCannotChange.js"></script>
+}
 
 

@@ -35,7 +35,7 @@
         public async Task<IActionResult> Create([Bind("Name,MainAccountId")]
         CreateAnalyticalAccountInputModel input)
         {
-            if (!await this.analyticalAccountsService.IsNameAvailableAsync(input.Name))
+            if (!await this.analyticalAccountsService.IsNameAvailableAsync(input.Name, input.MainAccountId))
             {
                 this.ModelState.AddModelError(nameof(input.Name), GlobalConstants.ErrorMessageForExistingName);
             }
@@ -56,22 +56,22 @@
         {
             var viewModel = await this.analyticalAccountsService
                 .GetByIdAsync<EditAnalyticalAccountInputModel>(id);
-            viewModel.MainAccounts = this.mainAccountsService
-                .GetAllAsKeyValuePairs();
-
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Edit(
-        [Bind("Name,DebitBalance,CreditBalance")]
+        [Bind("Name")]
         int id, EditAnalyticalAccountInputModel input)
         {
+            if (!await this.analyticalAccountsService.IsNameAvailableAsync(input.Name, input.MainAccountId))
+            {
+                this.ModelState.AddModelError(nameof(input.Name), GlobalConstants.ErrorMessageForExistingName);
+            }
+
             if (!this.ModelState.IsValid)
             {
-                input.MainAccounts = this.mainAccountsService
-                    .GetAllAsKeyValuePairs();
                 return this.View(input);
             }
 
