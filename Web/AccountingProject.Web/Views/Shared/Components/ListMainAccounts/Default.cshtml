@@ -1,12 +1,11 @@
 ﻿@model AccountingProject.Web.ViewModels.ViewComponents.ListOfMainAccountsViewModel
-<div class="form-group">
-    <label asp-for="MainAccountId"></label>
-       <select class="form-control" asp-for="MainAccountId">
-        <option value=""></option>
-        @foreach (var account in Model.MainAccounts)
-        {
-            <option value="@account.Id">@account.Code @account.Name</option>
-         }
+@{
+    var mainAccounts = this.Model.MainAccounts.Select(x => new SelectListItem(x.Value, x.Key));
+}
+    <div class="form-group">
+        <label asp-for="MainAccountId"></label>
+        <select asp-for="MainAccountId" asp-items="mainAccounts" class="form-control">
+            <option value=""></option>
         </select>
-    <span asp-validation-for="MainAccountId" class="text-danger"></span>
-</div>
+        <span asp-validation-for="MainAccountId" class="text-danger"></span>
+    </div>

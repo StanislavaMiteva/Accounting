@@ -6,8 +6,6 @@
     using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
-    using AccountingProject.Web.ViewModels.GLAccounts;
-    using AccountingProject.Web.ViewModels.ViewComponents;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 

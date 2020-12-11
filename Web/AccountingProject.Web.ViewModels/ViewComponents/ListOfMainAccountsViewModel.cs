@@ -3,20 +3,18 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using AccountingProject.Web.ViewModels.GLAccounts;
-
     public class ListOfMainAccountsViewModel
     {
         public ListOfMainAccountsViewModel()
         {
-            this.MainAccounts = new HashSet<MainAccountPartViewModel>();
+            this.MainAccounts = new HashSet<KeyValuePair<string, string>>();
         }
+
+        public string TypeOfAccount { get; set; }
 
         [Display(Name = "Main Account")]
         public int MainAccountId { get; set; }
 
-        public string TypeOfAccount { get; set; }
-
-        public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> MainAccounts { get; set; }
     }
 }
