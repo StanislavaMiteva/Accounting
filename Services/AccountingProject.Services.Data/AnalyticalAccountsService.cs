@@ -46,6 +46,14 @@
                 .ToList();
         }
 
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            return await this.analyticalAccountsRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
+
         public string GetNameById(int? id)
         {
             var analyticalAccount = this.analyticalAccountsRepository.AllAsNoTracking()
@@ -64,6 +72,18 @@
             return !await this.analyticalAccountsRepository
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Name == name);
+        }
+
+        public async Task UpdateAsync(int id, EditAnalyticalAccountInputModel input)
+        {
+            var analyticalAccount = await this.analyticalAccountsRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            analyticalAccount.Id = input.Id;
+            analyticalAccount.Name = input.Name;
+            analyticalAccount.DebitBalance = input.DebitBalance;
+            analyticalAccount.CreditBalance = input.CreditBalance;
+            await this.analyticalAccountsRepository.SaveChangesAsync();
         }
     }
 }

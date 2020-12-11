@@ -16,5 +16,9 @@
         IEnumerable<T> GetAll<T>();
 
         string GetNameById(int? id);
+
+        Task<T> GetByIdAsync<T>(int id);
+
+        Task UpdateAsync(int id, EditAnalyticalAccountInputModel input);
     }
 }

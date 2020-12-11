@@ -1,19 +1,20 @@
-﻿namespace AccountingProject.Web.ViewModels.GLAccounts
+﻿namespace AccountingProject.Web.ViewModels.AnalyticalAccounts
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using AccountingProject.Common;
-    using AccountingProject.Web.ViewModels.ViewComponents;
+    using AccountingProject.Data.Models;
+    using AccountingProject.Services.Mapping;
 
-    public class AddAccountBalanceInputModel : IValidatableObject
+    public class EditAnalyticalAccountInputModel :
+        BaseAnalyticalAccountInputModel,
+        IMapFrom<AnalyticalAccount>,
+        IValidatableObject,
+        IHaveCustomMappings
     {
-        public int MainAccountId { get; set; }
-
-        [Display(Name = "Analytical Account")]
-        public int? AnalyticalAccountId { get; set; }
-
-        public string AnalyticalAccountName { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Debit Balance")]
         [Range(typeof(decimal), GlobalConstants.MinAccountBalance, GlobalConstants.MaxDecimalValue)]
@@ -23,7 +24,14 @@
         [Range(typeof(decimal), GlobalConstants.MinAccountBalance, GlobalConstants.MaxDecimalValue)]
         public decimal CreditBalance { get; set; }
 
-        public ListOfMainAccountsViewModel ListOfMainAccounts { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> MainAccounts { get; set; }
+
+        public void CreateMappings(AutoMapper.IProfileExpression configuration)
+        {
+            configuration.CreateMap<AnalyticalAccount, EditAnalyticalAccountInputModel>()
+                .ForMember(x => x.MainAccountId, opt =>
+                    opt.MapFrom(x => x.GLAccountId));
+        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

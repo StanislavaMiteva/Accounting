@@ -6,16 +6,20 @@
     using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
+    using AccountingProject.Web.ViewModels.GLAccounts;
+    using AccountingProject.Web.ViewModels.ViewComponents;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class AnalyticalAccountsController : Controller
     {
         private readonly IAnalyticalAccountsService analyticalAccountsService;
+        private readonly IMainAccountsService mainAccountsService;
 
-        public AnalyticalAccountsController(IAnalyticalAccountsService analyticalAccountsService)
+        public AnalyticalAccountsController(IAnalyticalAccountsService analyticalAccountsService, IMainAccountsService mainAccountsService)
         {
             this.analyticalAccountsService = analyticalAccountsService;
+            this.mainAccountsService = mainAccountsService;
         }
 
         // AnalyticalAccounts/Create
@@ -43,6 +47,36 @@
 
             await this.analyticalAccountsService.CreateAsync(input);
             this.TempData["Message"] = $"Analytical account \"{input.Name}\" has been added successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        // AnalyticalAccounts/Edit
+        [Authorize]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var viewModel = await this.analyticalAccountsService
+                .GetByIdAsync<EditAnalyticalAccountInputModel>(id);
+            viewModel.MainAccounts = this.mainAccountsService
+                .GetAllAsKeyValuePairs();
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(
+        [Bind("Name,DebitBalance,CreditBalance")]
+        int id, EditAnalyticalAccountInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                input.MainAccounts = this.mainAccountsService
+                    .GetAllAsKeyValuePairs();
+                return this.View(input);
+            }
+
+            await this.analyticalAccountsService.UpdateAsync(id, input);
+            this.TempData["Message"] = $"Analytical account \"{input.Name}\" has been edited successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 

@@ -35,7 +35,7 @@
     <td>@account.DebitBalance</td>
     <td>@account.CreditBalance</td>
     <td>
-        <a class="btn btn-block btn-danger text-white mb-3" href="/AnalyticalAccounts/Update?id=@account.Id">Edit</a>
+        <a class="btn btn-block btn-warning text-white mb-3" asp-controller="AnalyticalAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>
     </td>
 </tr>}
     </tbody>

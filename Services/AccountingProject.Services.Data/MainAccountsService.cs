@@ -103,6 +103,20 @@
                 .ToList();
         }
 
+        public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()
+        {
+            return this.mainAccountsRepository.AllAsNoTracking()
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Code,
+                    x.Name,
+                })
+                .OrderBy(x => x.Code)
+                .ToList()
+                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), $"{x.Code} {x.Name}"));
+        }
+
         public IEnumerable<T> GetInventoryAccounts<T>()
         {
             return this.mainAccountsRepository.AllAsNoTracking()

@@ -21,5 +21,7 @@
         Task InputBalanceAsync(AddAccountBalanceInputModel input);
 
         IEnumerable<TrialBalanceAccountViewModel> AllWithTurnoverForPeriod(DateTime startDate, DateTime endDate);
+
+        IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
     }
 }
