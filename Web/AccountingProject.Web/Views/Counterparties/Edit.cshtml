@@ -1,0 +1,38 @@
+﻿@model AccountingProject.Web.ViewModels.Counterparties.EditCounterpartyInputModel
+@{
+    this.ViewData["Title"] = "Edit a Counterparty";
+}
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+
+<form class="mx-auto w-50" method="post" id="editForm">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="VAT"></label>
+        <input asp-for="VAT" class="form-control" />
+        <span asp-validation-for="VAT" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CityName"></label>
+        <input asp-for="CityName" class="form-control" />
+        <span asp-validation-for="CityName" class="text-danger"></span>
+    </div>
+    <hr />
+    <input type="hidden" asp-for="Id" />
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-block btn-primary text-white mb-3">Save changes</button>
+    </div>
+</form>
+
+

@@ -51,11 +51,40 @@
                 .ToList();
         }
 
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            return await this.counterpartiesRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> IsNameAvailableAsync(string name)
         {
             return !await this.counterpartiesRepository
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Name == name);
+        }
+
+        public async Task UpdateAsync(int id, EditCounterpartyInputModel input)
+        {
+            var counterparty = await this.counterpartiesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            counterparty.Id = input.Id;
+            counterparty.Name = input.Name;
+            counterparty.VAT = input.VAT;
+            counterparty.Address = input.Address;
+            var city = this.citiesRepository
+                .All()
+                .FirstOrDefault(x => x.Name == input.CityName);
+            if (city == null)
+            {
+                city = new City { Name = input.CityName };
+            }
+
+            counterparty.City = city;
+            await this.counterpartiesRepository.SaveChangesAsync();
         }
     }
 }

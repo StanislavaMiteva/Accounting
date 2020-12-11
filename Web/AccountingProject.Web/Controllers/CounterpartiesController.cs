@@ -44,6 +44,31 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        // Counterparties/Edit
+        [Authorize]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var viewModel = await this.counterpartiesService
+                .GetByIdAsync<EditCounterpartyInputModel>(id);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(
+        [Bind("Name, VAT, Address, CityName")]
+        int id, EditCounterpartyInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.counterpartiesService.UpdateAsync(id, input);
+            this.TempData["Message"] = $"Counterparty \"{input.Name}\" has been edited successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         // Counterparties/All
         [Authorize]
         public IActionResult All()

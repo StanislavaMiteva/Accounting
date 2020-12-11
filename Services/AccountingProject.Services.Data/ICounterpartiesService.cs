@@ -12,5 +12,9 @@
         IEnumerable<T> GetAll<T>();
 
         Task<bool> IsNameAvailableAsync(string name);
+
+        Task<T> GetByIdAsync<T>(int id);
+
+        Task UpdateAsync(int id, EditCounterpartyInputModel input);
     }
 }
