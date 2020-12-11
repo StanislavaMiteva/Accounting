@@ -49,6 +49,31 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        // Inventories/Edit
+        [Authorize]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var viewModel = await this.inventoriesService
+                .GetByIdAsync<EditInventoryInputModel>(id);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(
+        [Bind("Name, Measure, Quantity, Price, MainAccountId")]
+        int id, EditInventoryInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.inventoriesService.UpdateAsync(id, input);
+            this.TempData["Message"] = $"Inventory \"{input.Name}\" has been edited successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         // Inventories/All
         [Authorize]
         public IActionResult All()

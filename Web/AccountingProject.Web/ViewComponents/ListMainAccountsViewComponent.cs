@@ -17,12 +17,13 @@
             this.mainAccountsService = mainAccountsService;
         }
 
-        public IViewComponentResult Invoke(string typeOfAccount)
+        public IViewComponentResult Invoke(string typeOfAccount, int mainAccountId)
         {
             if (typeOfAccount == "all")
             {
                 var viewModel = new ListOfMainAccountsViewModel
                 {
+                    MainAccountId = mainAccountId,
                     MainAccounts = this.mainAccountsService
                             .GetAllAsKeyValuePairs(),
                 };
@@ -32,6 +33,7 @@
             {
                 var viewModel = new ListOfMainAccountsViewModel
                 {
+                    MainAccountId = mainAccountId,
                     MainAccounts = this.mainAccountsService
                             .GetInventoryAccounts<MainAccountPartViewModel>()
                             .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), $"{x.Code} {x.Name}")),

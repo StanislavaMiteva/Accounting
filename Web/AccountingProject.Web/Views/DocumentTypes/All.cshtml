@@ -23,12 +23,13 @@
             <tbody>
                 @foreach (var documentType in this.Model.DocumentTypes)
                 {
-    <tr class="table-light">
-        <td>@documentType.Name</td>
-        <td>
-            <a class="btn btn-block btn-warning text-white mb-3" asp-controller="DocumentTypes" asp-action="Edit" asp-route-id="@documentType.Id">Edit</a>            
-        </td>
-    </tr>}
+                <tr class="table-light">
+                    <td>@documentType.Name</td>
+                    <td>
+                        <a class="btn btn-block btn-warning text-white mb-3" asp-controller="DocumentTypes" asp-action="Edit" asp-route-id="@documentType.Id">Edit</a>            
+                    </td>
+                </tr>
+                }
             </tbody>
         </table>
     </div>

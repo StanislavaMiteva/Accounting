@@ -8,7 +8,7 @@
 <form class="mx-auto w-50" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <vc:list-main-accounts type-of-account="all"></vc:list-main-accounts>
+    <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="all"></vc:list-main-accounts>
     
     <div class="form-group">
         <label asp-for="Name"></label>

@@ -3,16 +3,16 @@
     this.ViewData["Title"] = "Choose an account";
 }
 
-<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+<h2 class="mx-auto w-50">@this.ViewData["Title"]</h2>
 
 <form class="mx-auto w-50" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <cache expires-sliding="TimeSpan.FromSeconds(30)">
-        <vc:list-main-accounts type-of-account="inventory"></vc:list-main-accounts>
+        <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="inventory"></vc:list-main-accounts>
     </cache>
 
     <div class="d-flex justify-content-center">        
-        <button type="submit" class="btn btn-block btn-primary text-white mb-3">Send</button>
+        <button type="submit" class="btn btn-block btn-primary text-white mb-3">List Inventories</button>
     </div>
 </form>

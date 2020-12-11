@@ -30,7 +30,7 @@
         </div>
 
         <cache expires-sliding="TimeSpan.FromSeconds(30)">
-            <vc:list-main-accounts type-of-account="inventory"></vc:list-main-accounts>
+            <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="inventory"></vc:list-main-accounts>
         </cache>            
 
             <div class="d-flex justify-content-center">
@@ -38,8 +38,4 @@
             </div>
     </fieldset>
 </form>
-
-@section Scripts {
-    <script src="~/js/loadAnalyticalAccounts.js"></script>
-}
 

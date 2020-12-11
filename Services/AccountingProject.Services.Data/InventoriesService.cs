@@ -50,11 +50,32 @@
                 .ToList();
         }
 
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            return await this.inventoriesRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> IsNameAvailableAsync(string name)
         {
             return !await this.inventoriesRepository
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Name == name);
+        }
+
+        public async Task UpdateAsync(int id, EditInventoryInputModel input)
+        {
+            var inventory = await this.inventoriesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            inventory.Name = input.Name;
+            inventory.Measure = input.Measure;
+            inventory.Quantity = input.Quantity;
+            inventory.Price = input.Price;
+            inventory.GLAccountId = input.MainAccountId;
+            await this.inventoriesRepository.SaveChangesAsync();
         }
     }
 }
