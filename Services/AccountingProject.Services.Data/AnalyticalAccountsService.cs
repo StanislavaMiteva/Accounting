@@ -79,7 +79,6 @@
             var analyticalAccount = await this.analyticalAccountsRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == id);
-            analyticalAccount.Id = input.Id;
             analyticalAccount.Name = input.Name;
             await this.analyticalAccountsRepository.SaveChangesAsync();
         }

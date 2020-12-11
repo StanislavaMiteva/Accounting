@@ -71,7 +71,6 @@
             var counterparty = await this.counterpartiesRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == id);
-            counterparty.Id = input.Id;
             counterparty.Name = input.Name;
             counterparty.VAT = input.VAT;
             counterparty.Address = input.Address;

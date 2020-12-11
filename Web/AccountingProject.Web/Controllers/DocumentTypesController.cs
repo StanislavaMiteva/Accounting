@@ -44,6 +44,31 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        // DocumentTypes/Edit
+        [Authorize]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var viewModel = await this.documentTypesService
+                .GetByIdAsync<EditDocumentTypeInputModel>(id);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(
+        [Bind("Name")]
+        int id, EditDocumentTypeInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.documentTypesService.UpdateAsync(id, input);
+            this.TempData["Message"] = $"Document type \"{input.Name}\" has been edited successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         // DocumentTypes/All
         [Authorize]
         public IActionResult All()

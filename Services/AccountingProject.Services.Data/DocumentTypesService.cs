@@ -37,11 +37,28 @@
                 .ToList();
         }
 
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            return await this.documentTypeRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> IsNameAvailableAsync(string name)
         {
             return !await this.documentTypeRepository
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Name == name);
+        }
+
+        public async Task UpdateAsync(int id, EditDocumentTypeInputModel input)
+        {
+            var documentType = await this.documentTypeRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            documentType.Name = input.Name;
+            await this.documentTypeRepository.SaveChangesAsync();
         }
     }
 }
