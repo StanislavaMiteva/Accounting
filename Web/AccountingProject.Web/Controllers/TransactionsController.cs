@@ -152,12 +152,12 @@
             return this.View(nameof(this.AllByDocumentDate), viewModel);
         }
 
-        private IEnumerable<MainAccountPartViewModel> GetMainAccountsFromInCashMemory()
+        private IEnumerable<KeyValuePair<string, string>> GetMainAccountsFromInCashMemory()
         {
-            if (!this.memoryCache.TryGetValue<IEnumerable<MainAccountPartViewModel>>("accounts", out var mainAccounts))
+            if (!this.memoryCache.TryGetValue<IEnumerable<KeyValuePair<string, string>>>("accounts", out var mainAccounts))
             {
-                mainAccounts = this.mainAccountsService
-                                    .GetAll<MainAccountPartViewModel>();
+                mainAccounts = this.mainAccountsService.GetAllAsKeyValuePairs();
+
                 var cashEntryOptions = new MemoryCacheEntryOptions
                 {
                     SlidingExpiration = new TimeSpan(0, 0, 20),

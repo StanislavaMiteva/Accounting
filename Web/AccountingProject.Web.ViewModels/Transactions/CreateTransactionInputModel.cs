@@ -9,7 +9,6 @@
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
     using AccountingProject.Web.ViewModels.Counterparties;
     using AccountingProject.Web.ViewModels.DocumentTypes;
-    using AccountingProject.Web.ViewModels.GLAccounts;
 
     public class CreateTransactionInputModel : IValidatableObject
     {
@@ -65,7 +64,7 @@
 
         public IEnumerable<DocumentTypePartViewModel> Documents { get; set; }
 
-        public IEnumerable<MainAccountPartViewModel> MainAccounts { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> MainAccounts { get; set; }
 
         public IEnumerable<AnalyticalAccountPartViewModel> AnalyticalAccounts { get; set; }
 
