@@ -54,6 +54,29 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        // MainAccounts/Edit
+        [Authorize]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var viewModel = await this.mainAccountsService
+                .GetByIdAsync<EditMainAccountInputModel>(id);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, EditMainAccountInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.mainAccountsService.UpdateAsync(id, input);
+            this.TempData["Message"] = $"Account \"{input.Code} {input.Name}\" has been edited successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         // MainAccounts/All
         [Authorize]
         public IActionResult All()

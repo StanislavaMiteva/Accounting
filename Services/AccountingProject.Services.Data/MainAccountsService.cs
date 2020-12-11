@@ -117,6 +117,14 @@
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), $"{x.Code} {x.Name}"));
         }
 
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            return await this.mainAccountsRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
+
         public IEnumerable<T> GetInventoryAccounts<T>()
         {
             return this.mainAccountsRepository.AllAsNoTracking()
@@ -163,6 +171,18 @@
             return !await this.mainAccountsRepository
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Name == name);
+        }
+
+        public async Task UpdateAsync(int id, EditMainAccountInputModel input)
+        {
+            var mainAccount = await this.mainAccountsRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            mainAccount.Name = input.Name;
+            mainAccount.Code = input.Code;
+            mainAccount.IsInventory = input.IsInventory;
+            mainAccount.IsFixedAsset = input.IsFixedAsset;
+            await this.mainAccountsRepository.SaveChangesAsync();
         }
     }
 }

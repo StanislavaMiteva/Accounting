@@ -23,5 +23,9 @@
         IEnumerable<TrialBalanceAccountViewModel> AllWithTurnoverForPeriod(DateTime startDate, DateTime endDate);
 
         IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
+
+        Task<T> GetByIdAsync<T>(int id);
+
+        Task UpdateAsync(int id, EditMainAccountInputModel input);
     }
 }

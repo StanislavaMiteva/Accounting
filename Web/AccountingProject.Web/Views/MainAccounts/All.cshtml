@@ -35,7 +35,7 @@
     <td>@account.IsInventory</td>
     <td>@account.IsFixedAsset</td>
     <td>
-        <a class="btn btn-block btn-danger text-white mb-3" href="/MainAccounts/Update?id=@account.Id">Edit</a>
+        <a class="btn btn-block btn-warning text-white mb-3" asp-controller="MainAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>        
     </td>
 </tr>
 }
