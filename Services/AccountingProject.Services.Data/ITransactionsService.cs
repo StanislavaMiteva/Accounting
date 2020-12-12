@@ -15,5 +15,9 @@
         Task DeleteAsync(string id);
 
         IEnumerable<T> GetAllTransactionsByMonth<T>(InputYearMonthModel input);
+
+        Task<T> GetByIdAsync<T>(string id);
+
+        Task UpdateAsync(string id, EditTransactionInputModel input);
     }
 }

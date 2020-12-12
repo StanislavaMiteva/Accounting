@@ -9,7 +9,6 @@
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.Counterparties;
     using AccountingProject.Web.ViewModels.DocumentTypes;
-    using AccountingProject.Web.ViewModels.GLAccounts;
     using AccountingProject.Web.ViewModels.Shared;
     using AccountingProject.Web.ViewModels.Transactions;
     using Microsoft.AspNetCore.Authorization;
@@ -97,6 +96,42 @@
             await this.transactionsService.CreateAsync(input);
             this.TempData["Message"] = $"Transaction has been added successfully.";
             return this.RedirectToAction(nameof(this.Create));
+        }
+
+        // Transactions/Edit
+        [Authorize]
+        public async Task<IActionResult> EditAsync(string id)
+        {
+            var viewModel = await this.transactionsService
+                .GetByIdAsync<EditTransactionInputModel>(id);
+            var mainAccounts = this.GetMainAccountsFromInCashMemory();
+            viewModel.MainAccounts = mainAccounts;
+            viewModel.Counterparties = this.counterpartiesService
+                                .GetAll<CounterpartyPartViewModel>()
+                                .OrderBy(x => x.Name);
+            viewModel.Documents = this.documentTypesService
+                                 .GetAll<DocumentTypePartViewModel>()
+                                 .OrderBy(x => x.Name);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(
+        [Bind("DocumentDate,DocumentTypeId,DebitMainAccountId," +
+            "DebitAnalyticalAccountId,CreditMainAccountId," +
+            "CreditAnalyticalAccountId,CounterpartyId,IsPurchase,IsSale," +
+            "Description,Folder,ConsecutiveNumber,Amount")]
+        string id, EditTransactionInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.transactionsService.UpdateAsync(id, input);
+            this.TempData["Message"] = $"Transaction with document date \"{input.DocumentDate.ToShortDateString()}\" has been edited successfully.";
+            return this.RedirectToAction(nameof(this.AllByDocumentDate));
         }
 
         // Transactions/AllByDocumentDate

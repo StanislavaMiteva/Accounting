@@ -1,53 +1,62 @@
 ﻿@model AccountingProject.Web.ViewModels.Transactions.TransactionsListViewModel
 @{ this.ViewData["Title"] = "All Transactions:"; }
 
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @this.TempData["Message"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
 
-    <table class="table table-hover table-striped table-sm table-responsive">
-        <thead>
-            <tr>
-                <th scope="col">Document Date</th>
-                <th scope="col">Created On</th>
-                <th scope="col">Document Type</th>
-                <th scope="col">Debit Main Account</th>
-                <th scope="col">Debit Analytical Account</th>
-                <th scope="col">Credit Main Account</th>
-                <th scope="col">Credit Analytical Account</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Description</th>
-                <th scope="col">Counterparty</th>
-                <th scope="col">Folder</th>
-                <th scope="col">Consecutive Number</th>
-                <th scope="col">Creator</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var transaction in this.Model.Transactions)
-            {
-        <tr class="table-light">
-            <th scope="row">@transaction.DocumentDateAsString</th>
-            <td>@transaction.CreatedOnAsString</td>
-            <td>@transaction.DocumentTypeName</td>
-            <td>@transaction.DebitGLAccountCode-@transaction.DebitGLAccountName</td>
-            <td>@transaction.DebitAnalyticalAccountName</td>
-            <td>@transaction.CreditGLAccountCode @transaction.CreditGLAccountName</td>
-            <td>@transaction.CreditAnalyticalAccountName</td>
-            <td>@transaction.Amount</td>
-            <td>@transaction.Description</td>
-            <td>@transaction.CounterpartyName</td>
-            <td>@transaction.Folder</td>
-            <td>@transaction.ConsecutiveNumber</td>
-            <td>@transaction.CreatorUserName</td>
-            <td>
-                <a class="btn btn-block btn-danger text-white mb-3" href="/Transactions/Update?id=@transaction.Id">Edit</a>
-            </td>
-            <td>
-                <a class="btn btn-block btn-danger text-white mb-3" href="/Transactions/Delete?id=@transaction.Id">Delete</a>
-            </td>
+<table class="table table-hover table-striped table-sm table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Document Date</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Document Type</th>
+            <th scope="col">Debit Main Account</th>
+            <th scope="col">Debit Analytical Account</th>
+            <th scope="col">Credit Main Account</th>
+            <th scope="col">Credit Analytical Account</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Counterparty</th>
+            <th scope="col">Folder</th>
+            <th scope="col">Consecutive Number</th>
+            <th scope="col">Creator</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
         </tr>
-        }
+    </thead>
+    <tbody>
+        @foreach (var transaction in this.Model.Transactions)
+        {
+<tr class="table-light">
+    <th scope="row">@transaction.DocumentDateAsString</th>
+    <td>@transaction.CreatedOnAsString</td>
+    <td>@transaction.DocumentTypeName</td>
+    <td>@transaction.DebitGLAccountCode-@transaction.DebitGLAccountName</td>
+    <td>@transaction.DebitAnalyticalAccountName</td>
+    <td>@transaction.CreditGLAccountCode @transaction.CreditGLAccountName</td>
+    <td>@transaction.CreditAnalyticalAccountName</td>
+    <td>@transaction.Amount</td>
+    <td>@transaction.Description</td>
+    <td>@transaction.CounterpartyName</td>
+    <td>@transaction.Folder</td>
+    <td>@transaction.ConsecutiveNumber</td>
+    <td>@transaction.CreatorUserName</td>
+    <td>
+        <a class="btn btn-block btn-warning text-white mb-3" asp-controller="Transactions" asp-action="Edit" asp-route-id="@transaction.Id">Edit</a>
+    </td>
+    <td>
+        <a class="btn btn-block btn-danger text-white mb-3" asp-controller="Transactions" asp-action="Delete" asp-route-id="@transaction.Id">Delete</a>
+    </td>
+</tr>}
         <tr class="table-light">
             <th scope="row">Total</th>
             <th scope="row">Amount</th>
@@ -55,9 +64,9 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>            
+            <td></td>
             <th scope="row">@Model.TotalAmount</th>
         </tr>
-        </tbody>
-    </table>
+    </tbody>
+</table>
 

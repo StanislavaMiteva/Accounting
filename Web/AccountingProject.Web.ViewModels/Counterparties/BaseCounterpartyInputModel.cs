@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class BaseCounterpartyInputModel
+    public abstract class BaseCounterpartyInputModel
     {
         [Required]
         [MinLength(2, ErrorMessage = "The field Name must be between 2 and 100 characters long.")]
