@@ -10,55 +10,59 @@
     </button>
 </div>}
 
-<h2 class="mx-auto w-50">@this.ViewData["Title"]</h2>
+<h2 class="mx-auto w-50 text-center">@this.ViewData["Title"]</h2>
 
-<table class="table table-hover table-sm">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">VAT</th>
-            <th scope="col">Address</th>
-            <th scope="col">City</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var counterparty in this.Model.Counterparties)
-        {
-<tr class="table-light">
-    <th scope="row">@counterparty.Name</th>
-    <td>@counterparty.VAT</td>
-    <td>@counterparty.Address</td>
-    <td>@counterparty.CityName</td>
-    <td>
-        <a class="btn btn-block btn-outline-warning" asp-controller="Counterparties" asp-action="Edit" asp-route-id="@counterparty.Id">Edit</a>        
-    </td>
-    <td>
-        <form method="post" id="deleteForm_@counterparty.Id" asp-controller="Counterparties" asp-action="Delete" asp-route-id="@counterparty.Id">            
-        </form>
-        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@counterparty.Id">Delete</button>
-        <div class="modal" id="deleteModal_@counterparty.Id">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete counterparty</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Do you really want to delete counterparty "@counterparty.Name"?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" onclick="(deleteForm_@counterparty.Id).submit()">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">VAT</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var counterparty in this.Model.Counterparties)
+                {
+    <tr class="table-light">
+        <th scope="row">@counterparty.Name</th>
+        <td>@counterparty.VAT</td>
+        <td>@counterparty.Address</td>
+        <td>@counterparty.CityName</td>
+        <td>
+            <a class="btn btn-block btn-outline-warning" asp-controller="Counterparties" asp-action="Edit" asp-route-id="@counterparty.Id">Edit</a>
+        </td>
+        <td>
+            <form method="post" id="deleteForm_@counterparty.Id" asp-controller="Counterparties" asp-action="Delete" asp-route-id="@counterparty.Id">
+            </form>
+            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@counterparty.Id">Delete</button>
+            <div class="modal" id="deleteModal_@counterparty.Id">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete counterparty</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you really want to delete counterparty "@counterparty.Name"?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="(deleteForm_@counterparty.Id).submit()">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </td>
-</tr>}
-    </tbody>
-</table>
-
+        </td>
+    </tr>
+}
+            </tbody>
+        </table>
+    </div>
+</div>

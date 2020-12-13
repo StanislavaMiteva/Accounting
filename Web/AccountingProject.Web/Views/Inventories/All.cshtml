@@ -31,9 +31,9 @@
         <tr class="table-light">
             <th scope="row">@inventory.Name</th>
             <td>@inventory.Measure</td>
-            <td>@inventory.Quantity</td>
-            <td>@inventory.Price</td>
-            <td>@inventory.Amount</td>
+            <td class="text-right">@inventory.Quantity</td>
+            <td class="text-right">@inventory.Price</td>
+            <td class="text-right">@inventory.Amount</td>
             <td>@inventory.GLAccountCode @inventory.GLAccountName</td>
             <td>
                 <a class="btn btn-block btn-outline-warning" asp-controller="Inventories" asp-action="Edit" asp-route-id="@inventory.Id">Edit</a>
@@ -72,7 +72,7 @@
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
-            <th scope="col">@Model.TotalAmount</th>
+            <th scope="col" class="text-right">@Model.TotalAmount</th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>

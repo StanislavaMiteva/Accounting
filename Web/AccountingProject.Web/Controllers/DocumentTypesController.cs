@@ -69,6 +69,18 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        // DocumentTypes/Delete
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var documentToDelete = await this.documentTypesService
+                .GetByIdAsync<DocumentTypePartViewModel>(id);
+            await this.documentTypesService.DeleteAsync(id);
+            this.TempData["Message"] = $"Document type \"{documentToDelete.Name}\" has been deleted successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         // DocumentTypes/All
         [Authorize]
         public IActionResult All()
