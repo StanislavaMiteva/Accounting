@@ -77,6 +77,18 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        // MainAccounts/Delete
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var accountToDelete = await this.mainAccountsService
+                .GetByIdAsync<MainAccountPartViewModel>(id);
+            await this.mainAccountsService.DeleteAsync(id);
+            this.TempData["Message"] = $"Account \"{accountToDelete.Code} {accountToDelete.Name}\" has been deleted successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         // MainAccounts/All
         [Authorize]
         public IActionResult All()

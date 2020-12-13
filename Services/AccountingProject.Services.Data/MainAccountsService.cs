@@ -95,6 +95,15 @@
             await this.mainAccountsRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var account = await this.mainAccountsRepository
+                        .All()
+                        .FirstOrDefaultAsync(x => x.Id == id);
+            this.mainAccountsRepository.Delete(account);
+            await this.mainAccountsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.mainAccountsRepository.AllAsNoTracking()

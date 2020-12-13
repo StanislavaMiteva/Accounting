@@ -22,6 +22,7 @@
             <th scope="col">It's an inventory account</th>
             <th scope="col">It's a fixed asset account</th>
             <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -35,16 +36,47 @@
     <td>@account.IsInventory</td>
     <td>@account.IsFixedAsset</td>
     <td>
-        <a class="btn btn-block btn-warning text-white mb-3" asp-controller="MainAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>        
+        <a class="btn btn-block btn-outline-warning" asp-controller="MainAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>
+    </td>
+    <td>
+        <form method="post" id="deleteForm_@account.Id" asp-controller="MainAccounts" asp-action="Delete" asp-route-id="@account.Id">
+        </form>
+        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@account.Id">Delete</button>
+
+        <div class="modal" id="deleteModal_@account.Id">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete main account</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you really want to delete account "@account.Code @account.Name"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="(deleteForm_@account.Id).submit()">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </td>
 </tr>
-}
-        <tr class="table-light">
-            <td></td>
+        }
+    </tbody>
+    <thead>
+        <tr>
             <th scope="row">Total</th>
+            <th scope="row">amount</th>
             <th scope="row">@Model.DebitBalanceTotal</th>
             <th scope="row">@Model.CreditBalanceTotal</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
-    </tbody>
+    </thead>
 </table>
 
