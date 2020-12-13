@@ -20,5 +20,7 @@
         Task<T> GetByIdAsync<T>(int id);
 
         Task UpdateAsync(int id, EditAnalyticalAccountInputModel input);
+
+        Task DeleteAsync(int id);
     }
 }

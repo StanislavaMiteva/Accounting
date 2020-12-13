@@ -31,6 +31,15 @@
             await this.analyticalAccountsRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var account = await this.analyticalAccountsRepository
+                        .All()
+                        .FirstOrDefaultAsync(x => x.Id == id);
+            this.analyticalAccountsRepository.Delete(account);
+            await this.analyticalAccountsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.analyticalAccountsRepository.AllAsNoTracking()
