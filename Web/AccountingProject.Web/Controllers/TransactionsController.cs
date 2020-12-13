@@ -117,7 +117,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(
+        public async Task<IActionResult> EditAsync(
         [Bind("DocumentDate,DocumentTypeId,DebitMainAccountId," +
             "DebitAnalyticalAccountId,CreditMainAccountId," +
             "CreditAnalyticalAccountId,CounterpartyId,IsPurchase,IsSale," +
@@ -158,7 +158,7 @@
         // Transactions/Delete
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
             await this.transactionsService.DeleteAsync(id);
             this.TempData["Message"] = $"Transaction has been deleted successfully.";

@@ -55,7 +55,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(
+        public async Task<IActionResult> EditAsync(
         [Bind("Name, VAT, Address, CityName")]
         int id, EditCounterpartyInputModel input)
         {
@@ -66,6 +66,16 @@
 
             await this.counterpartiesService.UpdateAsync(id, input);
             this.TempData["Message"] = $"Counterparty \"{input.Name}\" has been edited successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        // Counterparties/Delete
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await this.counterpartiesService.DeleteAsync(id);
+            this.TempData["Message"] = $"Counterparty has been deleted successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 

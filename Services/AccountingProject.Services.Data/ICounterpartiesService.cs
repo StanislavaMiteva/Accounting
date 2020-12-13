@@ -16,5 +16,7 @@
         Task<T> GetByIdAsync<T>(int id);
 
         Task UpdateAsync(int id, EditCounterpartyInputModel input);
+
+        Task DeleteAsync(int id);
     }
 }

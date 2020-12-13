@@ -44,6 +44,15 @@
             await this.counterpartiesRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var counterparty = await this.counterpartiesRepository
+                        .All()
+                        .FirstOrDefaultAsync(x => x.Id == id);
+            this.counterpartiesRepository.Delete(counterparty);
+            await this.counterpartiesRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.counterpartiesRepository.AllAsNoTracking()
