@@ -60,7 +60,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(
+        public async Task<IActionResult> EditAsync(
         [Bind("Name, Measure, Quantity, Price, MainAccountId")]
         int id, EditInventoryInputModel input)
         {
@@ -71,6 +71,18 @@
 
             await this.inventoriesService.UpdateAsync(id, input);
             this.TempData["Message"] = $"Inventory \"{input.Name}\" has been edited successfully.";
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        // Inventories/Delete
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var inventoryToDelete = await this.inventoriesService
+                .GetByIdAsync<InventoryViewModel>(id);
+            await this.inventoriesService.DeleteAsync(id);
+            this.TempData["Message"] = $"Inventory \"{inventoryToDelete.Name}\" has been deleted successfully.";
             return this.RedirectToAction(nameof(this.All));
         }
 

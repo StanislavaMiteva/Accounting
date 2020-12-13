@@ -33,6 +33,15 @@
             await this.inventoriesRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var inventory = await this.inventoriesRepository
+                        .All()
+                        .FirstOrDefaultAsync(x => x.Id == id);
+            this.inventoriesRepository.Delete(inventory);
+            await this.inventoriesRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.inventoriesRepository.AllAsNoTracking()

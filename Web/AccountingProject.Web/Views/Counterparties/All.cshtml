@@ -32,7 +32,7 @@
     <td>@counterparty.Address</td>
     <td>@counterparty.CityName</td>
     <td>
-        <a class="btn btn-block btn-outline-warning mb-3" asp-controller="Counterparties" asp-action="Edit" asp-route-id="@counterparty.Id">Edit</a>        
+        <a class="btn btn-block btn-outline-warning" asp-controller="Counterparties" asp-action="Edit" asp-route-id="@counterparty.Id">Edit</a>        
     </td>
     <td>
         <form id="deleteForm" asp-controller="Counterparties" asp-action="Delete"  asp-route-id="@counterparty.Id">

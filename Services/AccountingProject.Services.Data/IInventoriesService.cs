@@ -18,5 +18,7 @@
         Task<T> GetByIdAsync<T>(int id);
 
         Task UpdateAsync(int id, EditInventoryInputModel input);
+
+        Task DeleteAsync(int id);
     }
 }
