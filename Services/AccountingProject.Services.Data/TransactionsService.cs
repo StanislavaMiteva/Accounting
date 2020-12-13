@@ -48,7 +48,8 @@
         public async Task DeleteAsync(string id)
         {
             var transaction = await this.transactionsRepository
-                        .GetByIdWithDeletedAsync(id);
+                        .All()
+                        .FirstOrDefaultAsync(x => x.Id == id);
             this.transactionsRepository.Delete(transaction);
             await this.transactionsRepository.SaveChangesAsync();
         }

@@ -1,0 +1,103 @@
+﻿@model AccountingProject.Web.ViewModels.Transactions.TransactionViewModel
+@{ this.ViewData["Title"] = "Transaction:"; }
+
+@if (this.TempData.ContainsKey("Message"))
+{
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @this.TempData["Message"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+
+<h3 class="mx-auto w-50">
+    @this.ViewData["Title"]
+    <a class="btn btn-outline-warning" asp-controller="Transactions" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+</h3>
+
+<form id="deleteForm" asp-controller="Transactions" asp-action="Delete" asp-route-id="@Model.Id">
+</form>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">Document Date</th>
+            <td>@Model.DocumentDateAsString</td>
+        </tr>
+        <tr>
+            <th scope="row">Created On</th>
+            <td>@Model.CreatedOnAsString</td>
+        </tr>
+        <tr>
+            <th scope="row">Document Type</th>
+            <td>@Model.DocumentTypeName</td>
+        </tr>
+        <tr>
+            <th scope="row">Debit Main Account</th>
+            <td>@Model.DebitGLAccountCode @Model.DebitGLAccountName</td>
+        </tr>
+        @if (Model.DebitAnalyticalAccountName != null)
+        {
+<tr>
+    <th scope="row">Debit Analytical Account</th>
+    <td>@Model.DebitAnalyticalAccountName</td>
+</tr>
+}
+        <tr>
+            <th scope="row">Credit Main Account</th>
+            <td>@Model.CreditGLAccountCode @Model.CreditGLAccountName</td>
+        </tr>
+        @if (Model.CreditAnalyticalAccountName != null)
+        {
+<tr>
+    <th scope="row">Credit Analytical Account</th>
+    <td>@Model.CreditAnalyticalAccountName</td>
+</tr>
+}
+        <tr>
+            <th scope="row">Amount</th>
+            <td>@Model.Amount</td>
+        </tr>
+        <tr>
+            <th scope="row">Description</th>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <th scope="row">Counterparty Name</th>
+            <td>@Model.CounterpartyName</td>
+        </tr>
+        <tr>
+            <th scope="row">Folder</th>
+            <td>@Model.Folder</td>
+        </tr>
+        <tr>
+            <th scope="row">Consecutive Number</th>
+            <td>@Model.ConsecutiveNumber</td>
+        </tr>
+        <tr>
+            <th scope="row">Creator</th>
+            <td>@Model.CreatorUserName</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this transaction?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="deleteForm.submit()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>

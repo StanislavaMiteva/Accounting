@@ -130,8 +130,8 @@
             }
 
             await this.transactionsService.UpdateAsync(id, input);
-            this.TempData["Message"] = $"Transaction with document date \"{input.DocumentDate.ToShortDateString()}\" has been edited successfully.";
-            return this.RedirectToAction(nameof(this.AllByDocumentDate));
+            this.TempData["Message"] = $"Transaction has been edited successfully.";
+            return this.RedirectToAction(nameof(this.ById), new { id });
         }
 
         // Transactions/AllByDocumentDate
@@ -141,18 +141,27 @@
             var viewModel = new TransactionsListViewModel
             {
                 Transactions = this.transactionsService
-                    .GetAll<TransactionViewModel>()
+                    .GetAll<TransactionInListViewModel>()
                     .OrderBy(x => x.DocumentDate),
             };
             return this.View(viewModel);
         }
 
+        // Transactions/ById
+        public async Task<IActionResult> ById(string id)
+        {
+            var transaction = await this.transactionsService
+                .GetByIdAsync<TransactionViewModel>(id);
+            return this.View(transaction);
+        }
+
         // Transactions/Delete
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             await this.transactionsService.DeleteAsync(id);
-
+            this.TempData["Message"] = $"Transaction has been deleted successfully.";
             return this.RedirectToAction(nameof(this.AllByDocumentDate));
         }
 
@@ -182,7 +191,7 @@
             var viewModel = new TransactionsListViewModel
             {
                 Transactions = this.transactionsService
-                    .GetAllTransactionsByMonth<TransactionViewModel>(input),
+                    .GetAllTransactionsByMonth<TransactionInListViewModel>(input),
             };
             return this.View(nameof(this.AllByDocumentDate), viewModel);
         }
