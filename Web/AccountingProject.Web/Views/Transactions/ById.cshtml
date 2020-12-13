@@ -16,7 +16,7 @@
     <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
 </h3>
 
-<form id="deleteForm" asp-controller="Transactions" asp-action="Delete" asp-route-id="@Model.Id">
+<form method="post" id="deleteForm" asp-controller="Transactions" asp-action="Delete" asp-route-id="@Model.Id">
 </form>
 
 <table class="table">
