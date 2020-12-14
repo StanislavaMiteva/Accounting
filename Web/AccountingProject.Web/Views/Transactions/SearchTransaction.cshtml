@@ -1,0 +1,67 @@
+﻿@model AccountingProject.Web.ViewModels.Transactions.SearchTransactionViewModel
+@{
+    this.ViewData["Title"] = "Search transactions";
+    var counterparties = this.Model.Counterparties.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var documents = this.Model.Documents.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var users = this.Model.Users.Select(x => new SelectListItem(x.UserName, x.Id.ToString()));
+}
+
+<h2 class="mx-auto w-50">@this.ViewData["Title"]</h2>
+
+<form class="mx-auto w-50" asp-action="List" method="get">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="StartDate"></label>
+        <input asp-for="StartDate" class="form-control" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndDate"></label>
+        <input asp-for="EndDate" class="form-control" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DocumentTypeId" class="control-label"></label>
+        <select asp-for="DocumentTypeId" class="form-control" asp-items="documents">
+            <option value=""></option>
+        </select>
+        <span asp-validation-for="DocumentTypeId " class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CounterpartyId" class="control-label"></label>
+        <select asp-for="CounterpartyId" class="form-control" asp-items="counterparties">
+            <option value=""></option>
+        </select>
+        <span asp-validation-for="CounterpartyId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control"/>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Amount" class="control-label"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Folder" class="control-label"></label>
+        <input asp-for="Folder" class="form-control" />
+        <span asp-validation-for="Folder" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConsecutiveNumber" class="control-label"></label>
+        <input asp-for="ConsecutiveNumber" class="form-control" />
+        <span asp-validation-for="ConsecutiveNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreatorId" class="control-label"></label>
+        <select asp-for="CreatorId" class="form-control" asp-items="users">
+            <option value=""></option>
+        </select>
+        <span asp-validation-for="CreatorId" class="text-danger"></span>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-block btn-primary text-white mb-3">Search</button>
+    </div>
+</form>

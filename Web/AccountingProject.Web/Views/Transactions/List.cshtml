@@ -1,0 +1,66 @@
+﻿@model AccountingProject.Web.ViewModels.Transactions.TransactionsListViewModel
+@{ this.ViewData["Title"] = "Search result"; }
+
+<h3 class="mx-auto w-50 text-center">@this.ViewData["Title"]</h3>
+@if (!Model.Transactions.Any())
+{
+<div class="text-center">
+    <img src="~/magnifyingGlass.png" class="img-fluid" alt="Responsive image" />
+</div>
+    
+    <h2 class="text-black-50 text-center">Noting Found.</h2>
+    <p class="text-center">Apologies, but nothing was found. Please refine your search criteria, and try again.</p>
+}
+else
+{
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-striped table-sm table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Document Date</th>
+                    <th scope="col">Created On</th>
+                    <th scope="col">Document Type</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Folder</th>
+                    <th scope="col">Consecutive Number</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaction in this.Model.Transactions)
+                {
+                <tr class="table-light">
+                    <th scope="row">@transaction.DocumentDateAsString</th>
+                    <td>@transaction.CreatedOnAsString</td>
+                    <td>@transaction.DocumentTypeName</td>
+                    <td class="text-right">@transaction.Amount</td>
+                    <td>@transaction.Description</td>
+                    <td class="text-center">@transaction.Folder</td>
+                    <td class="text-center">@transaction.ConsecutiveNumber</td>
+                    <td>
+                        <a class="btn btn-block btn-primary text-white" asp-controller="Transactions" asp-action="ById" asp-route-id="@transaction.Id">View</a>
+                    </td>
+                </tr>
+}
+            </tbody>
+            <thead>
+                <tr>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col" class="text-right">@Model.TotalAmount</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div> 
+}
+
+
+

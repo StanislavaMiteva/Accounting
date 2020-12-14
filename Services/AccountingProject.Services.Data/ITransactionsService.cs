@@ -19,5 +19,7 @@
         Task<T> GetByIdAsync<T>(string id);
 
         Task UpdateAsync(string id, EditTransactionInputModel input);
+
+        Task<IEnumerable<T>> GetByCriteriaAsync<T>(SearchInputModel input);
     }
 }

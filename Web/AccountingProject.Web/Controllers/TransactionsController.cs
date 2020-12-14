@@ -196,6 +196,35 @@
             return this.View(nameof(this.AllByDocumentDate), viewModel);
         }
 
+        [Authorize]
+        public IActionResult SearchTransaction()
+        {
+            var currentYear = DateTime.UtcNow.Year;
+            var viewModel = new SearchTransactionViewModel
+            {
+                StartDate = new DateTime(currentYear, 1, 1),
+                EndDate = DateTime.UtcNow,
+                Counterparties = this.counterpartiesService
+                        .GetAll<CounterpartyPartViewModel>()
+                        .OrderBy(x => x.Name),
+                Documents = this.documentTypesService
+                        .GetAll<DocumentTypePartViewModel>(),
+                Users = this.userManager.Users.ToList(),
+            };
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> List(SearchInputModel input)
+        {
+            var viewModel = new TransactionsListViewModel
+            {
+                Transactions = await this.transactionsService
+                        .GetByCriteriaAsync<TransactionInListViewModel>(input),
+            };
+            return this.View(viewModel);
+        }
+
         private IEnumerable<KeyValuePair<string, string>> GetMainAccountsFromInCashMemory()
         {
             if (!this.memoryCache.TryGetValue<IEnumerable<KeyValuePair<string, string>>>("accounts", out var mainAccounts))

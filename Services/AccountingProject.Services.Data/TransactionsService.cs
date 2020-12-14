@@ -73,6 +73,48 @@
                 .ToList();
         }
 
+        public async Task<IEnumerable<T>> GetByCriteriaAsync<T>(SearchInputModel input)
+        {
+            var query = this.transactionsRepository.All().AsQueryable();
+            query = query.Where(x => x.DocumentDate >= input.StartDate && x.DocumentDate <= input.EndDate);
+            if (input.CounterpartyId != null)
+            {
+                query = query.Where(x => x.CounterpartyId == input.CounterpartyId);
+            }
+
+            if (input.Amount != null)
+            {
+                query = query.Where(x => x.Amount == input.Amount);
+            }
+
+            if (input.ConsecutiveNumber != null)
+            {
+                query = query.Where(x => x.ConsecutiveNumber == input.ConsecutiveNumber);
+            }
+
+            if (input.CreatorId != null)
+            {
+                query = query.Where(x => x.CreatorId == input.CreatorId);
+            }
+
+            if (input.DocumentTypeId != null)
+            {
+                query = query.Where(x => x.DocumentTypeId == input.DocumentTypeId);
+            }
+
+            if (input.Folder != null)
+            {
+                query = query.Where(x => x.Folder == input.Folder);
+            }
+
+            if (input.Description != null)
+            {
+                query = query.Where(x => x.Description.Contains(input.Description));
+            }
+
+            return await query.To<T>().ToListAsync();
+        }
+
         public async Task<T> GetByIdAsync<T>(string id)
         {
             return await this.transactionsRepository.AllAsNoTracking()
