@@ -27,6 +27,7 @@
             {
                 Name = "Varna",
             });
+            await dbContext.SaveChangesAsync();
         }
     }
 }

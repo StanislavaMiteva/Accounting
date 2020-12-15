@@ -1,0 +1,39 @@
+﻿@model AccountingProject.Web.ViewModels.Administration.Dashboard.AddRoleToUserInputModel
+@{
+    this.ViewData["Title"] = "Add role to user";
+    var users = this.Model.Users.Select(x => new SelectListItem(x.UserName, x.Id.ToString()));
+    var roles = this.Model.Roles.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+
+}
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @this.TempData["Message"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+<form class="mx-auto w-50" method="post">    
+        <div asp-validation-summary="All" class="text-danger"></div>              
+        <div class="form-group">
+            <label asp-for="UserId" class="control-label"></label>
+            <select asp-for="UserId" class="form-control" asp-items="users">
+                <option value=""></option>
+            </select>
+            <span asp-validation-for="UserId " class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RoleId" class="control-label"></label>
+            <select asp-for="RoleId" class="form-control" asp-items="roles">
+                <option value=""></option>
+            </select>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>        
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
+        </div>    
+</form>

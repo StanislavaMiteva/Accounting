@@ -17,6 +17,18 @@
 
             await dbContext.DocumentTypes.AddAsync(new DocumentType
             {
+                Name = "Advance report",
+            });
+            await dbContext.DocumentTypes.AddAsync(new DocumentType
+            {
+                Name = "Bank payment order",
+            });
+            await dbContext.DocumentTypes.AddAsync(new DocumentType
+            {
+                Name = "Customs declaration",
+            });
+            await dbContext.DocumentTypes.AddAsync(new DocumentType
+            {
                 Name = "Invoice",
             });
             await dbContext.DocumentTypes.AddAsync(new DocumentType
@@ -29,8 +41,9 @@
             });
             await dbContext.DocumentTypes.AddAsync(new DocumentType
             {
-                Name = "Bank payment order",
+                Name = "Statement of transactions",
             });
+            await dbContext.SaveChangesAsync();
         }
     }
 }

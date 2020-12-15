@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = "Chief Accountant, Accountant")]
     public class AnalyticalAccountsController : Controller
     {
         private readonly IAnalyticalAccountsService analyticalAccountsService;
@@ -21,7 +22,7 @@
         }
 
         // AnalyticalAccounts/Create
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public IActionResult Create()
         {
             var viewModel = new CreateAnalyticalAccountInputModel { };
@@ -29,7 +30,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> Create([Bind("Name,MainAccountId")]
         CreateAnalyticalAccountInputModel input)
         {
@@ -49,7 +50,7 @@
         }
 
         // AnalyticalAccounts/Edit
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> EditAsync(int id)
         {
             var viewModel = await this.analyticalAccountsService
@@ -58,7 +59,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> Edit(
         [Bind("Name")]
         int id, EditAnalyticalAccountInputModel input)
@@ -80,7 +81,7 @@
 
         // AnalyticalAccounts/Delete
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var accountToDelete = await this.analyticalAccountsService

@@ -72,6 +72,8 @@
             services.AddTransient<IDocumentTypesService, DocumentTypesService>();
             services.AddTransient<ITransactionsService, TransactionsService>();
             services.AddTransient<IInventoriesService, InventoriesService>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IRolesService, RolesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

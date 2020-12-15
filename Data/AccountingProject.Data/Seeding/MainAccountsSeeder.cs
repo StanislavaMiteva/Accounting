@@ -39,6 +39,12 @@
             });
             await dbContext.GLAccounts.AddAsync(new GLAccount
             {
+                Code = 302,
+                Name = "Materials, stocks",
+                IsInventory = true,
+            });
+            await dbContext.GLAccounts.AddAsync(new GLAccount
+            {
                 Code = 304,
                 Name = "Goods or release",
                 IsInventory = true,
@@ -51,7 +57,7 @@
             await dbContext.GLAccounts.AddAsync(new GLAccount
             {
                 Code = 411,
-                Name = "Customers ( accounts receivables)",
+                Name = "Customers (accounts receivables)",
             });
             await dbContext.GLAccounts.AddAsync(new GLAccount
             {
@@ -80,6 +86,26 @@
             });
             await dbContext.GLAccounts.AddAsync(new GLAccount
             {
+                Code = 603,
+                Name = "Depreciation costs",
+            });
+            await dbContext.GLAccounts.AddAsync(new GLAccount
+            {
+                Code = 604,
+                Name = "Costs for salaries and wages",
+            });
+            await dbContext.GLAccounts.AddAsync(new GLAccount
+            {
+                Code = 605,
+                Name = "Social insurances and premiums",
+            });
+            await dbContext.GLAccounts.AddAsync(new GLAccount
+            {
+                Code = 609,
+                Name = "Other expenses",
+            });
+            await dbContext.GLAccounts.AddAsync(new GLAccount
+            {
                 Code = 621,
                 Name = "Interests’ expenses",
             });
@@ -90,14 +116,15 @@
             });
             await dbContext.GLAccounts.AddAsync(new GLAccount
             {
-                Code = 721,
-                Name = "Interest earned",
+                Code = 709,
+                Name = "Other incomes",
             });
             await dbContext.GLAccounts.AddAsync(new GLAccount
             {
                 Code = 721,
                 Name = "Interest earned",
             });
+            await dbContext.SaveChangesAsync();
         }
     }
 }

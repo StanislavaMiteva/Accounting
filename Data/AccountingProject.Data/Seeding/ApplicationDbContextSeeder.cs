@@ -29,6 +29,7 @@
                               new MainAccountsSeeder(),
                               new CitiesSeeder(),
                               new DocumentTypesSeeder(),
+                              new UsersSeeder(),
                               new SettingsSeeder(),
                           };
 
