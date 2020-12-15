@@ -1,7 +1,86 @@
 ﻿@model AccountingProject.Web.ViewModels.Administration.Dashboard.IndexViewModel
 @{
-    this.ViewData["Title"] = "Admin dashboard";
+    this.ViewData["Title"] = "All registered users";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
+@if (this.TempData.ContainsKey("Message"))
+{
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @this.TempData["Message"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+
+<h2 class="mx-auto w-50 text-center">@this.ViewData["Title"]</h2>
+
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Created On</th>
+                    <th scope="col">Modified On</th>
+                    <th scope="col">Deleted On</th>
+                    <th scope="col">Delete User</th>
+                    <th scope="col">Roles</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in this.Model.Users)
+                {
+                <tr class="table-light">
+                    <th scope="row">@user.UserName</th>
+                    <td>@user.CreatedOn</td>
+                    <td>@user.ModifiedOn</td>
+                    <td>@user.DeletedOn</td>
+                    <td>
+                        <form method="post" id="deleteForm_@user.Id.Replace('-', '_')" asp-area="Administration" asp-controller="Dashboard" asp-action="DeleteUser" asp-route-id="@user.Id">
+                        </form>
+                        @if (user.DeletedOn == null)
+                        {
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@user.Id.Replace('-', '_')">Delete</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-outline-danger" disabled data-toggle="modal" data-target="#deleteModal_@user.Id.Replace('-', '_')">Delete</button>
+                        }
+                        <div class="modal" id="deleteModal_@user.Id.Replace('-', '_')">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Delete user</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Do you really want to delete user "@user.UserName"?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" onclick="(deleteForm_@user.Id.Replace('-', '_')).submit()">Yes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <table>
+                            <tbody>
+                                @foreach (var role in user.Roles)
+                                {
+                                    <tr>
+                                        <td>@role.Name</td>                                        
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>                    
+                </tr>                                    
+                 }
+            </tbody>
+        </table>
+    </div>
+</div>

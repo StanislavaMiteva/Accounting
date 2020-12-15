@@ -1,0 +1,68 @@
+﻿@model AccountingProject.Web.ViewModels.Administration.Dashboard.UserRolesViewModel
+@{ this.ViewData["Title"] = "Roles by user"; }
+
+@if (this.TempData.ContainsKey("Message"))
+{
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @this.TempData["Message"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+
+<h3 class="mx-auto w-50">
+    @this.ViewData["Title"]
+</h3>
+
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">User Name</th>                    
+                    <th scope="col">Role</th>
+                    <th scope="col">Delete Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in this.Model.Roles)
+                {
+                    <tr class="table-light">
+                        <th scope="row">@Model.UserName</th>
+                        <td>@role.Name</td>                        
+                        <td>
+                            <a class="btn btn-block btn-primary text-white" asp-area="Administration" asp-controller="Dashboard" asp-action="DeleteRoleFromUser" asp-route-id="@role.Id">Roles</a>
+                        </td>
+                        <td>
+                            <form method="post" id="deleteForm_@role.Id.Replace('-', '_')" asp-area="Administration" asp-controller="Dashboard" asp-action="DeleteRoleFromUser" asp-route-id="@role.Id">
+                            </form>
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@role.Id.Replace('-', '_')">Delete</button>
+                            <div class="modal" id="deleteModal_@role.Id.Replace('-', '_')">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete role</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete role @role.Name from user "@Model.UserName"?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" onclick="(deleteForm_@role.Id.Replace('-', '_')).submit()">Yes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

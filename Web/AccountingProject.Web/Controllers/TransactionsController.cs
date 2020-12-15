@@ -23,6 +23,7 @@
         private readonly IMainAccountsService mainAccountsService;
         private readonly IAnalyticalAccountsService analyticalAccountsService;
         private readonly ICounterpartiesService counterpartiesService;
+        private readonly IUsersService usersService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMemoryCache memoryCache;
 
@@ -32,6 +33,7 @@
             IMainAccountsService mainAccountsService,
             IAnalyticalAccountsService analyticalAccountsService,
             ICounterpartiesService counterpartiesService,
+            IUsersService usersService,
             UserManager<ApplicationUser> userManager,
             IMemoryCache memoryCache)
         {
@@ -40,6 +42,7 @@
             this.mainAccountsService = mainAccountsService;
             this.analyticalAccountsService = analyticalAccountsService;
             this.counterpartiesService = counterpartiesService;
+            this.usersService = usersService;
             this.userManager = userManager;
             this.memoryCache = memoryCache;
         }
@@ -197,7 +200,7 @@
         }
 
         [Authorize]
-        public IActionResult SearchTransaction()
+        public async Task<IActionResult> SearchTransaction()
         {
             var currentYear = DateTime.UtcNow.Year;
             var viewModel = new SearchTransactionViewModel
@@ -209,7 +212,7 @@
                         .OrderBy(x => x.Name),
                 Documents = this.documentTypesService
                         .GetAll<DocumentTypePartViewModel>(),
-                Users = this.userManager.Users.ToList(),
+                Users = await this.usersService.GetAllWithDeletedAsync(),
             };
             return this.View(viewModel);
         }

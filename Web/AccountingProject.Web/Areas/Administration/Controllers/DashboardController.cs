@@ -31,13 +31,17 @@
             this.rolesService = rolesService;
         }
 
-        public IActionResult Index()
+        // /Administration/Dashboard/Index
+        public async Task<IActionResult> Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
+            var viewModel = new IndexViewModel
+            {
+                Users = await this.usersService.GetAllWithDeletedAsync(),
+            };
             return this.View(viewModel);
         }
 
-        // Dashboard/AddUserToRole
+        // /Administration/Dashboard/AddUserToRole
         public async Task<IActionResult> AddUserToRole()
         {
             var viewModel = new AddRoleToUserInputModel
@@ -62,7 +66,22 @@
             await this.userManager.AddToRoleAsync(user, role.Name);
             this.TempData["Message"] = $"User \"{user.UserName}\" has been added to role \"{role.Name}\" successfully.";
 
-            // return this.RedirectToAction(nameof(this.All));
+            return this.RedirectToAction(nameof(this.Index));
+        }
+
+        // /Administration/Dashboard/DeleteUser
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserAsync(string id)
+        {
+            if (await this.usersService.DeleteAsync(id))
+            {
+                this.TempData["Message"] = $"User has been deleted successfully.";
+            }
+            else
+            {
+                this.TempData["Message"] = $"User has already been deleted.";
+            }
+
             return this.RedirectToAction(nameof(this.Index));
         }
     }

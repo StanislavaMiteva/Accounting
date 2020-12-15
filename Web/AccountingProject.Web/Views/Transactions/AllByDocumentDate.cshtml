@@ -24,7 +24,7 @@
                     <th scope="col">Description</th>
                     <th scope="col">Folder</th>
                     <th scope="col">Consecutive Number</th>
-                    <th scope="col"></th>
+                    <th scope="col">Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +39,7 @@
                     <td class="text-center">@transaction.Folder</td>
                     <td class="text-center">@transaction.ConsecutiveNumber</td>
                     <td>
-                        <a class="btn btn-block btn-primary text-white" asp-controller="Transactions" asp-action="ById" asp-route-id="@transaction.Id">View</a>
+                        <a class="btn btn-block btn-primary text-white" asp-controller="Transactions" asp-action="ById" asp-route-id="@transaction.Id">Details</a>
                     </td>
                 </tr>}
             </tbody>

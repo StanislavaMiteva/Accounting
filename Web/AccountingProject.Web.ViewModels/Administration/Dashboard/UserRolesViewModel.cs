@@ -4,8 +4,10 @@
 
     using AccountingProject.Web.ViewModels.Identity;
 
-    public class IndexViewModel
+    public class UserRolesViewModel
     {
-        public IEnumerable<UserViewModel> Users { get; set; }
+        public string UserName { get; set; }
+
+        public IEnumerable<RoleNameIdViewModel> Roles { get; set; }
     }
 }
