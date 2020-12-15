@@ -76,7 +76,9 @@
         public async Task<IEnumerable<T>> GetByCriteriaAsync<T>(SearchInputModel input)
         {
             var query = this.transactionsRepository.All().AsQueryable();
-            query = query.Where(x => x.DocumentDate >= input.StartDate && x.DocumentDate <= input.EndDate);
+            query = query
+                .Where(x => x.DocumentDate >= input.StartDate && x.DocumentDate <= input.EndDate)
+                .OrderBy(x => x.DocumentDate);
             if (input.CounterpartyId != null)
             {
                 query = query.Where(x => x.CounterpartyId == input.CounterpartyId);
