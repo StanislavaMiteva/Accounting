@@ -1,69 +1,76 @@
-﻿@model AccountingProject.Web.ViewModels.AnalyticalAccounts.AnalyticalAccountsListViewModel
+﻿@using AccountingProject.Common
+@model AccountingProject.Web.ViewModels.AnalyticalAccounts.AnalyticalAccountsListViewModel
 @{ this.ViewData["Title"] = "All Analytical Accounts:"; }
 
 @if (this.TempData.ContainsKey("Message"))
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @this.TempData["Message"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @this.TempData["Message"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
 
 <h2 class="mx-auto w-50 text-center">@this.ViewData["Title"]</h2>
 
-
-<table class="table table-hover table-striped table-sm table-responsive">
-    <thead>
-        <tr>
-            <th scope="col">Main Account Code</th>
-            <th scope="col">Main Account Name</th>
-            <th scope="col">Analytical Account Name</th>
-            <th scope="col">Debit Balance</th>
-            <th scope="col">Credit Balance</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var account in this.Model.AnalyticalAccounts)
-        {
-        <tr class="table-light">
-            <th scope="row">@account.GLAccountCode</th>
-            <td>@account.GLAccountName</td>
-            <td>@account.Name</td>
-            <td>@account.DebitBalance</td>
-            <td>@account.CreditBalance</td>
-            <td>
-                <a class="btn btn-block btn-outline-warning" asp-controller="AnalyticalAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>
-            </td>
-            <td>
-                <form method="post" id="deleteForm_@account.Id" asp-controller="AnalyticalAccounts" asp-action="Delete" asp-route-id="@account.Id">
-                </form>
-                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@account.Id">Delete</button>
-
-                <div class="modal" id="deleteModal_@account.Id">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Delete analytical account</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Do you really want to delete analytical account "@account.Name"?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" onclick="(deleteForm_@account.Id).submit()">Yes</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            </div>
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-striped table-sm table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Main Account Code</th>
+                    <th scope="col">Main Account Name</th>
+                    <th scope="col">Analytical Account Name</th>
+                    <th scope="col">Debit Balance</th>
+                    <th scope="col">Credit Balance</th>
+                    @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+                    {
+        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>            }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in this.Model.AnalyticalAccounts)
+                {
+    <tr class="table-light">
+        <th scope="row">@account.GLAccountCode</th>
+        <td>@account.GLAccountName</td>
+        <td>@account.Name</td>
+        <td>@account.DebitBalance</td>
+        <td>@account.CreditBalance</td>
+        <td>
+            @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+            {
+<a class="btn btn-block btn-outline-warning" asp-controller="AnalyticalAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>}
+        </td>
+        <td>
+            <form method="post" id="deleteForm_@account.Id" asp-controller="AnalyticalAccounts" asp-action="Delete" asp-route-id="@account.Id">
+            </form>
+            @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+            {
+<button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@account.Id">Delete</button>}
+            <div class="modal" id="deleteModal_@account.Id">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete analytical account</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you really want to delete analytical account "@account.Name"?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="(deleteForm_@account.Id).submit()">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                         </div>
                     </div>
                 </div>
-            </td>
-        </tr>}
-    </tbody>
-</table>
-
+            </div>
+        </td>
+    </tr>}
+            </tbody>
+        </table>
+    </div>
+</div>

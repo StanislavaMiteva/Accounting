@@ -1,4 +1,5 @@
-﻿@model AccountingProject.Web.ViewModels.GLAccounts.MainAccountsListViewModel
+﻿@using AccountingProject.Common
+@model AccountingProject.Web.ViewModels.GLAccounts.MainAccountsListViewModel
 @{ this.ViewData["Title"] = "All Main Accounts:"; }
 
 @if (this.TempData.ContainsKey("Message"))
@@ -12,71 +13,83 @@
 
 <h2 class="mx-auto w-50 text-center">@this.ViewData["Title"]</h2>
 
-<table class="table table-hover table-striped table-responsive table-sm">
-    <thead>
-        <tr>
-            <th scope="col">Code</th>
-            <th scope="col">Name</th>
-            <th scope="col">Debit Balance</th>
-            <th scope="col">Credit Balance</th>
-            <th scope="col">It's an inventory account</th>
-            <th scope="col">It's a fixed asset account</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var account in this.Model.MainAccounts)
-        {
-<tr class="table-light">
-    <th scope="row">@account.Code</th>
-    <td>@account.Name</td>
-    <td>@account.DebitBalance</td>
-    <td>@account.CreditBalance</td>
-    <td>@account.IsInventory</td>
-    <td>@account.IsFixedAsset</td>
-    <td>
-        <a class="btn btn-block btn-outline-warning" asp-controller="MainAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>
-    </td>
-    <td>
-        <form method="post" id="deleteForm_@account.Id" asp-controller="MainAccounts" asp-action="Delete" asp-route-id="@account.Id">
-        </form>
-        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@account.Id">Delete</button>
-
-        <div class="modal" id="deleteModal_@account.Id">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete main account</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Do you really want to delete account "@account.Code @account.Name"?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" onclick="(deleteForm_@account.Id).submit()">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-striped table-responsive table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Debit Balance</th>
+                    <th scope="col">Credit Balance</th>
+                    <th scope="col">It's an inventory account</th>
+                    <th scope="col">It's a fixed asset account</th>
+                    <th class="text-center" scope="col">Edit</th>
+                    <th class="text-center" scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in this.Model.MainAccounts)
+                {
+    <tr class="table-light">
+        <th scope="row">@account.Code</th>
+        <td>@account.Name</td>
+        <td>@account.DebitBalance</td>
+        <td>@account.CreditBalance</td>
+        <td>@account.IsInventory</td>
+        <td>@account.IsFixedAsset</td>
+        <td class="text-center">
+            @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+            {
+<a class="btn btn-block btn-outline-warning" asp-controller="MainAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a> }
+                else
+                {
+<a class="btn btn-block btn-outline-warning disabled" asp-controller="MainAccounts" asp-action="Edit" asp-route-id="@account.Id">Edit</a>}
+        </td>
+        <td class="text-center">
+            <form method="post" id="deleteForm_@account.Id" asp-controller="MainAccounts" asp-action="Delete" asp-route-id="@account.Id">
+            </form>
+            @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+            {
+<button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@account.Id">Delete</button> }
+                else
+                {
+<button class="btn btn-outline-danger" disabled data-toggle="modal" data-target="#deleteModal_@account.Id">Delete</button>}
+            <div class="modal" id="deleteModal_@account.Id">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete main account</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you really want to delete account "@account.Code @account.Name"?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="(deleteForm_@account.Id).submit()">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </td>
-</tr>
-        }
-    </tbody>
-    <thead>
-        <tr>
-            <th scope="row">Total</th>
-            <th scope="row">amount</th>
-            <th scope="row">@Model.DebitBalanceTotal</th>
-            <th scope="row">@Model.CreditBalanceTotal</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-</table>
-
+        </td>
+    </tr>
+}
+            </tbody>
+            <thead>
+                <tr>
+                    <th scope="row">Total</th>
+                    <th scope="row">amount</th>
+                    <th scope="row">@Model.DebitBalanceTotal</th>
+                    <th scope="row">@Model.CreditBalanceTotal</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

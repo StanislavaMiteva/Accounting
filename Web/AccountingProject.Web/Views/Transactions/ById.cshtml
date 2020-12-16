@@ -1,4 +1,5 @@
-﻿@model AccountingProject.Web.ViewModels.Transactions.TransactionViewModel
+﻿@using AccountingProject.Common;
+@model AccountingProject.Web.ViewModels.Transactions.TransactionViewModel
 @{ this.ViewData["Title"] = "Transaction:"; }
 
 @if (this.TempData.ContainsKey("Message"))
@@ -13,7 +14,7 @@
 <h3 class="mx-auto w-50">
     @this.ViewData["Title"]
     <a class="btn btn-outline-warning" asp-controller="Transactions" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>    
 </h3>
 
 <form method="post" id="deleteForm" asp-controller="Transactions" asp-action="Delete" asp-route-id="@Model.Id">
@@ -42,8 +43,7 @@
 <tr>
     <th scope="row">Debit Analytical Account</th>
     <td>@Model.DebitAnalyticalAccountName</td>
-</tr>
-}
+</tr>}
         <tr>
             <th scope="row">Credit Main Account</th>
             <td>@Model.CreditGLAccountCode @Model.CreditGLAccountName</td>
@@ -53,8 +53,7 @@
 <tr>
     <th scope="row">Credit Analytical Account</th>
     <td>@Model.CreditAnalyticalAccountName</td>
-</tr>
-}
+</tr>}
         <tr>
             <th scope="row">Amount</th>
             <td>@Model.Amount</td>

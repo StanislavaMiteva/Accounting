@@ -1,4 +1,5 @@
-﻿@model AccountingProject.Web.ViewModels.DocumentTypes.DocumentTypesListViewModel
+﻿@using AccountingProject.Common;
+@model AccountingProject.Web.ViewModels.DocumentTypes.DocumentTypesListViewModel
 @{ this.ViewData["Title"] = "All Document Types:"; }
 
 @if (this.TempData.ContainsKey("Message"))
@@ -25,14 +26,29 @@
                 @foreach (var documentType in this.Model.DocumentTypes)
                 {
                 <tr class="table-light">
-                    <td>@documentType.Name</td>
+                    <td class="text-center">@documentType.Name</td>
                     <td>
-                        <a class="btn btn-block btn-outline-warning" asp-controller="DocumentTypes" asp-action="Edit" asp-route-id="@documentType.Id">Edit</a>
+                        @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+                        {
+                            <a class="btn btn-block btn-outline-warning" asp-controller="DocumentTypes" asp-action="Edit" asp-route-id="@documentType.Id">Edit</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-block btn-outline-warning disabled" asp-controller="DocumentTypes" asp-action="Edit" asp-route-id="@documentType.Id">Edit</a>
+                        }
                     </td>
                     <td>
                         <form method="post" id="deleteForm_@documentType.Id" asp-controller="DocumentTypes" asp-action="Delete" asp-route-id="@documentType.Id">
                         </form>
-                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@documentType.Id">Delete</button>
+                        @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+                        {
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@documentType.Id">Delete</button>
+                        }
+                        else
+                        {
+                             <button class="btn btn-outline-danger" disabled data-toggle="modal" data-target="#deleteModal_@documentType.Id">Delete</button>
+                        }
+
                         <div class="modal" id="deleteModal_@documentType.Id">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">

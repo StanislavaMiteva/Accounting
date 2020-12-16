@@ -1,26 +1,13 @@
-﻿@using AccountingProject.Common
-@using AccountingProject.Data.Models
+﻿@using AccountingProject.Data.Models
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)</a>
         </li>
-        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-        {
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration area</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Index</a>
-                    <a class="dropdown-item" asp-area="Administration" asp-controller="Dashboard" asp-action="AddUserToRole">Add User To Role</a>
-                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register new user</a>
-                </div>
-            </li>
-        }
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
                 <button type="submit" class="nav-link btn btn-link">Logout</button>

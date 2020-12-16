@@ -25,52 +25,73 @@
                                 Home
                                 <span class="sr-only">(current)</span>
                             </a>
-                        </li>                        
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (this.User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="Create">Transaction</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Counterparties" asp-action="Create">Counterparty</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Inventories" asp-action="Create">Inventory</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="FixedAssets" asp-action="Create">Fixed Asset</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="Create">Main Account</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="AnalyticalAccounts" asp-action="Create">Analytical Account</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="Create">Document Type</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Initial Set</a>
-                                <div class="dropdown-menu">                                    
-                                    <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="SetBalance">Set Initial Balance</a>                                    
-                                </div>
-                            </li>                            
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">View all</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="AllByDocumentDate">Transactions ordered by document date</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Counterparties" asp-action="All">Counterparties</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Inventories" asp-action="All">Inventories</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Inventories" asp-action="ChooseAccount">Inventories by account</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="FixedAssets" asp-action="All">Fixed Assets</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="All">Main Accounts</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="AnalyticalAccounts" asp-action="All">Analytical Accounts</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="All">Document Types</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="SearchTransaction">Search Transaction</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="ChoosePeriod">Transactions for a period</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="ChoosePeriod">Trial Balance</a>                                    
-                                </div>
-                            </li>
+                            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">All users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register new user</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AddUserToRole">Add User To Role</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="Create">Transaction</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Counterparties" asp-action="Create">Counterparty</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Inventories" asp-action="Create">Inventory</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="FixedAssets" asp-action="Create">Fixed Asset</a>
+                                        @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+                                        {
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="Create">Main Account</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="AnalyticalAccounts" asp-action="Create">Analytical Account</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="Create">Document Type</a>
+                                        }
+                                    </div>
+                                </li>
+                                @if (this.User.IsInRole(GlobalConstants.ChiefAccountantRoleName))
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Initial Set</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="SetBalance">Set Initial Balance</a>
+                                        </div>
+                                    </li>
+                                }
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">View all</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="AllByDocumentDate">Transactions ordered by document date</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Counterparties" asp-action="All">Counterparties</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Inventories" asp-action="All">Inventories</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Inventories" asp-action="ChooseAccount">Inventories by account</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="FixedAssets" asp-action="All">Fixed Assets</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="All">Main Accounts</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="AnalyticalAccounts" asp-action="All">Analytical Accounts</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="DocumentTypes" asp-action="All">Document Types</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="SearchTransaction">Search Transaction</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Transactions" asp-action="ChoosePeriod">Transactions for a period</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="MainAccounts" asp-action="ChoosePeriod">Trial Balance</a>
+                                    </div>
+                                </li>
+                            }
                         }
                     </ul>                    
                 </div>

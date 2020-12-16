@@ -12,7 +12,7 @@
 
 <h2 class="mx-auto w-50 text-center">@this.ViewData["Title"]</h2>
 
-<div class="col-md-12">
+<div class="col-md-12 tex">
     <div class="page-header text-justify">
         <table class="table table-hover table-sm">
             <thead>
@@ -21,8 +21,8 @@
                     <th scope="col">VAT</th>
                     <th scope="col">Address</th>
                     <th scope="col">City</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th class="text-center" scope="col">Edit</th>
+                    <th class="text-center" scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
         <td>
             <a class="btn btn-block btn-outline-warning" asp-controller="Counterparties" asp-action="Edit" asp-route-id="@counterparty.Id">Edit</a>
         </td>
-        <td>
+        <td class="text-center">
             <form method="post" id="deleteForm_@counterparty.Id" asp-controller="Counterparties" asp-action="Delete" asp-route-id="@counterparty.Id">
             </form>
             <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@counterparty.Id">Delete</button>

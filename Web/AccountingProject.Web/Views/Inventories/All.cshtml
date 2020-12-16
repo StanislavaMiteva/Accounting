@@ -12,70 +12,73 @@
 
 <h2 class="mx-auto w-50">@this.ViewData["Title"]</h2>
 
-<table class="table table-hover table-striped table-responsive">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Measure</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Main Account</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var inventory in this.Model.Inventories)
-        {
-        <tr class="table-light">
-            <th scope="row">@inventory.Name</th>
-            <td>@inventory.Measure</td>
-            <td class="text-right">@inventory.Quantity</td>
-            <td class="text-right">@inventory.Price</td>
-            <td class="text-right">@inventory.Amount</td>
-            <td>@inventory.GLAccountCode @inventory.GLAccountName</td>
-            <td>
-                <a class="btn btn-block btn-outline-warning" asp-controller="Inventories" asp-action="Edit" asp-route-id="@inventory.Id">Edit</a>
-            </td>
-            <td>
-                <form method="post" id="deleteForm_@inventory.Id" asp-controller="Inventories" asp-action="Delete" asp-route-id="@inventory.Id">
-                </form>
-                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@inventory.Id">Delete</button>
-                
-                <div class="modal" id="deleteModal_@inventory.Id">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Delete inventory</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Do you really want to delete inventory "@inventory.Name"?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" onclick="(deleteForm_@inventory.Id).submit()">Yes</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            </div>
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Measure</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Main Account</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var inventory in this.Model.Inventories)
+                {
+    <tr class="table-light">
+        <th scope="row">@inventory.Name</th>
+        <td>@inventory.Measure</td>
+        <td class="text-right">@inventory.Quantity</td>
+        <td class="text-right">@inventory.Price</td>
+        <td class="text-right">@inventory.Amount</td>
+        <td>@inventory.GLAccountCode @inventory.GLAccountName</td>
+        <td>
+            <a class="btn btn-block btn-outline-warning" asp-controller="Inventories" asp-action="Edit" asp-route-id="@inventory.Id">Edit</a>
+        </td>
+        <td>
+            <form method="post" id="deleteForm_@inventory.Id" asp-controller="Inventories" asp-action="Delete" asp-route-id="@inventory.Id">
+            </form>
+            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@inventory.Id">Delete</button>
+
+            <div class="modal" id="deleteModal_@inventory.Id">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete inventory</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you really want to delete inventory "@inventory.Name"?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="(deleteForm_@inventory.Id).submit()">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                         </div>
                     </div>
                 </div>
-            </td>
-        </tr>
-        }
-    </tbody>
-    <thead>
-        <tr>
-            <th scope="col">Total Amount</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col" class="text-right">@Model.TotalAmount</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-</table>
+            </div>
+        </td>
+    </tr>}
+            </tbody>
+            <thead>
+                <tr>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col" class="text-right">@Model.TotalAmount</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
