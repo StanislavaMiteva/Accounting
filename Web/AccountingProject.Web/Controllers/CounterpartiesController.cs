@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = GlobalConstants.AllAccountantsRoleNames)]
     public class CounterpartiesController : Controller
     {
         private readonly ICounterpartiesService counterpartiesService;
@@ -19,14 +20,12 @@
         }
 
         // Counterparties/Create
-        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(CreateCounterpartyInputModel input)
         {
             if (!await this.counterpartiesService.IsNameAvailableAsync(input.Name))
@@ -45,7 +44,6 @@
         }
 
         // Counterparties/Edit
-        [Authorize]
         public async Task<IActionResult> EditAsync(int id)
         {
             var viewModel = await this.counterpartiesService
@@ -54,7 +52,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> EditAsync(
         [Bind("Name, VAT, Address, CityName")]
         int id, EditCounterpartyInputModel input)
@@ -71,7 +68,6 @@
 
         // Counterparties/Delete
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await this.counterpartiesService.DeleteAsync(id);
@@ -80,7 +76,6 @@
         }
 
         // Counterparties/All
-        [Authorize]
         public IActionResult All()
         {
             var viewModel = new CounterpartiesListViewModel

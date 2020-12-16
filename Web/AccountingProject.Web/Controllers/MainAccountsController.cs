@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = GlobalConstants.AllAccountantsRoleNames)]
     public class MainAccountsController : Controller
     {
         private readonly IMainAccountsService mainAccountsService;
@@ -24,14 +25,14 @@
         }
 
         // MainAccounts/Create
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> Create(CreateMainAccountInputModel input)
         {
             if (!await this.mainAccountsService.IsCodeAvailableAsync(input.Code))
@@ -55,7 +56,7 @@
         }
 
         // MainAccounts/Edit
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> EditAsync(int id)
         {
             var viewModel = await this.mainAccountsService
@@ -64,7 +65,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> Edit(int id, EditMainAccountInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -79,7 +80,7 @@
 
         // MainAccounts/Delete
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var accountToDelete = await this.mainAccountsService
@@ -90,7 +91,6 @@
         }
 
         // MainAccounts/All
-        [Authorize]
         public IActionResult All()
         {
             var viewModel = new MainAccountsListViewModel
@@ -102,7 +102,7 @@
         }
 
         // MainAccounts/SetBalance
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public IActionResult SetBalance()
         {
             var viewModel = new AddAccountBalanceInputModel { };
@@ -110,7 +110,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> SetBalance([Bind("MainAccountId" +
             ",AnalyticalAccountId,DebitBalance,CreditBalance")]
         AddAccountBalanceInputModel input)
@@ -128,14 +128,12 @@
         }
 
         // MainAccounts/ChoosePeriod
-        [Authorize]
         public IActionResult ChoosePeriod()
         {
             return this.View("~/Views/Shared/ChoosePeriod.cshtml");
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult ChoosePeriod(InputYearMonthModel input)
         {
             if (!this.ModelState.IsValid)
@@ -147,7 +145,6 @@
         }
 
         // MainAccounts/TrialBalance
-        [Authorize]
         public IActionResult TrialBalance(InputYearMonthModel input)
         {
             DateTime startDate = new DateTime(input.Year, input.MonthStart, 01);

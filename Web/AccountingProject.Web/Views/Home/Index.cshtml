@@ -10,14 +10,25 @@
     <h1>Welcome to @GlobalConstants.SystemName!</h1>
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-        <img src="~/1200px-Ledger.png" alt="Book" style="width:60%;" />
+        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <div class="credits">
+                <h1>
+                    Administration Area
+                </h1>
+            </div>
+        }
+        else
+        {
+            <img src="~/1200px-Ledger.png" alt="Book" style="width:60%;" />
+        }
     }
     else
     {
         <div class="credits">
             <h3>
                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
-                if you have an account 
+                if you have an account
                 to use our Accounting software on-line.
             </h3>
         </div>

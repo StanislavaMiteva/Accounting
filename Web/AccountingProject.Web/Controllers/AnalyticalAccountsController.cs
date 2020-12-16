@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(Roles = "Chief Accountant, Accountant")]
+    [Authorize(Roles = GlobalConstants.AllAccountantsRoleNames)]
     public class AnalyticalAccountsController : Controller
     {
         private readonly IAnalyticalAccountsService analyticalAccountsService;
@@ -92,7 +92,6 @@
         }
 
         // AnalyticalAccounts/All
-        [Authorize]
         public IActionResult All()
         {
             var viewModel = new AnalyticalAccountsListViewModel

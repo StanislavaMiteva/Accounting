@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using AccountingProject.Common;
     using AccountingProject.Data.Models;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.Counterparties;
@@ -16,6 +17,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
+    [Authorize(Roles = GlobalConstants.AllAccountantsRoleNames)]
     public class TransactionsController : Controller
     {
         private readonly ITransactionsService transactionsService;
@@ -48,7 +50,6 @@
         }
 
         // Transactions/Create
-        [Authorize]
         public IActionResult Create()
         {
             var mainAccounts = this.GetMainAccountsFromInCashMemory();
@@ -68,7 +69,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create([Bind("DocumentDate," +
             "DocumentTypeId,DebitMainAccountId,DebitAnalyticalAccountId," +
             "CreditMainAccountId,CreditAnalyticalAccountId,CounterpartyId," +
@@ -102,7 +102,6 @@
         }
 
         // Transactions/Edit
-        [Authorize]
         public async Task<IActionResult> EditAsync(string id)
         {
             var viewModel = await this.transactionsService
@@ -119,7 +118,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> EditAsync(
         [Bind("DocumentDate,DocumentTypeId,DebitMainAccountId," +
             "DebitAnalyticalAccountId,CreditMainAccountId," +
@@ -138,7 +136,6 @@
         }
 
         // Transactions/AllByDocumentDate
-        [Authorize]
         public IActionResult AllByDocumentDate()
         {
             var viewModel = new TransactionsListViewModel
@@ -160,7 +157,6 @@
 
         // Transactions/Delete
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> DeleteAsync(string id)
         {
             await this.transactionsService.DeleteAsync(id);
@@ -169,14 +165,12 @@
         }
 
         // Transactions/ChoosePeriod
-        [Authorize]
         public IActionResult ChoosePeriod()
         {
             return this.View("~/Views/Shared/ChoosePeriod.cshtml");
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult ChoosePeriod(InputYearMonthModel input)
         {
             if (!this.ModelState.IsValid)
@@ -188,7 +182,6 @@
         }
 
         // Transactions/AllForPeriod
-        [Authorize]
         public IActionResult AllForPeriod(InputYearMonthModel input)
         {
             var viewModel = new TransactionsListViewModel
@@ -199,7 +192,7 @@
             return this.View(nameof(this.AllByDocumentDate), viewModel);
         }
 
-        [Authorize]
+        // /Transactions/SearchTransaction
         public async Task<IActionResult> SearchTransaction()
         {
             var currentYear = DateTime.UtcNow.Year;
@@ -217,7 +210,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
+        // /Transactions/List?..
         public async Task<IActionResult> List(SearchInputModel input)
         {
             var viewModel = new TransactionsListViewModel

@@ -3,12 +3,15 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.AnalyticalAccounts;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = GlobalConstants.AllAccountantsRoleNames)]
     public class AnalyticalsPerMainAccountController : ControllerBase
     {
         private readonly IAnalyticalAccountsService analyticalAccountsService;

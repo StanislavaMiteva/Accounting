@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = GlobalConstants.AllAccountantsRoleNames)]
     public class DocumentTypesController : Controller
     {
         private readonly IDocumentTypesService documentTypesService;
@@ -19,14 +20,14 @@
         }
 
         // DocumentTypes/Create
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> Create(CreateDocumentTypeInputModel input)
         {
             if (!await this.documentTypesService.IsNameAvailableAsync(input.Name))
@@ -45,7 +46,7 @@
         }
 
         // DocumentTypes/Edit
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> EditAsync(int id)
         {
             var viewModel = await this.documentTypesService
@@ -54,7 +55,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> Edit(
         [Bind("Name")]
         int id, EditDocumentTypeInputModel input)
@@ -71,7 +72,7 @@
 
         // DocumentTypes/Delete
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.ChiefAccountantRoleName)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var documentToDelete = await this.documentTypesService
@@ -82,7 +83,6 @@
         }
 
         // DocumentTypes/All
-        [Authorize]
         public IActionResult All()
         {
             var viewModel = new DocumentTypesListViewModel

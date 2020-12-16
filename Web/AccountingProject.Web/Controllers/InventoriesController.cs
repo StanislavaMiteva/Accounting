@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = GlobalConstants.AllAccountantsRoleNames)]
     public class InventoriesController : Controller
     {
         private readonly IMainAccountsService mainAccountsService;
@@ -21,7 +22,6 @@
         }
 
         // Inventories/Create
-        [Authorize]
         public IActionResult Create()
         {
             var viewModel = new CreateInventoryInputModel { };
@@ -29,7 +29,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create([Bind("Name,Measure," +
             "Quantity,Price,MainAccountId")]
             CreateInventoryInputModel input)
@@ -50,7 +49,6 @@
         }
 
         // Inventories/Edit
-        [Authorize]
         public async Task<IActionResult> EditAsync(int id)
         {
             var viewModel = await this.inventoriesService
@@ -59,7 +57,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> EditAsync(
         [Bind("Name, Measure, Quantity, Price, MainAccountId")]
         int id, EditInventoryInputModel input)
@@ -76,7 +73,6 @@
 
         // Inventories/Delete
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var inventoryToDelete = await this.inventoriesService
@@ -87,7 +83,6 @@
         }
 
         // Inventories/All
-        [Authorize]
         public IActionResult All()
         {
             var viewModel = new InventoriesListViewModel
@@ -99,7 +94,6 @@
         }
 
         // Inventories/ChooseAccount
-        [Authorize]
         public IActionResult ChooseAccount()
         {
             var viewModel = new ListOfMainAccountsViewModel { };
@@ -107,7 +101,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult ChooseAccount(ListOfMainAccountsViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -115,11 +108,10 @@
                 return this.View(input);
             }
 
-            return this.RedirectToAction("AllByAccount", "Inventories", new { mainAccountId = input.MainAccountId });
+            return this.RedirectToAction(nameof(this.AllByAccount), new { mainAccountId = input.MainAccountId });
         }
 
         // Inventories/AllByAccount
-        [Authorize]
         public IActionResult AllByAccount(int mainAccountId)
         {
             var viewModel = new InventoriesListViewModel
