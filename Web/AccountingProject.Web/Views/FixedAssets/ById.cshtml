@@ -1,0 +1,90 @@
+﻿@model AccountingProject.Web.ViewModels.FixedAssets.FixedAssetViewModel
+@{ this.ViewData["Title"] = "Fixed Asset:"; }
+
+@if (this.TempData.ContainsKey("Message"))
+{
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @this.TempData["Message"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+
+<h3 class="mx-auto w-50">
+    @this.ViewData["Title"]
+    <a class="btn btn-outline-warning" asp-controller="FixedAssets" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>    
+</h3>
+
+<form method="post" id="deleteForm" asp-controller="FixedAssets" asp-action="Delete" asp-route-id="@Model.Id">
+</form>
+
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Name:</th>
+                    <td class="text-right">@Model.Name</td>
+                    <th scope="row">Main Account:</th>
+                    <td class="text-right">@Model.GLAccountCode @Model.GLAccountName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Inventory Number:</th>
+                    <td class="text-right">@Model.InventoryNumber</td>
+                    <th scope="row">Useful Life:</th>
+                    <td class="text-right">@Model.UsefulLife</td>
+                </tr>
+                <tr>
+                    <th scope="row">Quantity:</th>
+                    <td class="text-right">@Model.Quantity</td>
+                    <th scope="row">Salvage Value:</th>
+                    <td class="text-right">@Model.SalvageValue</td>
+                </tr>
+                <tr>
+                    <th scope="row">Acquisition Price:</th>
+                    <td class="text-right">@Model.AcquisitionPrice</td>
+                    <th scope="row">Depreciation Method:</th>
+                    <td class="text-right">@Model.DepreciationMethod</td>
+                </tr>
+                <tr>
+                    <th scope="row">Amount:</th>
+                    <td class="text-right">@Model.Amount</td>
+                    <th scope="row">Depreciation Expense:</th>
+                    <td class="text-right">@Model.DepreciationExpenseAsString</td>
+                </tr>
+                <tr>
+                    <th scope="row">Acquisition Date:</th>
+                    <td class="text-right">@Model.AcquisitionDateAsString</td>
+                    <th scope="row">Book Value:</th>
+                    <td class="text-right">@Model.BookValueAsString</td>
+                </tr>
+                <tr>
+                    <th scope="row">Derecognition Date:</th>
+                    <td class="text-right">@Model.DerecognitionDateAsString</td>
+                    <th scope="row">Accountable Person:</th>
+                    <td class="text-right">@Model.AccountablePerson</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete fixed asset</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete fixed asset "@Model.Name"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="deleteForm.submit()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>

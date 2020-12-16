@@ -134,6 +134,15 @@
                 .FirstOrDefaultAsync();
         }
 
+        public IEnumerable<T> GetFixedAssetAccounts<T>()
+        {
+            return this.mainAccountsRepository.AllAsNoTracking()
+                .Where(x => x.IsFixedAsset == true)
+                .OrderBy(x => x.Code)
+                .To<T>()
+                .ToList();
+        }
+
         public IEnumerable<T> GetInventoryAccounts<T>()
         {
             return this.mainAccountsRepository.AllAsNoTracking()

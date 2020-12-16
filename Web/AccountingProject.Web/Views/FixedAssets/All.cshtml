@@ -1,0 +1,62 @@
+﻿@model AccountingProject.Web.ViewModels.FixedAssets.FixedAssetsListViewModel
+@{ this.ViewData["Title"] = "All fixed assets:"; }
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @this.TempData["Message"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<h3 class="mx-auto w-50 text-center">@this.ViewData["Title"]</h3>
+<div class="col-md-12">
+    <div class="page-header text-justify">
+        <table class="table table-hover table-striped table-sm table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Inventory Number</th>
+                    <th scope="col">Quantity</th>
+                    <th class="text-right" scope="col">Acquisition Price</th>
+                    <th scope="col">Acquisition Date</th>
+                    <th class="text-center" scope="col">Account Code</th>
+                    <th class="text-center" scope="col">Account Name</th>
+                    <th class="text-center" scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asset in this.Model.FixedAssets)
+                {
+                <tr class="table-light">
+                    <th scope="row">@asset.Name</th>
+                    <td class="text-center">@asset.InventoryNumber</td>
+                    <td class="text-center">@asset.Quantity</td>
+                    <td class="text-right">@asset.AcquisitionPrice</td>
+                    <td class="text-center">@asset.AcquisitionDateAsString</td>
+                    <td class="text-center">@asset.GLAccountCode</td>
+                    <td class="text-center">@asset.GLAccountName</td>
+                    <td>
+                        <a class="btn btn-block btn-primary text-white" asp-controller="FixedAssets" asp-action="ById" asp-route-id="@asset.Id">Details</a>
+                    </td>
+                </tr>}
+            </tbody>
+            <thead>
+                <tr>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col" class="text-right">@Model.TotalAmount</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+

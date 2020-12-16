@@ -40,6 +40,17 @@
                 };
                 return this.View(viewModel);
             }
+            else if (typeOfAccount == "fixedAsset")
+            {
+                var viewModel = new ListOfMainAccountsViewModel
+                {
+                    MainAccountId = mainAccountId,
+                    MainAccounts = this.mainAccountsService
+                            .GetFixedAssetAccounts<MainAccountPartViewModel>()
+                            .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), $"{x.Code} {x.Name}")),
+                };
+                return this.View(viewModel);
+            }
 
             return this.View();
         }

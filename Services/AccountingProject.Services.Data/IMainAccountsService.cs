@@ -14,6 +14,8 @@
 
         IEnumerable<T> GetInventoryAccounts<T>();
 
+        IEnumerable<T> GetFixedAssetAccounts<T>();
+
         Task<bool> IsNameAvailableAsync(string name);
 
         Task<bool> IsCodeAvailableAsync(int code);

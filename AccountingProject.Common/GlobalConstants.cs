@@ -23,5 +23,15 @@
         public const string MinAccountBalance = "0";
 
         public const string MinPrice = "0.01";
+
+        public const string MinSalvageValue = "0.00";
+
+        public const int MinUsefulLife = 1;
+
+        public const int MaxUsefulLife = 100;
+
+        public const int MonthsPerYear = 12;
+
+        public const double DaysPerMonth = 30;
     }
 }

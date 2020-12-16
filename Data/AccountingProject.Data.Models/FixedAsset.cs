@@ -20,7 +20,7 @@
 
         public DateTime AcquisitionDate { get; set; }
 
-        public DateTime DerecognitionDate { get; set; }
+        public DateTime? DerecognitionDate { get; set; }
 
         public int UsefulLife { get; set; }
 
