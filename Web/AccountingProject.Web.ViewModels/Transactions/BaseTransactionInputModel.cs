@@ -10,7 +10,7 @@
     using AccountingProject.Web.ViewModels.Counterparties;
     using AccountingProject.Web.ViewModels.DocumentTypes;
 
-    public abstract class BaseTransactionInputModel
+    public abstract class BaseTransactionInputModel : IValidatableObject
     {
         [Display(Name = "Date of the document")]
         [DataType(DataType.Date)]
@@ -68,7 +68,7 @@
 
         public IEnumerable<CounterpartyPartViewModel> Counterparties { get; set; }
 
-        public IEnumerable<ValidationResult> Validate()
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (this.IsPurchase == true && this.IsSale == true)
             {
