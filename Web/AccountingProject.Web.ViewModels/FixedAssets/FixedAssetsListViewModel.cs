@@ -8,5 +8,9 @@
         public IEnumerable<FixedAssetInListViewModel> FixedAssets { get; set; }
 
         public decimal TotalAmount => this.FixedAssets.Sum(x => x.Amount);
+
+        public string TotalDepreciationAsString => this.FixedAssets
+                                                    .Sum(x => x.DepreciationExpense)
+                                                    .ToString("F2");
     }
 }

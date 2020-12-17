@@ -18,10 +18,11 @@
             <thead>
                 <tr>
                     <th scope="col">Name</th>
-                    <th scope="col">Inventory Number</th>
                     <th scope="col">Quantity</th>
+                    <th class="text-center" scope="col">Acquisition Date</th>
                     <th class="text-right" scope="col">Acquisition Price</th>
-                    <th scope="col">Acquisition Date</th>
+                    <th class="text-right" scope="col">Amount</th>
+                    <th class="text-right" scope="col">Depreciation Expense</th>
                     <th class="text-center" scope="col">Account Code</th>
                     <th class="text-center" scope="col">Account Name</th>
                     <th class="text-center" scope="col">Details</th>
@@ -32,10 +33,11 @@
                 {
                 <tr class="table-light">
                     <th scope="row">@asset.Name</th>
-                    <td class="text-center">@asset.InventoryNumber</td>
                     <td class="text-center">@asset.Quantity</td>
-                    <td class="text-right">@asset.AcquisitionPrice</td>
                     <td class="text-center">@asset.AcquisitionDateAsString</td>
+                    <td class="text-right">@asset.AcquisitionPrice</td>
+                    <td class="text-right">@asset.Amount</td>
+                    <td class="text-right">@asset.DepreciationExpenseAsString</td>
                     <td class="text-center">@asset.GLAccountCode</td>
                     <td class="text-center">@asset.GLAccountName</td>
                     <td>
@@ -48,8 +50,9 @@
                     <th scope="col">Total Amount</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col" class="text-right">@Model.TotalAmount</th>
                     <th scope="col"></th>
+                    <th scope="col" class="text-right">@Model.TotalAmount</th>
+                    <th scope="col" class="text-right">@Model.TotalDepreciationAsString</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>

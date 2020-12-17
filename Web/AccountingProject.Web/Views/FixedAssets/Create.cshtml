@@ -1,72 +1,13 @@
-﻿@using AccountingProject.Data.Models;
-@model AccountingProject.Web.ViewModels.FixedAssets.CreateFixedAssetInputModel
+﻿@model AccountingProject.Web.ViewModels.FixedAssets.CreateFixedAssetInputModel
 @{
     this.ViewData["Title"] = "Create a fixed asset";
 }
 
-<h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
+<h2 class="mx-auto w-50">@this.ViewData["Title"]</h2>
 
 <form class="mx-auto w-50" method="post">
     <fieldset>
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="InventoryNumber" class="control-label"></label>
-            <input asp-for="InventoryNumber" class="form-control" />
-            <span asp-validation-for="InventoryNumber" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Quantity" class="control-label"></label>
-            <input asp-for="Quantity" class="form-control" />
-            <span asp-validation-for="Quantity" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="AcquisitionPrice" class="control-label"></label>
-            <input asp-for="AcquisitionPrice" class="form-control" />
-            <span asp-validation-for="AcquisitionPrice" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="AcquisitionDate" class="control-label"></label>
-            <input asp-for="AcquisitionDate" class="form-control" />
-            <span asp-validation-for="AcquisitionDate" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="DerecognitionDate" class="control-label"></label>
-            <input asp-for="DerecognitionDate" class="form-control" />
-            <span asp-validation-for="DerecognitionDate" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="UsefulLife" class="control-label"></label>
-            <input asp-for="UsefulLife" class="form-control" />
-            <span asp-validation-for="UsefulLife" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="SalvageValue" class="control-label"></label>
-            <input asp-for="SalvageValue" class="form-control" />
-            <span asp-validation-for="SalvageValue" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="DepreciationMethod" class="control-label"></label>
-            <select asp-for="DepreciationMethod" class="form-control" 
-                    asp-items="@Html.GetEnumSelectList<DepreciationMethod>()">
-            </select>
-            <span asp-validation-for="DepreciationMethod" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="AccountablePerson" class="control-label"></label>
-            <input asp-for="AccountablePerson" class="form-control" />
-            <span asp-validation-for="AccountablePerson" class="text-danger"></span>
-        </div>
-
-
-        <cache expires-sliding="TimeSpan.FromSeconds(30)">
-            <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="fixedAsset"></vc:list-main-accounts>
-        </cache>
-
+        <partial name="_FixedAssetInputViewPartial" model="Model" />
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
         </div>

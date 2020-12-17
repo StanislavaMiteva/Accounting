@@ -73,5 +73,24 @@
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Name == name);
         }
+
+        public async Task UpdateAsync(int id, EditFixedAssetInputModel input)
+        {
+            var fixedAsset = await this.fixedAssetsRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            fixedAsset.Name = input.Name;
+            fixedAsset.AccountablePerson = input.AccountablePerson;
+            fixedAsset.Quantity = input.Quantity;
+            fixedAsset.AcquisitionDate = input.AcquisitionDate;
+            fixedAsset.AcquisitionPrice = input.AcquisitionPrice;
+            fixedAsset.DepreciationMethod = input.DepreciationMethod;
+            fixedAsset.DerecognitionDate = input.DerecognitionDate;
+            fixedAsset.InventoryNumber = input.InventoryNumber;
+            fixedAsset.SalvageValue = input.SalvageValue;
+            fixedAsset.UsefulLife = input.UsefulLife;
+            fixedAsset.GLAccountId = input.MainAccountId;
+            await this.fixedAssetsRepository.SaveChangesAsync();
+        }
     }
 }

@@ -16,5 +16,7 @@
         Task<T> GetByIdAsync<T>(int id);
 
         Task DeleteAsync(int id);
+
+        Task UpdateAsync(int id, EditFixedAssetInputModel input);
     }
 }

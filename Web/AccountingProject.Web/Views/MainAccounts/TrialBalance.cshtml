@@ -30,12 +30,12 @@
                     <tr class="table-light">
                         <th scope="row">@account.Code</th>
                         <td>@account.Name</td>
-                        <td>@account.StartDebitBalance</td>
-                        <td>@account.StartCreditBalance</td>
-                        <td>@account.DebitTurnoverForPeriod</td>
-                        <td>@account.CreditTurnoverForPeriod</td>
-                        <td>@account.EndDebitBalance</td>
-                        <td>@account.EndCreditBalance</td>
+                        <td class="text-right">@account.StartDebitBalance</td>
+                        <td class="text-right">@account.StartCreditBalance</td>
+                        <td class="text-right">@account.DebitTurnoverForPeriod</td>
+                        <td class="text-right">@account.CreditTurnoverForPeriod</td>
+                        <td class="text-right">@account.EndDebitBalance</td>
+                        <td class="text-right">@account.EndCreditBalance</td>
                     </tr>
                     }                            
                         </tbody>
@@ -43,12 +43,12 @@
                             <tr>
                                 <th scope="row">Total</th>
                                 <th scope="row"></th>
-                                <th scope="row">@Model.StartDebitBalanceTotal</th>
-                                <th scope="row">@Model.StartCreditBalanceTotal</th>
-                                <th scope="row">@Model.DebitTurnoverTotal</th>
-                                <th scope="row">@Model.CreditTurnoverTotal</th>
-                                <th scope="row">@Model.EndDebitBalanceTotal</th>
-                                <th scope="row">@Model.EndCreditBalanceTotal</th>
+                                <th class="text-right" scope="row">@Model.StartDebitBalanceTotal</th>
+                                <th class="text-right" scope="row">@Model.StartCreditBalanceTotal</th>
+                                <th class="text-right" scope="row">@Model.DebitTurnoverTotal</th>
+                                <th class="text-right" scope="row">@Model.CreditTurnoverTotal</th>
+                                <th class="text-right" scope="row">@Model.EndDebitBalanceTotal</th>
+                                <th class="text-right" scope="row">@Model.EndCreditBalanceTotal</th>
                             </tr>
                         </thead>
                     </table>
