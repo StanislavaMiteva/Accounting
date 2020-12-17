@@ -55,7 +55,3 @@
     <span asp-validation-for="AccountablePerson" class="text-danger"></span>
 </div>
 
-<cache expires-sliding="TimeSpan.FromSeconds(30)">
-    <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="fixedAsset"></vc:list-main-accounts>
-</cache>
-

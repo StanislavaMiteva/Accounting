@@ -8,6 +8,7 @@
 <form class="mx-auto w-50" method="post">
     <fieldset>
         <partial name="_FixedAssetInputViewPartial" model="Model" />
+        <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="fixedAsset"></vc:list-main-accounts>
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
         </div>
