@@ -1,0 +1,67 @@
+﻿@using AccountingProject.Common
+@model AccountingProject.Web.ViewModels.Transactions.BaseTransactionInputModel
+@{
+    var documents = this.Model.Documents.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var counterparties = this.Model.Counterparties.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var mainAccounts = this.Model.MainAccounts.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<fieldset class="form-group">
+    <legend>Choose the type of transction.</legend>
+    <div class="form-check">
+        <label asp-for="IsPurchase" class="form-check-label">
+            <input asp-for="IsPurchase" class="form-check-input" type="checkbox" value="true">
+            It's a purchase.
+        </label>
+        <span asp-validation-for="IsPurchase" class="text-danger"></span>
+    </div>
+    <div class="form-check">
+        <label asp-for="IsSale" class="form-check-label">
+            <input asp-for="IsSale" class="form-check-input" type="checkbox" value="true">
+            It's a sale.
+        </label>
+        <span asp-validation-for="IsSale" class="text-danger"></span>
+    </div>
+</fieldset>
+<div class="form-group">
+    <label asp-for="DocumentDate" class="control-label"></label>
+    <input asp-for="DocumentDate" type="date" class="form-control" />
+    <small class="form-text text-muted">Enter a date between 01.01.@GlobalConstants.MinimumAllowedYearForDocumentDate and today.</small>
+    <span asp-validation-for="DocumentDate" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="DocumentTypeId" class="control-label"></label>
+    <select asp-for="DocumentTypeId" class="form-control" asp-items="documents">
+        <option value=""></option>
+    </select>
+    <span asp-validation-for="DocumentTypeId " class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="CounterpartyId" class="control-label"></label>
+    <select asp-for="CounterpartyId" class="form-control" asp-items="counterparties">
+        <option value=""></option>
+    </select>
+    <span asp-validation-for="CounterpartyId" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Description" class="control-label"></label>
+    <textarea rows="2" asp-for="Description" class="form-control"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Amount" class="control-label"></label>
+    <input asp-for="Amount" class="form-control" />
+    <span asp-validation-for="Amount" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Folder" class="control-label"></label>
+    <input asp-for="Folder" class="form-control" />
+    <span asp-validation-for="Folder" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="ConsecutiveNumber" class="control-label"></label>
+    <input asp-for="ConsecutiveNumber" class="form-control" />
+    <span asp-validation-for="ConsecutiveNumber" class="text-danger"></span>
+</div>
+
