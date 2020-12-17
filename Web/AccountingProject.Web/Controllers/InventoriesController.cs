@@ -97,7 +97,8 @@
         public IActionResult ChooseAccount()
         {
             var viewModel = new ListOfMainAccountsViewModel { };
-            return this.View(viewModel);
+            viewModel.TypeOfAccount = "inventory";
+            return this.View("~/Views/Shared/ChooseAccount.cshtml", viewModel);
         }
 
         [HttpPost]
@@ -105,7 +106,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(input);
+                return this.View("~/Views/Shared/ChooseAccount.cshtml", input);
             }
 
             return this.RedirectToAction(nameof(this.AllByAccount), new { mainAccountId = input.MainAccountId });

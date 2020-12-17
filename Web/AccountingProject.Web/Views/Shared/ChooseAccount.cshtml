@@ -9,10 +9,10 @@
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <cache expires-sliding="TimeSpan.FromSeconds(30)">
-        <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="inventory"></vc:list-main-accounts>
+        <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="@Model.TypeOfAccount"></vc:list-main-accounts>
     </cache>
 
     <div class="d-flex justify-content-center">        
-        <button type="submit" class="btn btn-block btn-primary text-white mb-3">List Inventories</button>
+        <button type="submit" class="btn btn-block btn-primary text-white mb-3"> View List</button>
     </div>
 </form>

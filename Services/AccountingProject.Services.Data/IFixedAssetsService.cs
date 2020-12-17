@@ -18,5 +18,7 @@
         Task DeleteAsync(int id);
 
         Task UpdateAsync(int id, EditFixedAssetInputModel input);
+
+        IEnumerable<T> GetAllByAccount<T>(int accountId);
     }
 }

@@ -59,6 +59,15 @@
                .ToListAsync();
         }
 
+        public IEnumerable<T> GetAllByAccount<T>(int accountId)
+        {
+            return this.fixedAssetsRepository.AllAsNoTracking()
+                .Where(x => x.GLAccountId == accountId)
+                .OrderBy(x => x.Name)
+                .To<T>()
+                .ToList();
+        }
+
         public async Task<T> GetByIdAsync<T>(int id)
         {
             return await this.fixedAssetsRepository.AllAsNoTracking()

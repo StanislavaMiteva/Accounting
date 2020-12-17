@@ -6,7 +6,6 @@
     using AccountingProject.Common;
     using AccountingProject.Services.Data;
     using AccountingProject.Web.ViewModels.FixedAssets;
-    using AccountingProject.Web.ViewModels.Inventories;
     using AccountingProject.Web.ViewModels.ViewComponents;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -101,6 +100,36 @@
             await this.fixedAssetsService.UpdateAsync(id, input);
             this.TempData["Message"] = $"Fixed asset \"{input.Name}\" has been edited successfully.";
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        // FixedAssets/ChooseAccount
+        public IActionResult ChooseAccount()
+        {
+            var viewModel = new ListOfMainAccountsViewModel { };
+            viewModel.TypeOfAccount = "fixedAsset";
+            return this.View("~/Views/Shared/ChooseAccount.cshtml", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ChooseAccount(ListOfMainAccountsViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View("~/Views/Shared/ChooseAccount.cshtml", input);
+            }
+
+            return this.RedirectToAction(nameof(this.AllByAccount), new { mainAccountId = input.MainAccountId });
+        }
+
+        // FixedAssets/AllByAccount
+        public IActionResult AllByAccount(int mainAccountId)
+        {
+            var viewModel = new FixedAssetsListViewModel
+            {
+                FixedAssets = this.fixedAssetsService
+                    .GetAllByAccount<FixedAssetInListViewModel>(mainAccountId),
+            };
+            return this.View(nameof(this.All), viewModel);
         }
     }
 }
