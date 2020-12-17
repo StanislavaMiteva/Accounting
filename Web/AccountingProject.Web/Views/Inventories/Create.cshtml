@@ -6,33 +6,11 @@
 <h1 class="mx-auto w-50">@this.ViewData["Title"]</h1>
 
 <form class="mx-auto w-50" method="post">
-    <fieldset>
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Measure" class="control-label"></label>
-            <input asp-for="Measure" class="form-control" />
-            <span asp-validation-for="Measure" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Quantity" class="control-label"></label>
-            <input asp-for="Quantity" class="form-control" />
-            <span asp-validation-for="Quantity" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Price" class="control-label"></label>
-            <input asp-for="Price" class="form-control" />
-            <span asp-validation-for="Price" class="text-danger"></span>
-        </div>
-
+    <fieldset>   
+        <partial name="_InventoryInputViewModelPartial"  model="Model" />
         <cache expires-sliding="TimeSpan.FromSeconds(30)">
             <vc:list-main-accounts main-account-id="@Model.MainAccountId" type-of-account="inventory"></vc:list-main-accounts>
-        </cache>            
-
+        </cache> 
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-block btn-primary text-white mb-3">Create</button>
             </div>
