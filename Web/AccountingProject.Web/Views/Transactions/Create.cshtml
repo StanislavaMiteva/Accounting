@@ -4,6 +4,17 @@
     var documents = this.Model.Documents.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
     var counterparties = this.Model.Counterparties.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
     var mainAccounts = this.Model.MainAccounts.Select(x => new SelectListItem(x.Value, x.Key));
+    var debitAnalyticalAccounts = new List<SelectListItem>();
+    var creditAnalyticalAccounts = new List<SelectListItem>();
+    if (this.Model.DebitAnalyticalAccounts!=null)
+    {
+        debitAnalyticalAccounts = this.Model.DebitAnalyticalAccounts.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
+    }
+
+    if (this.Model.CreditAnalyticalAccounts!=null)
+    {
+        creditAnalyticalAccounts = this.Model.CreditAnalyticalAccounts.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
+    }
 }
 
 @if (this.TempData.ContainsKey("Message"))
@@ -30,8 +41,8 @@
         </div>
         <div class="form-group">
             <label asp-for="DebitAnalyticalAccountId" class="control-label"></label>
-            <select class="form-control" asp-for="DebitAnalyticalAccountId">
-                <option value="@Model.DebitAnalyticalAccountId">@Model.DebitAnalyticalAccountName</option>
+            <select asp-for="DebitAnalyticalAccountId" asp-items="debitAnalyticalAccounts" class="form-control">
+                <option value=""></option>
             </select>
             <span asp-validation-for="DebitAnalyticalAccountId" class="text-danger"></span>
         </div>        
@@ -44,8 +55,8 @@
         </div>
         <div class="form-group">
             <label asp-for="CreditAnalyticalAccountId" class="control-label"></label>
-            <select class="form-control" asp-for="CreditAnalyticalAccountId">
-                <option value="@Model.CreditAnalyticalAccountId">@Model.CreditAnalyticalAccountName</option>
+            <select asp-for="CreditAnalyticalAccountId" asp-items="creditAnalyticalAccounts" class="form-control">
+                <option value=""></option>
             </select>
             <span asp-validation-for="CreditAnalyticalAccountId" class="text-danger"></span>
         </div>        

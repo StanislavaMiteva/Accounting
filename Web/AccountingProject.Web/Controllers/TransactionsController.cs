@@ -8,6 +8,7 @@
     using AccountingProject.Common;
     using AccountingProject.Data.Models;
     using AccountingProject.Services.Data;
+    using AccountingProject.Web.ViewModels.AnalyticalAccounts;
     using AccountingProject.Web.ViewModels.Counterparties;
     using AccountingProject.Web.ViewModels.DocumentTypes;
     using AccountingProject.Web.ViewModels.Shared;
@@ -86,11 +87,10 @@
                 input.Documents = this.documentTypesService
                                             .GetAll<DocumentTypePartViewModel>()
                                             .OrderBy(x => x.Name);
-                input.DebitAnalyticalAccountName = this.analyticalAccountsService
-                                            .GetNameById(input.DebitAnalyticalAccountId);
-                input.CreditAnalyticalAccountName = this.analyticalAccountsService
-                                            .GetNameById(input.CreditAnalyticalAccountId);
-
+                input.DebitAnalyticalAccounts = this.analyticalAccountsService
+                                                .GetAllByMainAccountId<AnalyticalAccountPartViewModel>(input.DebitMainAccountId);
+                input.CreditAnalyticalAccounts = this.analyticalAccountsService
+                                                .GetAllByMainAccountId<AnalyticalAccountPartViewModel>(input.CreditMainAccountId);
                 return this.View(input);
             }
 

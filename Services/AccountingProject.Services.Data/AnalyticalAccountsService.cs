@@ -50,6 +50,7 @@
         public IEnumerable<T> GetAllByMainAccountId<T>(int mainAccountId)
         {
             return this.analyticalAccountsRepository.AllAsNoTracking()
+                .OrderBy(x => x.Name)
                 .Where(x => x.GLAccountId == mainAccountId)
                 .To<T>()
                 .ToList();

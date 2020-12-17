@@ -64,7 +64,9 @@
 
         public IEnumerable<KeyValuePair<string, string>> MainAccounts { get; set; }
 
-        public IEnumerable<AnalyticalAccountPartViewModel> AnalyticalAccounts { get; set; }
+        public IEnumerable<AnalyticalAccountPartViewModel> DebitAnalyticalAccounts { get; set; }
+
+        public IEnumerable<AnalyticalAccountPartViewModel> CreditAnalyticalAccounts { get; set; }
 
         public IEnumerable<CounterpartyPartViewModel> Counterparties { get; set; }
 
