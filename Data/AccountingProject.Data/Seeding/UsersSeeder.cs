@@ -25,8 +25,11 @@
                     NormalizedEmail = "ADMINISTRATOR@ABV.BG",
                 };
 
-                await userManager.CreateAsync(userAdmin, "Administrator@abv.bg");
-                await userManager.AddToRoleAsync(userAdmin, GlobalConstants.AdministratorRoleName);
+                var result = await userManager.CreateAsync(userAdmin, "Administrator@abv.bg");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(userAdmin, GlobalConstants.AdministratorRoleName);
+                }
             }
         }
     }
